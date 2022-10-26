@@ -1,7 +1,8 @@
 import logo from './logo.svg';
 import { BrowserRouter as Router, Route, Routes, useParams } from 'react-router-dom';
-import './App.css';
-import './styles.css'
+// import './App.css';
+// import './styles.css'
+import React from 'react';
 import HomePage from './Components/HomePage';
 import SignIn from './Components/SignIn';
 import SignUp from './Components/SignUp';
@@ -13,7 +14,7 @@ function App() {
   return (
     <>
       <Router>
-        <div className="content-center	">
+        <div className="content-center">
           <Routes>
             <Route exact path='/' element={<HomePage />} />
             <Route path='/SignIn' element={<SignIn />} />
