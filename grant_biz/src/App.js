@@ -19,10 +19,11 @@ function App() {
     <>
       <Router>
         <div className="content-center	">
+          
           <Routes>
             <Route exact path="/" element={<HomePage />} />
             <Route path="/SignIn" element={<SignIn />} />
-            <Route path="/SignIn" element={<SignUp />} />
+            <Route path="/SignUn" element={<SignUp />} />
             <Route path="/Profile" element={<Profile />} />
             <Route path="/MyShop" element={<MyShop />} />
             <Route path="/Product/:id" element={<Product />} />
