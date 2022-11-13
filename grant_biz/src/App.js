@@ -19,7 +19,7 @@ function App() {
   return (
     <>
       <Router>
-        <div className="content-center	">
+        <div className="bg-sky-500/100 content-center	">
           
           <Routes>
             <Route exact path="/" element={<HomePage />} />
