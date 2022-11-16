@@ -1,3 +1,4 @@
+import React from "react";
 import GrantBizLogo from "../img/GrantBiz_Logo.png";
 import Search from "./Search";
 import BottomBar from "./BottomBar";
