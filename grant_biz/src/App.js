@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 import logo from "./logo.svg";
 import {
   BrowserRouter as Router,
@@ -19,7 +19,7 @@ function App() {
   return (
     <>
       <Router>
-        <div className="bg-sky-500/100 content-center	">
+        <div className="content-center	">
           
           <Routes>
             <Route exact path="/" element={<HomePage />} />
