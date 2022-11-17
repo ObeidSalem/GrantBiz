@@ -1,8 +1,13 @@
 import React from 'react'
+import BottomBar from "./BottomBar";
+
 
 function MyShop() {
   return (
-    <div>MyShop</div>
+    <>
+      <div>MyShop</div>
+      <BottomBar />
+    </>
   )
 }
 
