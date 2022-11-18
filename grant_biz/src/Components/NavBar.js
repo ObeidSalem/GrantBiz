@@ -1,7 +1,7 @@
 import GrantBizLogo from "../img/GrantBiz_Logo.png";
 import Search from "./Search";
 import BottomBar from "./BottomBar";
-
+import { Link } from 'react-router-dom'
 
 function NavBar() {
   return (
@@ -20,15 +20,22 @@ function NavBar() {
             <Search />
           </div>
           <div className="flex justify-center md:justify-end">
-            <a href="#" className="btn rounded-full py-2 px-4 md:border-2">
+            {/* <a href="/SignIn" className="btn rounded-full py-2 px-4 md:border-2">
               Log in
-            </a>
-            <a
-              href="#"
+            </a> */}
+            <Link className='md: btn rounded-full py-2 px-4 md:border-2' to = '/SignIn'>
+                                    <input type="button" value="SING IN"></input>
+                                </Link>
+            <Link className='md: btn rounded-full py-2 px-4 ml-2  md:border-2 bg-gray-300' to = '/SignUp'>
+                                    <input type="button" value="SING UP"></input>
+                                </Link>
+           
+            {/* <a
+              href="./SignUp"
               className="md: btn rounded-full py-2 px-4 ml-2  md:border-2 bg-gray-300"
             >
               Sign up
-            </a>
+            </a> */}
           </div>
         </div>
       </div>

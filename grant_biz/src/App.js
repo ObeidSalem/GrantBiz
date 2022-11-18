@@ -13,23 +13,26 @@ import SignUp from "./Components/SignUp";
 import Profile from "./Components/Profile";
 import MyShop from "./Components/MyShop";
 import Product from "./Components/Product";
+import { AuthContextProvider, useAuth } from './context/AuthContext';
 
 function App() {
   return (
     <>
+       <AuthContextProvider>
       <Router>
         <div className="content-center	">
           
           <Routes>
             <Route exact path="/" element={<HomePage />} />
             <Route path="/SignIn" element={<SignIn />} />
-            <Route path="/SignUn" element={<SignUp />} />
+            <Route path="/SignUp" element={<SignUp />} />
             <Route path="/Profile" element={<Profile />} />
             <Route path="/MyShop" element={<MyShop />} />
             <Route path="/Product/:id" element={<Product />} />
           </Routes>
         </div>
       </Router>
+      </AuthContextProvider>
     </>
   );
 }
