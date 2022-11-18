@@ -17,16 +17,18 @@ import Product from "./Components/Product";
 import Feed from "./Components/Feed";
 import Massages from "./Components/Massages";
 import Cart from "./Components/Cart";
+import { AuthContextProvider, useAuth } from './context/AuthContext';
 
 function App() {
   return (
     <>
+       <AuthContextProvider>
       <Router>
         <div className="content-center bg-background min-h-screen overflow-auto">
           <Routes>
             <Route exact path="/" element={<HomePage />} />
             <Route path="/SignIn" element={<SignIn />} />
-            <Route path="/SignUn" element={<SignUp />} />
+            <Route path="/SignUp" element={<SignUp />} />
             <Route path="/Profile" element={<Profile />} />
             <Route path="/Feed"   element={<Feed />} />
             <Route path="/Massages" element={<Massages />} />
@@ -36,6 +38,7 @@ function App() {
           </Routes>
         </div>
       </Router>
+      </AuthContextProvider>
     </>
   );
 }
