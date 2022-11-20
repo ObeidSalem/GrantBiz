@@ -17,11 +17,14 @@ import Product from "./Components/Product";
 import Feed from "./Components/Feed";
 import Massages from "./Components/Massages";
 import Cart from "./Components/Cart";
+import ForgotPassword from "./Components/ForgotPassword"
 import { AuthContextProvider, useAuth } from './context/AuthContext';
+import { ThemeProvider } from "@material-tailwind/react";
 
 function App() {
   return (
     <>
+     <ThemeProvider>
        <AuthContextProvider>
       <Router>
         <div className="content-center bg-background min-h-screen overflow-auto">
@@ -34,11 +37,13 @@ function App() {
             <Route path="/Massages" element={<Massages />} />
             <Route path="/Cart"   element={<Cart />} />
             <Route path="/MyShop" element={<MyShop />} />
+            <Route path="/ForgotPassword" element={<ForgotPassword />} />
             <Route path="/Product/:id" element={<Product />} />
           </Routes>
         </div>
       </Router>
       </AuthContextProvider>
+      </ThemeProvider>
     </>
   );
 }

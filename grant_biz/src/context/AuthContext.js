@@ -1,41 +1,73 @@
-import React, { useContext, createContext, useEffect, useState } from 'react'
-import { GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from '../firebase';
+import React, { useContext, createContext, useEffect, useState } from "react";
+import {
+  GoogleAuthProvider,
+  signInWithPopup,
+  signOut,
+  onAuthStateChanged,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  sendPasswordResetEmail,
+} from "firebase/auth";
+import { auth } from "../firebase";
 
-const AuthContext = createContext()
+const AuthContext = createContext();
 export function useAuth() {
-  return useContext(AuthContext)
+  return useContext(AuthContext);
 }
-
-// function login(email, password) {
-//   return auth.signInWithEmailAndPassword(email, password)
-// }
-// const auth = getAuth();
-// signInWithEmailAndPassword(auth, email, password)
-//   .then((userCredential) => {
-//     // Signed in 
-//     const user = userCredential.user;
-//     // ...
-//   })
-//   .catch((error) => {
-//     const errorCode = error.code;
-//     const errorMessage = error.message;
-//   });
 
 export const UserAuth = () => {
-  return useContext(AuthContext)
-}
+  return useContext(AuthContext);
+};
 
 export const AuthContextProvider = ({ children }) => {
-
   const [user, setUser] = useState({});
 
   function signup(email, password) {
-    return  createUserWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      // Signed in 
-      const user = userCredential.user;
-      // ...
+    return createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        console.log(userCredential);
+        // ...
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // ..
+      });
+  }
+
+  function login(email, password) {
+    return signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        console.log(userCredential);
+
+        // ...
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+      });
+  }
+
+  const googleSignIn = () => {
+    const provider = new GoogleAuthProvider();
+    signInWithPopup(auth, provider);
+    console.log("user", user);
+    // signInWithRedirect(auth, provider)
+  };
+
+  const logOut = () => {
+    signOut(auth);
+  };
+
+  function resetPassword(email) {
+    sendPasswordResetEmail(auth, email)
+    .then(() => {
+      // Password reset email sent!
+      // ..
     })
     .catch((error) => {
       const errorCode = error.code;
@@ -44,36 +76,10 @@ export const AuthContextProvider = ({ children }) => {
     });
   }
 
-  function login(email, password) {
-    return signInWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      // Signed in 
-      const user = userCredential.user;
-      console.log(userCredential);
-
-      // ...
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-    });
-  }
-
-  const googleSignIn = () => {
-    const provider = new GoogleAuthProvider();
-    signInWithPopup(auth, provider);
-    console.log("user", user)
-    // signInWithRedirect(auth, provider)
-  };
-
-  const logOut = () => {
-    signOut(auth)
-  }
-
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
-      console.log('User', currentUser)
+      console.log("User", currentUser);
     });
     return () => {
       unsubscribe();
@@ -86,11 +92,10 @@ export const AuthContextProvider = ({ children }) => {
     signup,
     googleSignIn,
     logOut,
-    // resetPassword,
+    resetPassword,
     // updateEmail,
     // updatePassword,
-  }
+  };
 
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
-
-}
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+};

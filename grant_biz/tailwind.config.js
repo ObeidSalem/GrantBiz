@@ -16,3 +16,20 @@ module.exports = {
   },
   plugins: [],
 }
+
+const withMT = require("@material-tailwind/react/utils/withMT");
+
+module.exports = withMT({
+  content: ["./src/**/*.{js,jsx,ts,tsx}"],
+  theme: {
+    extend: {
+      colors:{
+        'primary': '#41BDA7',
+        'secondary': '#',
+        'black': '#333333',
+        'background': '#F3FFFC'
+      }
+    },
+  },
+  plugins: [],
+});
