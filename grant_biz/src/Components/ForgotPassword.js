@@ -19,7 +19,7 @@ const ForgotPassword = () => {
       setError("");
       setLoading(true);
       await resetPassword(email);
-      setMessage("Check your inbox for further instructions");
+      setMessage("Check your inbox for further instructions, check your spam folder");
     } catch {
       setError("Failed to reset password");
     }
@@ -41,7 +41,7 @@ const ForgotPassword = () => {
             </div>
             <div className="my-6 text-sm font-semibold">
               Enter your email address and we'll send you a link to get back
-              into your account check spam folder.
+              into your account.
             </div>
             {message && <Alert className="bg-primary rounded">{message}</Alert>}
 

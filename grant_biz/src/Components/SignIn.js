@@ -83,7 +83,7 @@ export default function SignIn() {
                 >
                   Password
                 </label>
-                <div classNam="flex flex-col items-start">
+                <div className="flex flex-col items-start">
                   <input
                     type="password"
                     name="password"
