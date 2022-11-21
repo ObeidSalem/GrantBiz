@@ -13,6 +13,8 @@ import {
 } from "firebase/firestore";
 import GrantBizLogo from "../img/GrantBiz_Logo.png";
 import { useAuth } from "../context/AuthContext";
+import { Alert } from "@material-tailwind/react";
+
 
 export default function SignIn() {
   const [loading, setLoading] = useState(false);
@@ -26,17 +28,17 @@ export default function SignIn() {
     e.preventDefault();
 
     try {
-      console.log(1);
       setError("");
       setLoading(true);
-      console.log("2");
-      console.log(email, password);
-      await login(email, password);
-      console.log();
-      console.log("3");
-      navigate("/");
+      const response = await login(email, password);
+      if (response.hasOwnProperty('message')) {
+        console.log(response.message);
+        setError(response.message);
+      }
     } catch {
-      setError("Failed to log in");
+      // setError("Failed to log in");
+      navigate("/");
+
     }
 
     setLoading(false);
@@ -56,7 +58,15 @@ export default function SignIn() {
             <div className="my-6 text-xl font-semibold">
               Login to your Account
             </div>
-
+            {Error && (
+              <Alert
+                className="bg-red-600 rounded mb-3"
+                variant="gradient"
+                color="red"
+              >
+                {Error}
+              </Alert>
+            )}
             <form onSubmit={handleSubmit}>
               <div className="mt-4">
                 <label

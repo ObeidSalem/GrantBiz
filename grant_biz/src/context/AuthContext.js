@@ -33,7 +33,7 @@ export const AuthContextProvider = ({ children }) => {
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        // ..
+        return new Error(errorCode, errorMessage);
       });
   }
 
@@ -49,6 +49,7 @@ export const AuthContextProvider = ({ children }) => {
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
+        return new Error(errorCode, errorMessage);
       });
   }
 
@@ -72,7 +73,7 @@ export const AuthContextProvider = ({ children }) => {
     .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
-      // ..
+      return new Error(errorCode, errorMessage);
     });
   }
 

@@ -13,15 +13,20 @@ const ForgotPassword = () => {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    console.log("been called");
     try {
       setMessage("");
       setError("");
       setLoading(true);
-      await resetPassword(email);
-      setMessage("Check your inbox for further instructions, check your spam folder");
+      const response = await resetPassword(email);
+      if (response.hasOwnProperty('message')) {
+        console.log(response.message);
+        setError(response.message);
+      } else {
+        setMessage("Check your inbox for further instructions, check your spam folder");
+      }
     } catch {
-      setError("Failed to reset password");
+      setMessage("Check your inbox for further instructions, check your spam folder");
+
     }
 
     setLoading(false);
@@ -44,7 +49,15 @@ const ForgotPassword = () => {
               into your account.
             </div>
             {message && <Alert className="bg-primary rounded">{message}</Alert>}
-
+            {error && (
+                <Alert
+                  className="bg-red-600 rounded mb-3"
+                  variant="gradient"
+                  color="red"
+                >
+                  {error}
+                </Alert>
+              )}
             <form onSubmit={handleSubmit}>
               <div className="mt-4">
                 <label

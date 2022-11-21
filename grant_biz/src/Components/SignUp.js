@@ -37,38 +37,29 @@ export default function Signup() {
 
   async function handleSubmit() {
     console.log(password, passwordConfirm);
-    if (password === passwordConfirm) {
+
+    try {
       setError("");
-      setisOK(true)
-    } else {
-      setError("Passwords does not match");
-      setisOK(false)
-    }
-    
-    if (password !== passwordConfirm) {
-      try {
-        setError("");
-        setLoading(true);
-        await signup(email, password)
-        .then(navigate("/"));
-        console.log("user", user);
-      } catch (err) {
-        setError("Failed to create an account");
-        console.log(err);
+      setLoading(true);
+      const response = await signup(email, password)
+      if (response.hasOwnProperty('message')) {
+        console.log(response.message);
+        setError(response.message);
       }
       setLoading(false);
-    } else {
-      setError("Failed to create an account, Unmacthced Passwords");
+    } catch (err) {
+      navigate("/");
+
     }
   }
 
-//   function checkPassword() {
-//     if (password === passwordConfirm) {
-//       setError("");
-//     } else {
-//       setError("Passwords does not match");
-//     }
-//   }
+  //   function checkPassword() {
+  //     if (password === passwordConfirm) {
+  //       setError("");
+  //     } else {
+  //       setError("Passwords does not match");
+  //     }
+  //   }
 
   return (
     <>
@@ -82,7 +73,7 @@ export default function Signup() {
                 </div>
               </Link>
             </div>
-            <h3 className="my-6 text-xl font-semibold" onClick={logOut()}>Create your Account</h3>
+            <h3 className="my-6 text-xl font-semibold">Create your Account</h3>
             <div className="flex w-full flex-col gap-2 rounded">
               {Error && (
                 <Alert
