@@ -7,8 +7,9 @@ export const signIn = () => {
     }
 }
 
-export const setProducts = () => {
+export const setProducts = (products) => {
     return {
         type: ActionTypes.SET_PRODUCTS,
+        payload: products,
     }
 }
