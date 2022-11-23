@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
 import NavBar from "./NavBar";
+import { v4 as uuidv4 } from "uuid";
 
 import db from "../firebase"
 import { onSnapshot, collection, doc, setDoc, getDocs } from "firebase/firestore"
 import { useDispatch, useSelector } from "react-redux";
 import { setProducts } from "../redux/actions";
+import { Link } from "react-router-dom";
+import ProductDetails from "./ProductDetails"
 
 
 
@@ -31,15 +34,17 @@ function HomePage() {
 
 
   }, [])
+  // const renderCategoryList = products.map((product, index) => {
+  //   return (<>Category List Yet to be developed</>)})
+   // var id = datasnapchot.key;
 
-  const renderCategoryList = products.map((product, index) => {
-    return (<>Category List Yet to be developed</>)})
   const renderProductsList = products.map((product, index) => {
-    const { title, store_name, description, price, store_avatar, image, type, rate} = product;
+    const { title, store_name, description, price, store_avatar, image, type, rate,id  } =product;
     console.log(product)
+    // console.log('Added document with ID: ', product.id);
     return (
       <div className="" key={index}>
-        {/* <Link to={`/product/${id}`}> */}
+         <Link to={`/product/${id}`}> 
           <div className="">
             <div className="">
               <div className="">
@@ -52,7 +57,7 @@ function HomePage() {
               </div>
             </div>
           </div>
-        {/* </Link> */}
+        </Link> 
       </div>
     );
   });
@@ -73,7 +78,7 @@ function HomePage() {
           />
         </div>
         <div className="my-4">
-          {renderCategoryList}
+          {/* {renderCategoryList} */}
         </div>
         <div className="my-4 grid grid-cols-2 gap-6 xl:grid-cols-3 2xl:grid-cols-4">
           {renderProductsList}
