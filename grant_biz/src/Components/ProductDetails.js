@@ -17,8 +17,7 @@ import db from "../firebase";
 
 const ProductDetails = () => {
   const { productId } = useParams();
-  // const product = useSelector((state) => state.product);
-  // const { image, title, price, type, description,store_name,id } = product;
+
   const dispatch = useDispatch();
   const docRef = doc(db, "Products", productId);
   const fetchProductDetail = async (id) => {
@@ -30,6 +29,9 @@ const ProductDetails = () => {
       console.log("Document does not exist");
     }
   };
+
+  const product = useSelector((state) => state.product);
+  const { image, title, price, type, description, store_name, id, rate } = product;
 
   useEffect(() => {
     if (productId && productId !== "") fetchProductDetail(productId);
@@ -49,7 +51,7 @@ const ProductDetails = () => {
           <div className="my-4 grid grid-cols-2 gap-6 xl:grid-cols-3 2xl:grid-cols-4">
             <div className="">
               <div className="">
-                {/* <div className="">
+                <div className="">
                   <img
                     className="rounded-lg object-cover h-56 w-full"
                     src={image}
@@ -60,9 +62,10 @@ const ProductDetails = () => {
                   <div className="">{title}</div>
                   <div className="">$ {price}</div>
                   <div className="">{rate}</div>
-                </div> */}
+                </div>
               </div>
-            </div>          </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
