@@ -32,7 +32,7 @@ export default function SignIn() {
       setLoading(true);
       const response = await login(email, password);
       if (response.hasOwnProperty('message')) {
-        console.log(response.message);
+        // console.log(response.message);
         setError(response.message);
       }
     } catch {

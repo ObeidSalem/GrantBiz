@@ -8,11 +8,11 @@ import { useAuth } from "../context/AuthContext"
 
 function NavBar() {
   const { user, logOut } = useAuth()
-  console.log("user", user)
+  // console.log("user", user)
   return (
     <>
       {/* Nav bar */}
-      <div className="elative flex flex-wrap items-center justify-center h-fit px-2 py-3 bg-white mb-3 border-b-2 border-gray-100">
+      <div className="elative flex flex-wrap items-center justify-center h-fit px-2 py-3 bg-white border-b-2 border-gray-100">
 
         {/* logo only shows on PC */}
         <img src={GrantBizLogo} alt="Logo" className="pc-only md:w-24 md:h-24 ml-0 " />
