@@ -32,16 +32,18 @@ function HomePage() {
 
   }, [])
 
-  const renderList = products.map((product) => {
-    console.log("product", product)
-    const { id, title, store_name, description, price, store_avatar, image, type, rate} = product;
+  const renderCategoryList = products.map((product, index) => {
+    return (<>Category List Yet to be developed</>)})
+  const renderProductsList = products.map((product, index) => {
+    const { title, store_name, description, price, store_avatar, image, type, rate} = product;
+    console.log(product)
     return (
-      <div className="" key={id}>
+      <div className="" key={index}>
         {/* <Link to={`/product/${id}`}> */}
           <div className="">
             <div className="">
               <div className="">
-                <img src={image} alt={title} />
+                <img className="rounded-lg object-cover h-56 w-full" src={image} alt={title} />
               </div>
               <div className="">
                 <div className="">{title}</div>
@@ -56,10 +58,28 @@ function HomePage() {
   });
 
   return (
-    <>
+    <div className="bg-white">
       <NavBar />
-        {renderList}
-    </>
+      <div className="px-6 bg-white md:px-16 lg:px-56">
+        <div className="my-4">
+          <div className="flex justify-between my-2">
+            <p className="text-2xl bold ">Special Products</p>
+            <p className="text-2xl bold ">See All</p>
+          </div>
+          <img 
+            className="rounded-lg object-cover image fit h-56 w-full 2xl:h-96" 
+            src={"https://images.pexels.com/photos/8250738/pexels-photo-8250738.jpeg?auto=compress&cs=tinysrgb&w=600"} 
+            alt={"title"} 
+          />
+        </div>
+        <div className="my-4">
+          {renderCategoryList}
+        </div>
+        <div className="my-4 grid grid-cols-2 gap-6 xl:grid-cols-3 2xl:grid-cols-4">
+          {renderProductsList}
+        </div>
+      </div>
+    </div>
   );
 }
 

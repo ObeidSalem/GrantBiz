@@ -27,7 +27,7 @@ export const AuthContextProvider = ({ children }) => {
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
-        console.log(userCredential);
+        // console.log(userCredential);
         // ...
       })
       .catch((error) => {
@@ -42,7 +42,7 @@ export const AuthContextProvider = ({ children }) => {
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
-        console.log(userCredential);
+        // console.log(userCredential);
 
         // ...
       })
@@ -56,7 +56,7 @@ export const AuthContextProvider = ({ children }) => {
   const googleSignIn = () => {
     const provider = new GoogleAuthProvider();
     signInWithPopup(auth, provider);
-    console.log("user", user);
+    // console.log("user", user);
     // signInWithRedirect(auth, provider)
   };
 
@@ -80,7 +80,7 @@ export const AuthContextProvider = ({ children }) => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
-      console.log("User", currentUser);
+      // console.log("User", currentUser);
     });
     return () => {
       unsubscribe();

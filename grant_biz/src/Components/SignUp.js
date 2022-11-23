@@ -36,14 +36,12 @@ export default function Signup() {
   const usersRef = collection(db, "Users");
 
   async function handleSubmit() {
-    console.log(password, passwordConfirm);
 
     try {
       setError("");
       setLoading(true);
       const response = await signup(email, password)
       if (response.hasOwnProperty('message')) {
-        console.log(response.message);
         setError(response.message);
       }
       setLoading(false);
