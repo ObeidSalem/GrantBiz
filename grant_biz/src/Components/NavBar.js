@@ -5,6 +5,8 @@ import BottomBar from "./BottomBar";
 import { Link } from "react-router-dom";
 import { IoPersonCircleOutline, IoHeartOutline, IoHeartSharp, IoNotificationsOutline, IoNotificationsSharp, IoExitOutline } from "react-icons/io5";
 import { useAuth } from "../context/AuthContext"
+import db from "../firebase"
+import { onSnapshot, collection, doc, setDoc, getDocs, getDoc } from "firebase/firestore"
 
 function NavBar() {
   const { user, logOut } = useAuth()

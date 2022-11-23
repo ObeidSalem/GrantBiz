@@ -36,9 +36,10 @@ function HomePage() {
     return (<>Category List Yet to be developed</>)})
   const renderProductsList = products.map((product, index) => {
     const { title, store_name, description, price, store_avatar, image, type, rate} = product;
-    console.log(product)
+    // console.log(product)
+    // console.log(index)
     return (
-      <div className="" key={index}>
+      <div className="" key={title}>
         {/* <Link to={`/product/${id}`}> */}
           <div className="">
             <div className="">

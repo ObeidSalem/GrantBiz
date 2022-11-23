@@ -22,7 +22,7 @@ const app = initializeApp(firebaseConfig)
 // const firestore = app.firestore()
 // firestore.settings({timestampsInSnapshots: true,})
 
-// export const db = getFirestore(app)
+export const db = getFirestore(app)
 // export const storage = app.storage()
 export const auth = getAuth(app)
-export default getFirestore()
+export default db

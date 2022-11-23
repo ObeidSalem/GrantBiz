@@ -25,6 +25,7 @@ export const AuthContextProvider = ({ children }) => {
   function signup(email, password) {
     return createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
+        console.log(userCredential)
         // Signed in
         const user = userCredential.user;
         // console.log(userCredential);

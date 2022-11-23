@@ -35,29 +35,28 @@ export default function Signup() {
   const { signup, login, logOut } = UserAuth();
   const usersRef = collection(db, "Users");
 
-  async function handleSubmit() {
-
+  async function handleSubmit(newUser) {
     try {
       setError("");
       setLoading(true);
-      const response = await signup(email, password)
-      if (response.hasOwnProperty('message')) {
-        setError(response.message);
+      const responseAuth = await signup(email, password)
+      if (responseAuth.hasOwnProperty('message')) {
+        setError(responseAuth.message);
       }
+      // if (responseDB.hasOwnProperty('message')) {
+      //   setError(responseDB.message);
+      // }
       setLoading(false);
     } catch (err) {
+      console.error(err);
+      console.log("newUser", newUser)
+      await setDoc(doc(usersRef, newUser.email), {
+        ...newUser, own_shop:false,
+      });
       navigate("/");
 
     }
   }
-
-  //   function checkPassword() {
-  //     if (password === passwordConfirm) {
-  //       setError("");
-  //     } else {
-  //       setError("Passwords does not match");
-  //     }
-  //   }
 
   return (
     <>
@@ -166,7 +165,7 @@ export default function Signup() {
                   <input type="button" value="Already registered?"></input>
                 </Link>
                 <div
-                  onClick={() => handleSubmit({ Name, email, id: uuidv4() })}
+                  onClick={() => handleSubmit({ Name, email, })}
                   className="inline-flex items-center px-4 py-2 ml-4 text-xs font-semibold tracking-widest text-white uppercase transition duration-150 ease-in-out bg-gray-900 border border-transparent rounded-md active:bg-gray-900 false"
                 >Register
                 </div>

@@ -13,3 +13,10 @@ export const setProducts = (products) => {
         payload: products,
     }
 }
+
+export const setCurrentUser = (currentUser) => {
+    return {
+        type: ActionTypes.SET_CURRENT_USER,
+        payload: currentUser,
+    }
+}
