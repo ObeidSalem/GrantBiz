@@ -131,42 +131,42 @@ const ProductDetails = () => {
   //     //     );
   //     //   });
 
-  // const renderProductsList1 = product.map((product, index) => {
-  //   const {
-  //     title,
-  //     store_name,
-  //     description,
-  //     price,
-  //     store_avatar,
-  //     image,
-  //     type,
-  //     rate,
-  //     id,
-  //   } = product;
-  //   console.log("123098", product);
-  //   return (
-  //     <div className="" key={index}>
-  //       <Link to={`/product/${id}`}>
-  //         <div className="">
-  //           <div className="">
-  //             <div className="">
-  //               <img
-  //                 className="rounded-lg object-cover h-56 w-full"
-  //                 src={image}
-  //                 alt={title}
-  //               />
-  //             </div>
-  //             <div className="">
-  //               <div className="">{title}</div>
-  //               <div className="">$ {price}</div>
-  //               <div className="">{rate}</div>
-  //             </div>
-  //           </div>
-  //         </div>
-  //       </Link>
-  //     </div>
-  //   );
-  // });
+  const renderProductsList1 = product.map((product, index) => {
+    const {
+      title,
+      store_name,
+      description,
+      price,
+      store_avatar,
+      image,
+      type,
+      rate,
+      id,
+    } = product;
+    console.log("123098", product);
+    return (
+      <div className="" key={index}>
+        <Link to={`/product/${id}`}>
+          <div className="">
+            <div className="">
+              <div className="">
+                <img
+                  className="rounded-lg object-cover h-56 w-full"
+                  src={image}
+                  alt={title}
+                />
+              </div>
+              <div className="">
+                <div className="">{title}</div>
+                <div className="">$ {price}</div>
+                <div className="">{rate}</div>
+              </div>
+            </div>
+          </div>
+        </Link>
+      </div>
+    );
+  });
 
   return (
     <div>
