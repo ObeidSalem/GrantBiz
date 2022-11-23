@@ -1,9 +1,182 @@
-import React from 'react'
+import firebase from "../firebase";
+// import firebase from "firebase/app"
+import "firebase/auth";
+import React, { useRef, useState } from "react";
+import { useAuth } from "../context/AuthContext";
+import { v4 as uuidv4 } from "uuid";
+import { UserAuth } from "../context/AuthContext";
+import { useNavigate, Link, useParams, useLocation } from "react-router-dom";
+import { GoogleButton } from "react-google-button";
+import { Alert, Button } from "@material-tailwind/react";
 
-function SignUp() {
+import {
+  onSnapshot,
+  collection,
+  doc,
+  setDoc,
+  getDocs,
+} from "firebase/firestore";
+import db from "../firebase";
+import GrantBizLogo from "../img/GrantBiz_Logo.png";
+
+export default function Signup() {
+  const [loading, setLoading] = useState(false);
+  const [password, setpassword] = useState("");
+  const [passwordConfirm, setPasswordConfirm] = useState("");
+  const [email, setemail] = useState("");
+  const [Name, setName] = useState("");
+  const [Error, setError] = useState("");
+  const [isOK, setisOK] = useState(false);
+  const navigate = useNavigate("");
+  const { createAccount } = useAuth();
+
+  const { googleSignIn, user } = UserAuth();
+
+  const { signup, login, logOut } = UserAuth();
+  const usersRef = collection(db, "Users");
+
+  async function handleSubmit() {
+
+    try {
+      setError("");
+      setLoading(true);
+      const response = await signup(email, password)
+      if (response.hasOwnProperty('message')) {
+        setError(response.message);
+      }
+      setLoading(false);
+    } catch (err) {
+      navigate("/");
+
+    }
+  }
+
+  //   function checkPassword() {
+  //     if (password === passwordConfirm) {
+  //       setError("");
+  //     } else {
+  //       setError("Passwords does not match");
+  //     }
+  //   }
+
   return (
-    <div>SignUp</div>
-  )
+    <>
+      <div>
+        <div className="flex justify-center  flex-col items-center min-h-screen pt-6 mx-6 sm:justify-center sm:pt-0 bg-background">
+          <div className="w-full px-6 py-4 mt-6 overflow-hidden bg-white shadow-md sm:max-w-md sm:rounded-lg">
+            <div className="flex justify-center ">
+              <Link to="/">
+                <div className=" w-56 ">
+                  <img src={GrantBizLogo} alt="LOGO" />
+                </div>
+              </Link>
+            </div>
+            <h3 className="my-6 text-xl font-semibold">Create your Account</h3>
+            <div className="flex w-full flex-col gap-2 rounded">
+              {Error && (
+                <Alert
+                  className="bg-red-600 rounded mb-3"
+                  variant="gradient"
+                  color="red"
+                >
+                  {Error}
+                </Alert>
+              )}
+            </div>
+            <form>
+              <div>
+                <label
+                  htmlFor="name"
+                  className="block text-sm font-medium text-gray-700 undefined"
+                >
+                  Name
+                </label>
+                <div className="flex flex-col items-start">
+                  <input
+                    type="text"
+                    name="name"
+                    value={Name}
+                    onChange={(e) => setName(e.target.value)}
+                    required
+                    className="block w-full p-2  mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                  />
+                </div>
+              </div>
+              <div className="mt-4">
+                <label
+                  htmlFor="email"
+                  className="block text-sm font-medium text-gray-700 undefined"
+                >
+                  Email
+                </label>
+                <div className="flex flex-col items-start">
+                  <input
+                    type="email"
+                    name="email"
+                    value={email}
+                    onChange={(e) => setemail(e.target.value)}
+                    required
+                    className="block w-full  p-2 mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                  />
+                </div>
+              </div>
+              <div className="mt-4">
+                <label
+                  htmlFor="password"
+                  className="block text-sm font-medium text-gray-700 undefined"
+                >
+                  Password
+                </label>
+                <div className="flex flex-col items-start">
+                  <input
+                    type="password"
+                    name="password"
+                    value={password}
+                    onChange={(e) => setpassword(e.target.value)}
+                    required
+                    className="block w-full p-2  mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                  />
+                </div>
+              </div>
+              {/* <div className="mt-4">
+                <label
+                  htmlFor="password_confirmation"
+                  className="block text-sm font-medium text-gray-700 undefined"
+                >
+                  Confirm Password
+                </label>
+                <div className="flex flex-col items-start">
+                  <input
+                    type="password"
+                    name="password_confirmation"
+                    value={passwordConfirm}
+                    onChange={(e) => {
+                      setPasswordConfirm(e.target.value);
+                    }}
+                    required
+                    className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                  />
+                </div>
+              </div> */}
+              <div className="flex items-center justify-end mt-4">
+                <Link
+                  className="text-sm text-gray-600 underline hover:text-gray-900"
+                  to="/SignIn"
+                >
+                  <input type="button" value="Already registered?"></input>
+                </Link>
+                <div
+                  onClick={() => handleSubmit({ Name, email, id: uuidv4() })}
+                  className="inline-flex items-center px-4 py-2 ml-4 text-xs font-semibold tracking-widest text-white uppercase transition duration-150 ease-in-out bg-gray-900 border border-transparent rounded-md active:bg-gray-900 false"
+                >Register
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </>
+  );
 }
 
-export default SignUp
+// export default SignUp
