@@ -72,7 +72,7 @@ function HomePage() {
   return (
     <div className="bg-white">
       <NavBar />
-      <div className="px-6 pb-20 bg-gray-50 md:px-16 lg:px-56">
+      <div className="px-6 pb-20 bg-white md:px-16 lg:px-56">
         <div className="my-4  bg-white">
           <div className="flex justify-between my-2">
             <p className="text-2xl bold ">Special Products</p>
