@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setProducts } from "../redux/actions";
 import { Link } from "react-router-dom";
 import ProductDetails from "./ProductDetails"
+import { IoStarOutline } from "react-icons/io5";
 
 
 
@@ -43,17 +44,23 @@ function HomePage() {
     console.log(product)
     // console.log('Added document with ID: ', product.id);
     return (
-      <div className="" key={index}>
+      <div className="bg-white" key={index}>
          <Link to={`/product/${id}`}> 
           <div className="">
-            <div className="">
+            <div className="bg-white hover:bg-secondary rounded-2xl p-2 m-0">
               <div className="">
                 <img className="rounded-lg object-cover h-56 w-full" src={image} alt={title} />
               </div>
               <div className="">
-                <div className="">{title}</div>
-                <div className="">$ {price}</div>
-                <div className="">{rate}</div>
+                <div className="font-sans	">{title}</div>
+                <div className="flex justify-between">
+                <div className="font-sans	">{price}RM</div>
+                <div className=" flow-root">
+                <div className="font-sans	float-left ">{rate}</div>
+                <IoStarOutline className="float-right w-5 h-5" />
+                </div>
+                </div>
+                
               </div>
             </div>
           </div>
@@ -65,14 +72,14 @@ function HomePage() {
   return (
     <div className="bg-white">
       <NavBar />
-      <div className="px-6 bg-white md:px-16 lg:px-56">
-        <div className="my-4">
+      <div className="px-6 pb-20 bg-gray-50 md:px-16 lg:px-56">
+        <div className="my-4  bg-white">
           <div className="flex justify-between my-2">
             <p className="text-2xl bold ">Special Products</p>
             <p className="text-2xl bold ">See All</p>
           </div>
           <img 
-            className="rounded-lg object-cover image fit h-56 w-full 2xl:h-96" 
+            className="rounded-xl object-cover image fit h-56 w-full 2xl:h-96 border-gray-600" 
             src={"https://images.pexels.com/photos/8250738/pexels-photo-8250738.jpeg?auto=compress&cs=tinysrgb&w=600"} 
             alt={"title"} 
           />
@@ -80,7 +87,7 @@ function HomePage() {
         <div className="my-4">
           {/* {renderCategoryList} */}
         </div>
-        <div className="my-4 grid grid-cols-2 gap-6 xl:grid-cols-3 2xl:grid-cols-4">
+        <div className="my-4 grid grid-cols-2 gap-6 xl:grid-cols-3 2xl:grid-cols-4 bg-white">
           {renderProductsList}
         </div>
       </div>
