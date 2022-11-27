@@ -7,10 +7,14 @@ import { IoPersonCircleOutline, IoHeartOutline, IoHeartSharp, IoNotificationsOut
 import { useAuth } from "../context/AuthContext"
 import db from "../firebase"
 import { onSnapshot, collection, doc, setDoc, getDocs, getDoc } from "firebase/firestore"
+import { useSelector } from 'react-redux';
 
 function NavBar() {
   const { user, logOut } = useAuth()
   // console.log("user", user)
+
+  const currentUser = useSelector((state) => state.currentUser);
+  const {email} = currentUser
   return (
     <>
       {/* Nav bar */}
@@ -65,7 +69,7 @@ function NavBar() {
             <Link className="p-3 pc-only" to="/Feed">Feed</Link>
             <Link className="p-3 pc-only" to="/Massages">Massages</Link>
             <Link className="p-3 pc-only" to="/Cart">Cart</Link>
-            <Link className="p-3 pc-only" to="/MyShop">My shop</Link>
+            <Link className="p-3 pc-only" to={`/MyShop/${email}`}>My shop</Link>
           </div>
 
 

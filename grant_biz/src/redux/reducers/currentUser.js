@@ -4,7 +4,7 @@ const intiState = ""
 const currentUser = (state = intiState, { type, payload }) => {
     switch (type) {
         case ActionTypes.SET_CURRENT_USER:
-            return { currentUser: payload };
+            return { ...payload };
         default:
             return state;
     }

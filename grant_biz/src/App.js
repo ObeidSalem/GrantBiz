@@ -25,6 +25,7 @@ import { onSnapshot, collection, doc, setDoc, getDocs, getDoc } from "firebase/f
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { setCurrentUser } from './redux/actions/index';
+import CreateMyShop from "./Components/CreateMyShop";
 
 
 function App() {
@@ -70,7 +71,8 @@ function App() {
                 <Route path="/Feed" element={<Feed />} />
                 <Route path="/Massages" element={<Massages />} />
                 <Route path="/Cart" element={<Cart />} />
-                <Route path="/MyShop" element={<MyShop />} />
+                <Route path="/MyShop/:email" element={<MyShop />} />
+                <Route path="/MyShop/:email/Create" element={<CreateMyShop />} />
                 <Route path="/ForgotPassword" element={<ForgotPassword />} />
                 <Route path="/Product/:id" element={<Product />} />
               </Routes>
