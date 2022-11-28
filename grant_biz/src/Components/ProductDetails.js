@@ -83,7 +83,7 @@ console.log("hi",email)
   useEffect(() => {
     if (email) fetchUser(email);
     else{}
-  }, []);
+  }, [email]);
   ///////////////////////////////////////////////////////////////////
 
   return (
