@@ -1,9 +1,7 @@
-import {initializeApp} from "firebase/app"
-import { getAuth } from "firebase/auth";
-// import "firebase/auth"
 import { getFirestore } from 'firebase/firestore'
-// import { getDatabase } from 'firebase/database'
-import 'firebase/storage'
+import { initializeApp } from "firebase/app"
+import { getAuth } from "firebase/auth";
+import { getStorage } from "firebase/storage";
 
 
 const firebaseConfig = {
@@ -23,6 +21,6 @@ const app = initializeApp(firebaseConfig)
 // firestore.settings({timestampsInSnapshots: true,})
 
 export const db = getFirestore(app)
-// export const storage = app.storage()
+export const storage = getStorage(app);
 export const auth = getAuth(app)
 export default db
