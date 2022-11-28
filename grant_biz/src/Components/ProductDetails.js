@@ -83,7 +83,7 @@ console.log("hi",email)
   useEffect(() => {
     if (email) fetchUser(email);
     else{}
-  });
+  }, []);
   ///////////////////////////////////////////////////////////////////
 
   return (
@@ -125,7 +125,7 @@ console.log("hi",email)
             <div className="flex-auto border h-24 w-min rounded-xl p-3">
               <div className="flex justify-start ">
                 <img
-                  class="ml-1 w-20 h-20 rounded-full"
+                  className="ml-1 w-20 h-20 rounded-full"
                   src={store_avatar}
                   alt="Rounded avatar"
                 ></img>
