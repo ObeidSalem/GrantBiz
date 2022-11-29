@@ -14,7 +14,7 @@ function NavBar() {
   // console.log("user", user)
 
   const currentUser = useSelector((state) => state.currentUser);
-  const {email} = currentUser
+  const { email, store_avatar, StoreName, Name } = currentUser
   return (
     <>
       {/* Nav bar */}
@@ -25,18 +25,26 @@ function NavBar() {
 
         {/* Mobile version */}
         <div className='flex justify-between align-middle w-screen m-only'>
-          <div className='w-full flex justify-between align-middle  m-only'>
+          <div className='w-full flex justify-start align-middle  m-only'>
             {user ?
               <>
                 <Link to='/SignIn'>
-                  <IoPersonCircleOutline className="text-stone-400 h-16 w-full active:text-primary" />
+                  {store_avatar ?
+                    <img src={store_avatar} alt="Avatar" className="text-stone-400 h-16 w-full active:text-primary" />
+                    :
+                    <IoPersonCircleOutline className="text-stone-400 h-16 w-full active:text-primary" />
+                  }
                 </Link>
-                <span className="flex items-center justify-center text-stone-500 px-2">Obeid Salem ahmed</span>
+                {StoreName ?
+                  <span className="flex items-center justify-center text-stone-500 px-2">{StoreName}</span>
+                  :
+                  <span className="flex items-center justify-center text-stone-500 px-2">{Name}</span>
+                }
               </>
               :
               <div className="flex justify-between align-middle w-full ">
                 <Link className="flex justify-start align-middle w-full " to='/SignIn'>
-                  <img src={GrantBizLogo} alt="Avatar" className='w-20 '/>
+                  <img src={GrantBizLogo} alt="Avatar" className='w-20 ' />
                 </Link>
 
                 <div className="flex w-full items-center justify-end">
@@ -56,7 +64,6 @@ function NavBar() {
               {/* <IoHeartSharp className="text-stone-400 h-full w-16 px-4 active:text-primary"/> */}
               <IoNotificationsOutline className="text-stone-400 h-full w-16 px-4 active:text-primary" />
               {/* <IoNotificationsSharp className="text-stone-400 h-full w-16 px-4 active:text-primary"/> */}
-              <IoExitOutline className="text-stone-400 h-full w-16 px-4 active:text-primary" onClick={() => logOut()} />
             </div>
             : ""}
         </div>
@@ -83,7 +90,11 @@ function NavBar() {
             <div className='flex justify-between align-middle'>
               <div className='flex justify-center'>
                 <div className='flex flex-col justify-center'>
-                  <span className="flex items-center justify-center text-stone-500 px-2">Obeid Salem</span>
+                  {StoreName ?
+                    <span className="flex items-center justify-center text-stone-500 px-2">{StoreName}</span>
+                    :
+                    <span className="flex items-center justify-center text-stone-500 px-2">{Name}</span>
+                  }
                   <div className='flex justify-center'>
                     <IoHeartOutline className="text-stone-400 h-full w-10 px-2 active:text-primary" />
                     {/* <IoHeartSharp className="text-stone-400 h-full w-10 px-2 active:text-primary"/> */}
@@ -93,8 +104,11 @@ function NavBar() {
                   </div>
                 </div>
                 <Link to='/SignIn'>
-                  <IoPersonCircleOutline className="text-stone-400 h-16 w-full active:text-primary" />
-                  {/* <img src={GrantBizLogo} alt="Avatar" className="border-stone-400 border-2 rounded-full h-16 w-full active:text-primary" /> */}
+                  {store_avatar ?
+                    <img src={store_avatar} alt="Avatar" className="text-stone-400 h-16 w-full active:text-primary" />
+                    :
+                    <IoPersonCircleOutline className="text-stone-400 h-16 w-full active:text-primary" />
+                  }
                 </Link>
               </div>
             </div>

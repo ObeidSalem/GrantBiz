@@ -27,7 +27,7 @@ module.exports = withMT({
         'primary': '#41BDA7',
         'secondary': '#e1f5f5',
         'black': '#333333',
-        'background': '#ffffff'
+        'background': '#F3FFFC'
       }
     },
   },

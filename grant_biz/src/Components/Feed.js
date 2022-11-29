@@ -3,14 +3,12 @@ import NavBar from "./NavBar";
 import { v4 as uuidv4 } from "uuid";
 
 import db from "../firebase"
-import { onSnapshot, collection, doc, setDoc, getDocs,getDoc } from "firebase/firestore"
+import { onSnapshot, collection, doc, setDoc, getDocs } from "firebase/firestore"
 import { useDispatch, useSelector } from "react-redux";
 import { setProducts } from "../redux/actions";
 import { Link } from "react-router-dom";
 import ProductDetails from "./ProductDetails"
 import { IoArrowBack, IoStarOutline } from "react-icons/io5";
-import { useAuth, UserAuth } from "../context/AuthContext";
-import { setCurrentUser } from "../redux/actions/index";
 
 
 
@@ -37,11 +35,13 @@ function Feed() {
 
 
   }, [])
- 
+  // const renderCategoryList = products.map((product, index) => {
+  //   return (<>Category List Yet to be developed</>)})
+   // var id = datasnapchot.key;
+
   const renderProductsList = products.map((product, index) => {
-    const { title, store_name, description, price, image, type, rate,id,email,store_avatar,StoreName, store_id  } =product;
-    console.log()
-    
+    const { title, store_name, description, price, store_avatar, image, type, rate,id  } =product;
+    console.log(product)
     // console.log('Added document with ID: ', product.id);
     return (
       <div className="bg-white" key={index}>
@@ -54,15 +54,8 @@ function Feed() {
               <div className="">
                 <div className="font-sans	">{title}</div>
                 <div className="flex justify-between">
-                <div className=" inline-flex items-start">
-                <img class="inline-block ml-1 w-10 h-10 rounded-full"
-                  src={store_avatar}
-                  alt="Rounded avatar"
-                ></img>
-                <div className="inline-block mt-2">{StoreName}</div>
-                </div>
-
-                <div className=" flow-root mt-2">
+                <div className="font-sans	">{price}RM</div>
+                <div className=" flow-root">
                 <div className="font-sans	float-left ">{rate}</div>
                 <IoStarOutline className="float-right w-5 h-5" />
                 </div>
@@ -75,34 +68,6 @@ function Feed() {
       </div>
     );
   });
-
-  ///////////////////////////////////////////////////////////////////////////
-
-//  const currentUser = useSelector((state) => state.currentUser);
-//  const { user } = useAuth();
-
-//  const { StoreLocation, store_avatar, StoreName } = currentUser;
-
-//  const fetchUser = async () => {
-//    const docUsersRef = doc(db, "Users", products.email);
-//    const docSnap = await getDoc(docUsersRef);
-
-//    if (docSnap.exists()) {
-//      console.log("Document data:", docSnap.data());
-//      dispatch(setCurrentUser(docSnap.data()));
-//    } else {
-//      // doc.data() will be undefined in this case
-//      console.log("No such document!");
-//    }
-//    return docSnap.data();
-//  };
-
-//  useEffect(() => {
-//    if (user.email) fetchUser(user.email);
-//  })
-
- ///////////////////////////////////////////////////////////////////////////
-
 
   return (
     <div className="bg-white">

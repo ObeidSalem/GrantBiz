@@ -41,7 +41,7 @@ function App() {
     const docSnap = await getDoc(docUsersRef);
 
     if (docSnap.exists()) {
-      console.log("Document data: in app", docSnap.data());
+      console.log("Document data:", docSnap.data());
       dispatch(setCurrentUser(docSnap.data()))
 
     } else {
