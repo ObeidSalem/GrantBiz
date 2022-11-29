@@ -18,6 +18,8 @@ import {
 } from "firebase/firestore";
 import db from "../firebase";
 import NavBar from "./NavBar";
+import { useAuth, UserAuth } from "../context/AuthContext";
+import { setCurrentUser } from "../redux/actions/index";
 
 const ProductDetails = () => {
   const { productId } = useParams();
@@ -42,43 +44,48 @@ const ProductDetails = () => {
     type,
     description,
     type_parameters,
-    store_name,
+    // store_name,
     id,
     rate,
+    email,
   } = product;
 
   useEffect(() => {
     if (productId && productId !== "") fetchProductDetail(productId);
-    console.log("has has been");
     return () => {
       dispatch(removeSelectedProduct());
     };
   }, []);
 
-  // console.log("type_parameters", type_parameters)
-  const renderTypeParametersList = {
-    if(type_parameters) {
-      type_parameters.forEach((element) => {
-        // console.log(element);
+  ///////////////////////////////////////////////////////////////////////////
+  const { user } = useAuth();
 
-        return (
-          <>
-            {/* <button>{element}</button> */}
-            <div>hi</div>
-          </>
-        );
-      });
-    },
+
+  const fetchUser = async () => {
+    const docUsersRef = doc(db, "Users", email);
+    const docSnap = await getDoc(docUsersRef);
+    // console.log("1",docSnap.data(email))
+
+    if (docSnap.exists()) {
+      console.log("Document data product detail:", docSnap.data());
+      dispatch(setCurrentUser(docSnap.data()));
+    } else {
+      // doc.data() will be undefined in this case
+      console.log("No such document!");
+    }
+    return docSnap.data();
   };
+  const currentUser = useSelector((state) => state.currentUser);
+  const { StoreLocation, store_avatar, StoreName } = currentUser;
 
-  // const renderTypeParametersList = type_parameters.map((item, index) => {
-  //   return (
-  //     <div className="bg-background" key={index}>
 
-  //       {item}
-  //     </div>
-  //   );
-  // });
+console.log("hi",email)
+  useEffect(() => {
+    if (email) fetchUser(email);
+    else{}
+  }, [email]);
+  ///////////////////////////////////////////////////////////////////
+
   return (
     <div>
       <div className=" bg-gray-50 pb-48">
@@ -114,23 +121,54 @@ const ProductDetails = () => {
               </div>
               <div className=" w-64">{description}</div>
             </div>
+
+            <div className="flex-auto border h-24 w-min rounded-xl p-3">
+              <div className="flex justify-start ">
+                <img
+                  className="ml-1 w-20 h-20 rounded-full"
+                  src={store_avatar}
+                  alt="Rounded avatar"
+                ></img>
+                <div className="ml-3">
+                  <div
+                    
+                    className="text-black font-semibold text-lg ml-2"
+                  >
+                    {StoreName}
+                  </div>
+                  {/* <div key={user.email}>{store_avatar}</div> */}
+                  <div
+                 
+                    className="text-black font-semibold text-lg"
+                  >
+                   at {StoreLocation}
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
           <div className="m-5">
             <div className="font-sans font-semibold uppercase	mb-4 text-xl">
               {type}
             </div>
             {/* <div>{type_parameters?.map(type_parameters => <div>{type_parameters.type_parameters}</div>)} </div> */}
-            <div className="flex">
+            <div className="flex justify-start md:p-1">
               {type_parameters?.map((types, index) => {
                 return (
                   <>
+                  <div className=" mt-5  text-white font-bold text-sm">
                     <Link
                       key={index}
                       to="/"
-                      className="   px-7  mt-5 m-1 text-white font-bold text-sm md:px-10 "
+                     
                     >
-                      <input className="border-2 rounded-full bg-primary  h-10 w-10 hover:bg-gray-800" type="button" value={types}></input>
+                      <input
+                        className="border-2 rounded-full bg-primary  h-10 w-28 hover:bg-gray-800"
+                        type="button"
+                        value={types}
+                      ></input>
                     </Link>
+                    </div>
                   </>
                 );
               })}
@@ -182,7 +220,7 @@ const ProductDetails = () => {
                 className="bg-white border-2 rounded-full px-4 py-2 md:px-3  text-primary font-bold text-sm border-primary"
                 to="/"
               >
-                <input type="button" value="store Location"></input>
+                <input type="button" value="add to cart"></input>
               </Link>
             </div>
             <div className="mx-1">
@@ -198,7 +236,6 @@ const ProductDetails = () => {
         </div>
       </div>
       <BottomBar />
-
     </div>
   );
 };
