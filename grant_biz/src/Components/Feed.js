@@ -40,9 +40,7 @@ function Feed() {
  
   const renderProductsList = products.map((product, index) => {
     const { title, store_name, description, price, image, type, rate,id,email,store_avatar,StoreName, store_id  } =product;
-    console.log()
     
-    // console.log('Added document with ID: ', product.id);
     return (
       <div className="bg-white" key={index}>
          <Link to={`/product/${id}`}> 
@@ -55,7 +53,7 @@ function Feed() {
                 <div className="font-sans	">{title}</div>
                 <div className="flex justify-between">
                 <div className=" inline-flex items-start">
-                <img class="inline-block ml-1 w-10 h-10 rounded-full"
+                <img className="inline-block ml-1 w-10 h-10 rounded-full"
                   src={store_avatar}
                   alt="Rounded avatar"
                 ></img>
@@ -75,34 +73,6 @@ function Feed() {
       </div>
     );
   });
-
-  ///////////////////////////////////////////////////////////////////////////
-
-//  const currentUser = useSelector((state) => state.currentUser);
-//  const { user } = useAuth();
-
-//  const { StoreLocation, store_avatar, StoreName } = currentUser;
-
-//  const fetchUser = async () => {
-//    const docUsersRef = doc(db, "Users", products.email);
-//    const docSnap = await getDoc(docUsersRef);
-
-//    if (docSnap.exists()) {
-//      console.log("Document data:", docSnap.data());
-//      dispatch(setCurrentUser(docSnap.data()));
-//    } else {
-//      // doc.data() will be undefined in this case
-//      console.log("No such document!");
-//    }
-//    return docSnap.data();
-//  };
-
-//  useEffect(() => {
-//    if (user.email) fetchUser(user.email);
-//  })
-
- ///////////////////////////////////////////////////////////////////////////
-
 
   return (
     <div className="bg-white">

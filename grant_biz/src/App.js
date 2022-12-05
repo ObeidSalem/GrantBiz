@@ -27,6 +27,7 @@ import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { setCurrentUser } from './redux/actions/index';
 import CreateMyShop from "./Components/CreateMyShop";
+import StorePage from "./Components/StorePage"
 
 
 function App() {
@@ -73,10 +74,14 @@ function App() {
               <Route path="/Massages" element={<Massages />} />
               <Route path="/Cart" element={<Cart />} />
               <Route path="/product/:productId" element={<ProductDetails />} />
+              <Route path="/StorePage/:email" element={<StorePage />} />
               <Route path="/MyShop/:email" element={<MyShop />} />
               <Route path="/MyShop/:email/Create" element={<CreateMyShop />} />
               <Route path="/ForgotPassword" element={<ForgotPassword />} />
               <Route path="/Product/:id" element={<Product />} />
+
+              
+              
             </Routes>
           </div>
         </Router>

@@ -6,7 +6,7 @@ import {
   IoChatbubbleEllipsesOutline,
 } from "react-icons/io5";
 import { Link, useParams } from "react-router-dom";
-import { selectedProduct, removeSelectedProduct } from "../redux/actions";
+import { selectedProduct, removeSelectedProduct, setProductStore } from "../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import {
   onSnapshot,
@@ -19,7 +19,6 @@ import {
 import db from "../firebase";
 import NavBar from "./NavBar";
 import { useAuth, UserAuth } from "../context/AuthContext";
-import { setCurrentUser } from "../redux/actions/index";
 
 const ProductDetails = () => {
   const { productId } = useParams();
@@ -64,22 +63,21 @@ const ProductDetails = () => {
   const fetchUser = async () => {
     const docUsersRef = doc(db, "Users", email);
     const docSnap = await getDoc(docUsersRef);
-    // console.log("1",docSnap.data(email))
 
     if (docSnap.exists()) {
       console.log("Document data product detail:", docSnap.data());
-      dispatch(setCurrentUser(docSnap.data()));
+      dispatch(setProductStore(docSnap.data()));
     } else {
       // doc.data() will be undefined in this case
       console.log("No such document!");
     }
     return docSnap.data();
   };
-  const currentUser = useSelector((state) => state.currentUser);
-  const { StoreLocation, store_avatar, StoreName } = currentUser;
+  const procutStore = useSelector((state) => state.productStore);
+  console.log("prodductstore",procutStore )
+   const { StoreLocation, store_avatar, StoreName } = procutStore;
 
 
-console.log("hi",email)
   useEffect(() => {
     if (email) fetchUser(email);
     else{}
@@ -121,8 +119,8 @@ console.log("hi",email)
               </div>
               <div className=" w-64">{description}</div>
             </div>
-
-            <div className="flex-auto border h-24 w-min rounded-xl p-3">
+            <Link to={`/StorePage/${email}`} className="flex-auto border h-24 w-fit rounded-xl p-3">
+            <div className="">
               <div className="flex justify-start ">
                 <img
                   className="ml-1 w-20 h-20 rounded-full"
@@ -146,6 +144,7 @@ console.log("hi",email)
                 </div>
               </div>
             </div>
+            </Link>
           </div>
           <div className="m-5">
             <div className="font-sans font-semibold uppercase	mb-4 text-xl">
@@ -229,7 +228,7 @@ console.log("hi",email)
                 className="bg-primary border-2 rounded-full px-4 py-2 md:px-16  text-white font-bold text-sm"
                 to="/"
               >
-                <input type="button" value="buy now"></input>
+                <input className="p-2" type="button" value="buy now"></input>
               </Link>
             </div>
           </div>

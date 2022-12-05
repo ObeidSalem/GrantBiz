@@ -32,3 +32,10 @@ export const setCurrentUser = (currentUser) => {
     payload: currentUser,
   }
 }
+
+export const setProductStore = (procutStore) => {
+  return {
+    type: ActionTypes.SET_PRODUCT_STORE,
+    payload: procutStore,
+  }
+}

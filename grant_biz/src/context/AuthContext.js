@@ -65,6 +65,9 @@ export const AuthContextProvider = ({ children }) => {
     signOut(auth);
   };
 
+  
+
+
   function resetPassword(email) {
     sendPasswordResetEmail(auth, email)
     .then(() => {
