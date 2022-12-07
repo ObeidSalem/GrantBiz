@@ -28,6 +28,8 @@ import { useDispatch } from 'react-redux';
 import { setCurrentUser } from './redux/actions/index';
 import CreateMyShop from "./Components/CreateMyShop";
 import StorePage from "./Components/StorePage"
+import PaymentOption from "./Components/PaymentOption";
+
 
 
 function App() {
@@ -54,7 +56,7 @@ function App() {
 
   useEffect(() => {
     try {
-      fetchUser()
+      if(user)fetchUser()
     } catch (error) {
       console.log(error)
     }
@@ -64,7 +66,7 @@ function App() {
     <>
       <ThemeProvider>
         <Router>
-          <div className="content-center bg-background min-h-screen overflow-auto">
+          <div className="content-center bg-white min-h-screen overflow-auto">
             <Routes>
               <Route exact path="/" element={<HomePage />} />
               <Route path="/SignIn" element={<SignIn />} />
@@ -79,6 +81,7 @@ function App() {
               <Route path="/MyShop/:email/Create" element={<CreateMyShop />} />
               <Route path="/ForgotPassword" element={<ForgotPassword />} />
               <Route path="/Product/:id" element={<Product />} />
+              {/* <Route path="/PaymentOption" element={<PaymentOption />} /> */}
 
               
               

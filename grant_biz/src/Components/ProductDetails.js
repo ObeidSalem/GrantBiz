@@ -18,9 +18,19 @@ import {
 } from "firebase/firestore";
 import db from "../firebase";
 import NavBar from "./NavBar";
+import { v4 as uuidv4 } from "uuid";
 import { useAuth, UserAuth } from "../context/AuthContext";
+import PaymentOption from "./PaymentOption"
+import { async } from "@firebase/util";
+import { setCurrentUser } from '../redux/actions/index';
 
-const ProductDetails = () => {
+
+
+const cash = (true);
+const online_pay = (true);
+
+
+function ProductDetails() {
   const { productId } = useParams();
 
   const dispatch = useDispatch();
@@ -48,6 +58,15 @@ const ProductDetails = () => {
     rate,
     email,
   } = product;
+  console.log("product details",product)
+  // const [Title, setTitle] = useState(title);
+  // const [Image, setImage]= useState(image);
+  const [Error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [Type_parameters, setType_parameters]= useState(type_parameters);
+  const [paymentOptionBtnPopUp, setpaymentOptionBtnPopUp] = useState(false)
+
+
 
   useEffect(() => {
     if (productId && productId !== "") fetchProductDetail(productId);
@@ -65,7 +84,6 @@ const ProductDetails = () => {
     const docSnap = await getDoc(docUsersRef);
 
     if (docSnap.exists()) {
-      console.log("Document data product detail:", docSnap.data());
       dispatch(setProductStore(docSnap.data()));
     } else {
       // doc.data() will be undefined in this case
@@ -74,8 +92,8 @@ const ProductDetails = () => {
     return docSnap.data();
   };
   const procutStore = useSelector((state) => state.productStore);
-  console.log("prodductstore",procutStore )
    const { StoreLocation, store_avatar, StoreName } = procutStore;
+   console.log("prodductstore",procutStore )
 
 
   useEffect(() => {
@@ -83,6 +101,79 @@ const ProductDetails = () => {
     else{}
   }, [email]);
   ///////////////////////////////////////////////////////////////////
+  // fetch curent user data
+ 
+  
+    const fetchCurentUser = async () => {
+      const docUsersRef = doc(db, "Users", user.email);
+      const docSnap = await getDoc(docUsersRef);
+  
+      if (docSnap.exists()) {
+        console.log("Document data:", docSnap.data());
+        dispatch(setCurrentUser(docSnap.data()))
+  
+      } else {
+        // doc.data() will be undefined in this case
+        console.log("No such document!");
+      }
+      return docSnap.data()
+    }
+    const currentUser = useSelector((state) => state.currentUser);
+    const { phone_number } = currentUser;
+    
+
+    useEffect(() => {
+      try {
+        if(email)fetchCurentUser(email)
+      } catch (error) {
+        console.log(error)
+      }
+    }, [email])
+   
+ 
+ 
+  ///////////////////////////////////////////////////////////////////
+  const cartref = collection(db, "Cart");
+  async function handleSubmit(cartdata) {
+      try {
+          setError("");
+          setLoading(true);
+          const response = await setDoc(doc(cartref, cartdata.id), {
+           ...cartdata, image :image, title:title,userphonenumber:phone_number, Type_parameters:Type_parameters , id:cartdata.id 
+          });
+         alert("done")
+          setLoading(false);
+      } catch (err) {
+          // navigate("/");
+          console.error(err);
+          console.log("cartdata", cartdata)
+      }
+  }
+
+
+
+  /////////////////////////////////////////////////////////////////
+  const orderref = collection(db, "Orders");
+  const Status = "to be prepared"
+  async function createOrder(orderData){
+
+    try {
+      setError("");
+      setLoading(true);
+      console.log("hgi",orderData,phone_number)
+      const response = await setDoc(doc(orderref, orderData.id), {
+        ...orderData,price:price , image:image, title:title, Type_parameters:Type_parameters,id:orderData.id, Status: Status , userPhoneNumber:phone_number
+      });
+     alert("done")
+      setLoading(false);
+  } catch (err) {
+      // navigate("/");
+      console.error(err);
+      console.log("cartdata", Type_parameters)
+  }
+
+   }
+  ////////////////////////////////////////////////////////////////
 
   return (
     <div>
@@ -147,32 +238,33 @@ const ProductDetails = () => {
             </Link>
           </div>
           <div className="m-5">
-            <div className="font-sans font-semibold uppercase	mb-4 text-xl">
+            {/* <div className="font-sans font-semibold uppercase	mb-4 text-xl">
               {type}
-            </div>
-            {/* <div>{type_parameters?.map(type_parameters => <div>{type_parameters.type_parameters}</div>)} </div> */}
-            <div className="flex justify-start md:p-1">
+            </div> */}
+            {/* <div className="flex justify-start md:p-1">
               {type_parameters?.map((types, index) => {
                 return (
                   <>
-                  <div className=" mt-5  text-white font-bold text-sm">
-                    <Link
-                      key={index}
-                      to="/"
-                     
-                    >
+                  
+                    <div key={index} className=" mt-5  text-white font-bold text-sm">
                       <input
-                        className="border-2 rounded-full bg-primary  h-10 w-28 hover:bg-gray-800"
+                        className="border-2 ml-2 rounded-full bg-primary  h-10 w-28 hover:bg-gray-800  focus:outline-none focus:ring focus:ring-gray-700"
                         type="button"
                         value={types}
+                        onClick={(e) => setType_parameters(e.target.value)}
+                       
+
                       ></input>
-                    </Link>
                     </div>
+                    
+                   
                   </>
                 );
               })}
-            </div>
+            </div> */}
+            
           </div>
+          
           <div className="flex justify-start mt-5">
             {/* <div>
               desktop version
@@ -215,21 +307,47 @@ const ProductDetails = () => {
             </div>
             <div className="mx-1">
               {/* desktop version */}
-              <Link
+              <div
+                onClick={() => handleSubmit({ image, title, Type_parameters , id: uuidv4() })}
                 className="bg-white border-2 rounded-full px-4 py-2 md:px-3  text-primary font-bold text-sm border-primary"
-                to="/"
               >
                 <input type="button" value="add to cart"></input>
-              </Link>
+              </div>
             </div>
             <div className="mx-1">
               {/* desktop version */}
-              <Link
-                className="bg-primary border-2 rounded-full px-4 py-2 md:px-16  text-white font-bold text-sm"
-                to="/"
+              <div
+                
               >
-                <input className="p-2" type="button" value="buy now"></input>
-              </Link>
+                
+                <button type="button" value="buy now" onClick={() => setpaymentOptionBtnPopUp(true) } className="bg-primary border-2 rounded-full px-4 py-2 md:px-16  text-white font-bold text-sm">buy now</button>
+              </div>
+              <div>
+
+              <div>
+                <div 
+                //  className="bg-primary border-2 rounded-full px-4 py-1 md:px-16  text-white font-bold text-sm"
+                 >
+                  {paymentOptionBtnPopUp ? 
+                   <div>
+                <button 
+                 className="bg-primary border-2 rounded-full px-4 py-1 md:px-16  text-white font-bold text-sm">
+                    pay online</button>
+
+                    <button 
+                 className="bg-primary border-2 rounded-full px-4 py-1 md:px-16  text-white font-bold text-sm"
+                 onClick={() =>createOrder({Type_parameters,id: uuidv4() })}
+                 >
+                    cash on delivry</button>
+              </div>
+              
+               : "" }
+                   </div>
+              </div>
+              </div>
+              {/* <PaymentOption trigger={paymentOptionBtnPopUp} settrigger={setpaymentOptionBtnPopUp}>
+              </ PaymentOption > */}
+            
             </div>
           </div>
         </div>

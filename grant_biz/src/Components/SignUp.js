@@ -18,6 +18,8 @@ export default function Signup() {
   const [passwordConfirm, setPasswordConfirm] = useState("");
   const [email, setemail] = useState("");
   const [Name, setName] = useState("");
+  const [phone_number, setphone_number] = useState("");
+  const [location, setlocation] = useState("");
   const [Error, setError] = useState("");
   const [isOK, setisOK] = useState(false);
   const navigate = useNavigate("");
@@ -33,23 +35,33 @@ export default function Signup() {
       setError("");
       setLoading(true);
       const responseAuth = await signup(email, password)
+      let isnum = /^\d+$/.test(phone_number);
+      if(!isnum){
+        console.log("not a number")
+        alert("please put a valid for number for ex 0115622xxxx")
+      }
+      else{
       if (responseAuth.hasOwnProperty('message')) {
         setError(responseAuth.message);
       }
-      // if (responseDB.hasOwnProperty('message')) {
-      //   setError(responseDB.message);
-      // }
+      refreshPage()
       setLoading(false);
+
+    }
     } catch (err) {
       console.error(err);
       console.log("newUser", newUser)
       await setDoc(doc(usersRef, newUser.email), {
-        ...newUser, own_store: false, 
+        ...newUser, own_store: false, location:location ,phone_number,phone_number
       });
       navigate("/");
 
     }
   }
+  function refreshPage() {
+    window.location.reload(false);
+}
+
 
   return (
     <>
@@ -130,6 +142,42 @@ export default function Signup() {
                   />
                 </div>
               </div>
+              <div className="mt-4">
+                <label
+                  htmlFor="location"
+                  className="block text-sm font-medium text-gray-700 undefined"
+                >
+                  Location
+                </label>
+                <div className="flex flex-col items-start">
+                  <input
+                    type="text"
+                    name="location"
+                    value={location}
+                    onChange={(e) => setlocation(e.target.value)}
+                    required
+                    className="block w-full p-2  mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                  />
+                </div>
+              </div>
+              <div className="mt-4">
+                <label
+                  htmlFor="phone_number"
+                  className="block text-sm font-medium text-gray-700 undefined"
+                >
+                  phone number
+                </label>
+                <div className="flex flex-col items-start ">
+                  <input
+                    type="text"
+                    name="phone_number"
+                    value={phone_number}
+                    onChange={(e) => setphone_number(e.target.value)}
+                    required
+                    className="appearance-none block w-full p-2  mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 "
+                  />
+                </div>
+              </div>
               {/* <div className="mt-4">
                 <label
                   htmlFor="password_confirmation"
@@ -158,7 +206,7 @@ export default function Signup() {
                   <input type="button" value="Already registered?"></input>
                 </Link>
                 <div
-                  onClick={() => handleSubmit({ Name, email, })}
+                  onClick={() => handleSubmit({ Name, email,location,phone_number })}
                   className="inline-flex items-center px-4 py-2 ml-4 text-xs font-semibold tracking-widest text-white uppercase transition duration-150 ease-in-out bg-gray-900 border border-transparent rounded-md active:bg-gray-900 false"
                 >Register
                 </div>

@@ -82,6 +82,7 @@ const StorePage = () => {
 
   ///////////////////////////////////////////////////////////////////////////
   const { user } = useAuth();
+  console.log("hi2",user)
 
 
   const fetchUser = async () => {
