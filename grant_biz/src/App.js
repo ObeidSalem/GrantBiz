@@ -19,6 +19,10 @@ import Massages from "./Components/Massages";
 import Cart from "./Components/Cart";
 import ProductDetails from "./Components/ProductDetails";
 import ForgotPassword from "./Components/ForgotPassword";
+import CreateMyShop from "./Components/CreateMyShop";
+import MenageProduct from "./Components/MenageProduct";
+import AddProduct from "./Components/AddProduct";
+
 import { useAuth } from './context/AuthContext';
 import { ThemeProvider } from "@material-tailwind/react";
 import db from "./firebase"
@@ -26,34 +30,40 @@ import { onSnapshot, collection, doc, setDoc, getDocs, getDoc } from "firebase/f
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { setCurrentUser } from './redux/actions/index';
-import CreateMyShop from "./Components/CreateMyShop";
 
 
 function App() {
 
   const currentUser = useSelector((state) => state.currentUser);
-  console.log("currentUser", currentUser)
+  // console.log("currentUser", currentUser)
   const dispatch = useDispatch();
   const { user } = useAuth()
 
   const fetchUser = async () => {
-    const docUsersRef = doc(db, "Users", user.email);
-    const docSnap = await getDoc(docUsersRef);
+    try {
+      const docRef = await doc(db, "Users", user.email);
 
-    if (docSnap.exists()) {
-      console.log("Document data:", docSnap.data());
-      dispatch(setCurrentUser(docSnap.data()))
+      const docSnap = await getDoc(docRef);
 
-    } else {
-      // doc.data() will be undefined in this case
-      console.log("No such document!");
+      if (docSnap.exists()) {
+        // console.log("Document data:", docSnap.data());
+        dispatch(setCurrentUser(docSnap.data()))
+
+      } else {
+        // doc.data() will be undefined in this case
+        console.log("No such document!");
+      }
+      return docSnap.data()
+    } catch (error) {
+      // console.log(error)
     }
-    return docSnap.data()
   }
 
   useEffect(() => {
     try {
-      fetchUser()
+      if(user){
+        fetchUser()
+      }
     } catch (error) {
       console.log(error)
     }
@@ -63,7 +73,7 @@ function App() {
     <>
       <ThemeProvider>
         <Router>
-          <div className="content-center bg-background min-h-screen overflow-auto">
+          <div className="content-center bg-wite min-h-screen overflow-auto">
             <Routes>
               <Route exact path="/" element={<HomePage />} />
               <Route path="/SignIn" element={<SignIn />} />
@@ -72,6 +82,8 @@ function App() {
               <Route path="/Feed" element={<Feed />} />
               <Route path="/Massages" element={<Massages />} />
               <Route path="/Cart" element={<Cart />} />
+              <Route path="/MenageProduct/:email" element={<MenageProduct />} />
+              <Route path="/AddProduct/:email" element={<AddProduct />} />
               <Route path="/product/:productId" element={<ProductDetails />} />
               <Route path="/MyShop/:email" element={<MyShop />} />
               <Route path="/MyShop/:email/Create" element={<CreateMyShop />} />

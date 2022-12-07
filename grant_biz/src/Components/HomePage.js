@@ -41,7 +41,7 @@ function HomePage() {
 
   const renderProductsList = products.map((product, index) => {
     const { title, store_name, description, price, store_avatar, image, type, rate,id  } =product;
-    console.log(product)
+    // console.log(product)
     // console.log('Added document with ID: ', product.id);
     return (
       <div className="bg-white" key={index}>

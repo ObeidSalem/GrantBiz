@@ -28,7 +28,7 @@ function NavBar() {
           <div className='w-full flex justify-start align-middle  m-only'>
             {user ?
               <>
-                <Link to='/SignIn'>
+                <Link to={`/MyShop/${email}`}>
                   {store_avatar ?
                     <img src={store_avatar} alt="Avatar" className="text-stone-400 h-16 w-full active:text-primary" />
                     :

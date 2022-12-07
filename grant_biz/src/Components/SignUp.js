@@ -55,7 +55,7 @@ export default function Signup() {
     <>
       <div>
         <div className="flex justify-center  flex-col items-center min-h-screen pt-6 mx-6 sm:justify-center sm:pt-0 bg-background">
-          <div className="w-full px-6 py-4 mt-6 overflow-hidden bg-white shadow-md sm:max-w-md sm:rounded-lg">
+        <div className="w-80 px-6 py-4 overflow-hidden bg-white border border-primary  shadow-md sm:max-w-md rounded-lg">
             <div className="flex justify-center ">
               <Link to="/">
                 <div className=" w-56 ">
@@ -90,7 +90,7 @@ export default function Signup() {
                     value={Name}
                     onChange={(e) => setName(e.target.value)}
                     required
-                    className="block w-full p-2  mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                    className="block w-full p-2  mt-1 border border-gray-400 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                   />
                 </div>
               </div>
@@ -108,7 +108,7 @@ export default function Signup() {
                     value={email}
                     onChange={(e) => setemail(e.target.value)}
                     required
-                    className="block w-full  p-2 mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                    className="block w-full  p-2 mt-1 border border-gray-400 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                   />
                 </div>
               </div>
@@ -126,7 +126,7 @@ export default function Signup() {
                     value={password}
                     onChange={(e) => setpassword(e.target.value)}
                     required
-                    className="block w-full p-2  mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                    className="block w-full p-2  mt-1 border border-gray-400 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                   />
                 </div>
               </div>

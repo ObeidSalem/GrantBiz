@@ -1,23 +1,24 @@
 import React, { useRef, useState } from 'react'
 import BottomBar from "./BottomBar";
 import NavBar from './NavBar';
-import { IoArrowBackOutline } from "react-icons/io5";
+import {
+    IoArrowBackOutline,
+    IoCreateOutline,
+    IoStorefrontOutline,
+} from "react-icons/io5";
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { InputText } from 'primereact/inputtext';
 import { Dialog } from 'primereact/dialog';
-import { Button } from 'primereact/button';
 import Avatar from 'react-avatar-edit';
-import defaultAvatarImage from '../img/GrantBiz_Logo.jpg'
 import { collection, doc, updateDoc, } from "firebase/firestore";
 import db from "../firebase";
 import storage from "../firebase";
 import { getStorage, ref, uploadBytes, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 
-// import { useDispatch } from 'react-redux';
-// import { setCurrentUser } from './redux/actions/index';
 
 function CreateMyShop() {
+
     const currentUser = useSelector((state) => state.currentUser);
     const { email, store_avatar, store_name, store_location, store_type } = currentUser
 
@@ -39,6 +40,7 @@ function CreateMyShop() {
     }
 
     const onCrop = (view) => {
+        console.log("view", view)
         setImage(view)
     }
 
@@ -128,51 +130,9 @@ function CreateMyShop() {
     }
 
     return (
-        <>
-            <Dialog
-                className="absolute top-0  left-auto  bg-white"
-                visible={imageCrop}
-                header={() => (
-                    <p
-                        htmlFor="">
-                        Update Store Avatar
-                    </p>
-                )}
-                onHide={() => setImageCrop(false)}
-            >
-                <div className="flex flex-col justify-center m-0">
-                    <Avatar
-                        className="m-0"
-                        width={285}
-                        height={200}
-                        onCrop={onCrop}
-                        onClose={onClose}
-                        src={src}
-                        shadingColor={"#474649"}
-                        backgroundColor={"#474649"}
-                    />
-                    <InputText
-                        type="file"
-                        accept="/image/*"
-                        style={{ display: "none" }}
-                        onChange={onFileChange}
-                    />
-                    <div className="flex flex-col align-items mt-5 w-12">
-                        <div className="flex justify-between  content-around w-72 overflow-x">
-                            <div
-                                onClick={() => setImageCrop(false)}
-                                className="flex justify-center items-center px-4 py-2 w-20 max-w-xs text-xs font-semibold tracking-widest text-white uppercase transition duration-150 ease-in-out bg-gray-900 border border-transparent rounded-md active:bg-gray-900 false"
-                            >Cancel</div>
-                            <div
-                                onClick={saveCropImage}
-                                className="flex justify-center items-center px-4 py-2 w-20 max-w-xs text-xs font-semibold tracking-widest text-white uppercase transition duration-150 ease-in-out bg-gray-900 border border-transparent rounded-md active:bg-gray-900 false"
-                            >Save</div>
-                        </div>
-                    </div>
-                </div>
-            </Dialog>
-            <div className="bg-white h-screen">
-                <div className="px-6 bg-white md:px-36 lg:px-96">
+        <div className="w-full">
+            <div className="bg-white h-screen static">
+                <div className="px-6 bg-white  pb-16 md:px-36 lg:px-96">
                     <div className="my-10 flex justify-start align-center">
                         <Link to={`/`}><IoArrowBackOutline className="text-black h-8 w-10 mr-2 active:text-primary" /></Link>
                         <p className="text-2xl font-semibold w-full">Fill store information </p>
@@ -181,12 +141,66 @@ function CreateMyShop() {
                     <form onSubmit={handleSubmit}>
                         <div className="mt-4">
                             <div className="flex justify-center">
-                                <img
-                                    src={image ? image : defaultAvatarImage}
-                                    alt="Store Avatar"
-                                    className="border-stone-400 border-2 rounded-full h-56 w-56 active:text-primary "
-                                    onClick={() => { setImageCrop(true) }}
-                                />
+                                <Dialog className="absolute h-full w-full top-0 left-0 p-6 bg-gradient-to-b from-primary to-transparent from-slate-200"
+                                    visible={imageCrop}
+                                    onHide={() => setImageCrop(false)}
+                                >
+                                    <div className="flex flex-row justify-center ">
+                                        <div className="flex flex-col w-fit justify-center m-0 p-6 border-2 rounded-xl shadow-lg  bg-white">
+                                            <p> Update Store Avatar</p>
+                                            <Avatar
+                                                className="m-0"
+                                                width={285}
+                                                height={200}
+                                                onCrop={onCrop}
+                                                onClose={onClose}
+                                                src={src}
+                                                shadingColor={"#474649"}
+                                                backgroundColor={"#474649"}
+                                            />
+                                            <InputText
+                                                type="file"
+                                                accept="/image/*"
+                                                style={{ display: "none" }}
+                                                onChange={onFileChange}
+                                            />
+                                            <div className="flex flex-col align-items mt-5 w-12">
+                                                <div className="flex justify-between  content-around w-72 overflow-x">
+                                                    <div
+                                                        onClick={() => setImageCrop(false)}
+                                                        className="flex justify-center items-center px-4 py-2 w-20 max-w-xs text-xs font-semibold tracking-widest text-white uppercase transition duration-150 ease-in-out bg-gray-900 border border-transparent rounded-md active:bg-gray-900 false"
+                                                    >Cancel</div>
+                                                    <div
+                                                        onClick={saveCropImage}
+                                                        className="flex justify-center items-center px-4 py-2 w-20 max-w-xs text-xs font-semibold tracking-widest text-white uppercase transition duration-150 ease-in-out bg-gray-900 border border-transparent rounded-md active:bg-gray-900 false"
+                                                    >Save</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </Dialog>
+                                {image ?
+                                    <div className="flex flex-col" onClick={() => { setImageCrop(true) }}                                    >
+                                        <div className="flex flex-col justify-center items-center  h-48 w-48 active:text-primary">
+                                            < img
+                                                src={image}
+                                                alt="Store Avatar"
+                                                className="border-stone-400 border-2 border-black  rounded-full h-48 w-48 active:text-primary "
+                                            />                                            <div className="flex flex-col justify-center items-end w-60">
+                                                <IoCreateOutline className=" text-black h-8 w-10 active:text-primary" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    :
+                                    <div className="flex flex-col" onClick={() => { setImageCrop(true) }}                                    >
+                                        <div className="flex flex-col justify-center items-center border-2 border-black rounded-full h-48 w-48 active:text-primary">
+                                            <IoStorefrontOutline className=" h-32 w-32" />
+                                            <div className="flex flex-col justify-center items-end w-60">
+                                                <IoCreateOutline className=" text-black h-8 w-10 active:text-primary" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
                             </div>
                         </div>
                         <div className="mt-4">
@@ -203,7 +217,7 @@ function CreateMyShop() {
                                     value={StoreName}
                                     onChange={(e) => setStoreName(e.target.value)}
                                     required
-                                    className="block w-full  p-2  mt-1 border-gray-300 rounded-md shadow-sm "
+                                    className="block w-full  p-2  mt-1 border border-gray-400 rounded-md shadow-sm "
                                 />
                             </div>
                         </div>
@@ -221,11 +235,11 @@ function CreateMyShop() {
                                     value={StoreLocation}
                                     onChange={(e) => setStoreLocation(e.target.value)}
                                     required
-                                    className="block  p-2 w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                                    className="block w-full  p-2  mt-1 border border-gray-400 rounded-md shadow-sm "
                                 />
                             </div>
                         </div>
-                        <div className="mt-4">
+                        {/* <div className="mt-4">
                             <label
                                 htmlFor="password"
                                 className="block text-sm font-medium text-gray-700 undefined"
@@ -239,13 +253,13 @@ function CreateMyShop() {
                                     value={StoreType}
                                     onChange={(e) => setStoreType(e.target.value)}
                                     required
-                                    className="block  p-2 w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                                    className="block w-full  p-2  mt-1 border border-gray-400 rounded-md shadow-sm "
                                 />
                             </div>
-                        </div>
+                        </div> */}
                         <div className="my-10 flex justify-center">
                             <div
-                                onClick={() => handleSubmit({ StoreName, StoreLocation, StoreType })}
+                                onClick={() => handleSubmit({ StoreName, StoreLocation })}
                                 className="flex justify-center items-center px-4 py-2 w-full max-w-xs text-xs font-semibold tracking-widest text-white uppercase transition duration-150 ease-in-out bg-gray-900 border border-transparent rounded-md active:bg-gray-900 false"
                             >Continue
                             </div>
@@ -254,7 +268,7 @@ function CreateMyShop() {
                 </div>
             </div>
             <BottomBar />
-        </>
+        </div>
     )
 }
 
