@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import BottomBar from "./BottomBar";
+import BottomBar from "../Navigation/BottomBar";
 import Search from "./Search";
 import {
   IoStorefrontOutline,
   IoChatbubbleEllipsesOutline,
 } from "react-icons/io5";
 import { Link, useParams } from "react-router-dom";
-import { selectedProduct, removeSelectedProduct, setProductStore } from "../redux/actions";
+import { selectedProduct, removeSelectedProduct, setProductStore } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import {
   onSnapshot,
@@ -16,13 +16,12 @@ import {
   getDocs,
   getDoc,
 } from "firebase/firestore";
-import db from "../firebase";
-import NavBar from "./NavBar";
+import db from "../../firebase";
+import NavBar from "../Navigation/NavBar";
 import { v4 as uuidv4 } from "uuid";
-import { useAuth, UserAuth } from "../context/AuthContext";
-import PaymentOption from "./PaymentOption"
+import { useAuth, UserAuth } from "../../context/AuthContext";
 import { async } from "@firebase/util";
-import { setCurrentUser } from '../redux/actions/index';
+import { setCurrentUser } from '../../redux/actions/index';
 
 
 
@@ -345,9 +344,6 @@ function ProductDetails() {
                    </div>
               </div>
               </div>
-              {/* <PaymentOption trigger={paymentOptionBtnPopUp} settrigger={setpaymentOptionBtnPopUp}>
-              </ PaymentOption > */}
-            
             </div>
           </div>
         </div>

@@ -26,6 +26,7 @@ export const removeSelectedProduct = () => {
     type: ActionTypes.REMOVE_SELECTED_PRODUCT,
   };
 };
+
 export const setCurrentUser = (currentUser) => {
   return {
     type: ActionTypes.SET_CURRENT_USER,
@@ -37,5 +38,11 @@ export const setProductStore = (procutStore) => {
   return {
     type: ActionTypes.SET_PRODUCT_STORE,
     payload: procutStore,
+  }
+}
+export const setStoreProducts = (storeProducts) => {
+  return {
+    type: ActionTypes.SET_STORE_PRODUCTS,
+    payload: storeProducts,
   }
 }

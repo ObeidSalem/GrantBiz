@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import BottomBar from "./BottomBar";
+import BottomBar from "../Navigation/BottomBar";
 import Search from "./Search";
 import {
   IoStorefrontOutline,
   IoChatbubbleEllipsesOutline,
 } from "react-icons/io5";
 import { Link, useParams } from "react-router-dom";
-import { selectedProduct, removeSelectedProduct, setProductStore} from "../redux/actions";
+import { selectedProduct, removeSelectedProduct, setProductStore} from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import {
   onSnapshot,
@@ -16,12 +16,12 @@ import {
   getDocs,
   getDoc,
 } from "firebase/firestore";
-import db from "../firebase";
-import NavBar from "./NavBar";
-import { useAuth, UserAuth } from "../context/AuthContext";
-import { setCurrentUser } from "../redux/actions/index";
+import db from "../../firebase";
+import NavBar from "../Navigation/NavBar";
+import { useAuth, UserAuth } from "../../context/AuthContext";
+import { setCurrentUser } from "../../redux/actions/index";
 import { IoStarOutline } from "react-icons/io5";
-import { setProducts } from "../redux/actions";
+import { setProducts } from "../../redux/actions";
 
 
 

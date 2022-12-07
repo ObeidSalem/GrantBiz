@@ -1,16 +1,16 @@
-import firebase from "../firebase";
+import firebase from "../../firebase";
 // import firebase from "firebase/app"
 import "firebase/auth";
 import React, { useRef, useState } from "react";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../../context/AuthContext";
 import { v4 as uuidv4 } from "uuid";
-import { UserAuth } from "../context/AuthContext";
+import { UserAuth } from "../../context/AuthContext";
 import { useNavigate, Link, useParams, useLocation } from "react-router-dom";
 import { GoogleButton } from "react-google-button";
 import { Alert, Button } from "@material-tailwind/react";
 import { collection, doc, setDoc, } from "firebase/firestore";
-import db from "../firebase";
-import GrantBizLogo from "../img/GrantBiz_Logo.png";
+import db from "../../firebase";
+import GrantBizLogo from "../../img/GrantBiz_Logo.png";
 
 export default function Signup() {
   const [loading, setLoading] = useState(false);
@@ -67,7 +67,7 @@ export default function Signup() {
     <>
       <div>
         <div className="flex justify-center  flex-col items-center min-h-screen pt-6 mx-6 sm:justify-center sm:pt-0 bg-background">
-          <div className="w-full px-6 py-4 mt-6 overflow-hidden bg-white shadow-md sm:max-w-md sm:rounded-lg">
+        <div className="w-80 px-6 py-4 overflow-hidden bg-white border border-primary  shadow-md sm:max-w-md rounded-lg">
             <div className="flex justify-center ">
               <Link to="/">
                 <div className=" w-56 ">
@@ -102,7 +102,7 @@ export default function Signup() {
                     value={Name}
                     onChange={(e) => setName(e.target.value)}
                     required
-                    className="block w-full p-2  mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                    className="block w-full p-2  mt-1 border border-gray-400 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                   />
                 </div>
               </div>
@@ -120,7 +120,7 @@ export default function Signup() {
                     value={email}
                     onChange={(e) => setemail(e.target.value)}
                     required
-                    className="block w-full  p-2 mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                    className="block w-full  p-2 mt-1 border border-gray-400 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                   />
                 </div>
               </div>
@@ -138,7 +138,7 @@ export default function Signup() {
                     value={password}
                     onChange={(e) => setpassword(e.target.value)}
                     required
-                    className="block w-full p-2  mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                    className="block w-full p-2  mt-1 border border-gray-400 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                   />
                 </div>
               </div>

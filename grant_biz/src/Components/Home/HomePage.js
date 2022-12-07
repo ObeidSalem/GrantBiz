@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import NavBar from "./NavBar";
+import NavBar from "../Navigation/NavBar";
 import { v4 as uuidv4 } from "uuid";
 
-import db from "../firebase"
+import db from "../../firebase"
 import { onSnapshot, collection, doc, setDoc, getDocs } from "firebase/firestore"
 import { useDispatch, useSelector } from "react-redux";
-import { setProducts } from "../redux/actions";
+import { setProducts } from "../../redux/actions";
 import { Link } from "react-router-dom";
 import ProductDetails from "./ProductDetails"
 import { IoStarOutline } from "react-icons/io5";

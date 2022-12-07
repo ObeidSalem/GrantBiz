@@ -8,17 +8,21 @@ import {
 } from "react-router-dom";
 import "./App.css";
 import "./styles.css";
-import HomePage from "./Components/HomePage";
-import SignIn from "./Components/SignIn";
-import SignUp from "./Components/SignUp";
+import HomePage from "./Components/Home/HomePage";
+import SignIn from "./Components/Auth/SignIn";
+import SignUp from "./Components/Auth/SignUp";
 import Profile from "./Components/Profile";
-import MyShop from "./Components/MyShop";
-import Product from "./Components/Product";
+import MyShop from "./Components/Shop/MyShop";
+import Product from "./Components/Home/Product";
 import Feed from "./Components/Feed";
-import Massages from "./Components/Massages";
+import Massages from "./Components/Order/Orders";
 import Cart from "./Components/Cart";
-import ProductDetails from "./Components/ProductDetails";
-import ForgotPassword from "./Components/ForgotPassword";
+import ProductDetails from "./Components/Home/ProductDetails";
+import ForgotPassword from "./Components/Auth/ForgotPassword";
+import CreateMyShop from "./Components/Shop/CreateMyShop";
+import MenageProduct from "./Components/Shop/MenageProduct";
+import AddProduct from "./Components/Shop/AddProduct";
+
 import { useAuth } from './context/AuthContext';
 import { ThemeProvider } from "@material-tailwind/react";
 import db from "./firebase"
@@ -26,37 +30,42 @@ import { onSnapshot, collection, doc, setDoc, getDocs, getDoc } from "firebase/f
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { setCurrentUser } from './redux/actions/index';
-import CreateMyShop from "./Components/CreateMyShop";
-import StorePage from "./Components/StorePage"
-import PaymentOption from "./Components/PaymentOption";
+import StorePage from "./Components/Home/StorePage"
 
 
 
 function App() {
 
   const currentUser = useSelector((state) => state.currentUser);
-  console.log("currentUser", currentUser)
+  // console.log("currentUser", currentUser)
   const dispatch = useDispatch();
   const { user } = useAuth()
 
   const fetchUser = async () => {
-    const docUsersRef = doc(db, "Users", user.email);
-    const docSnap = await getDoc(docUsersRef);
+    try {
+      const docRef = await doc(db, "Users", user.email);
 
-    if (docSnap.exists()) {
-      console.log("Document data:", docSnap.data());
-      dispatch(setCurrentUser(docSnap.data()))
+      const docSnap = await getDoc(docRef);
 
-    } else {
-      // doc.data() will be undefined in this case
-      console.log("No such document!");
+      if (docSnap.exists()) {
+        // console.log("Document data:", docSnap.data());
+        dispatch(setCurrentUser(docSnap.data()))
+
+      } else {
+        // doc.data() will be undefined in this case
+        console.log("No such document!");
+      }
+      return docSnap.data()
+    } catch (error) {
+      // console.log(error)
     }
-    return docSnap.data()
   }
 
   useEffect(() => {
     try {
-      if(user)fetchUser()
+      if(user){
+        fetchUser()
+      }
     } catch (error) {
       console.log(error)
     }
@@ -75,16 +84,14 @@ function App() {
               <Route path="/Feed" element={<Feed />} />
               <Route path="/Massages" element={<Massages />} />
               <Route path="/Cart" element={<Cart />} />
+              <Route path="/MenageProduct/:email" element={<MenageProduct />} />
+              <Route path="/AddProduct/:email" element={<AddProduct />} />
               <Route path="/product/:productId" element={<ProductDetails />} />
               <Route path="/StorePage/:email" element={<StorePage />} />
               <Route path="/MyShop/:email" element={<MyShop />} />
               <Route path="/MyShop/:email/Create" element={<CreateMyShop />} />
               <Route path="/ForgotPassword" element={<ForgotPassword />} />
-              <Route path="/Product/:id" element={<Product />} />
-              {/* <Route path="/PaymentOption" element={<PaymentOption />} /> */}
-
-              
-              
+              <Route path="/Product/:id" element={<Product />} />        
             </Routes>
           </div>
         </Router>

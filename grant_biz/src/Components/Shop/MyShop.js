@@ -1,15 +1,20 @@
 import React, { useEffect } from 'react'
-import BottomBar from "./BottomBar";
-import NavBar from './NavBar';
+import BottomBar from "../Navigation/BottomBar";
+import NavBar from '../Navigation/NavBar';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { useAuth } from "../context/AuthContext"
+import { useAuth } from "../../context/AuthContext"
 import {
   IoStorefrontOutline,
   IoArrowBackOutline,
   IoExtensionPuzzleOutline,
   IoArrowForwardOutline,
-  IoCalculatorOutline
+  IoCalculatorOutline,
+  IoSettingsOutline,
+  IoBriefcaseOutline,
+  IoBagAddOutline,
+  IoAnalyticsOutline,
+  IoExitOutline,
 } from "react-icons/io5";
 
 // import { useDispatch } from 'react-redux';
@@ -33,10 +38,13 @@ function MyShop() {
               <IoArrowBackOutline className="text-black h-8 w-10 mr-2 active:text-primary" />
             </Link>
             <p className="text-2xl font-semibold w-full">My Shop </p>
+            <Link onClick={() => logOut()} to="/" className=" flex flex-row justify-between">
+              <IoExitOutline className="text-red-600 h-8 w-10 mr-2 active:text-primary" />
+            </Link>
           </div>
           <br />
           {own_store ?
-            <div className="px-6 bg-white md:px-36 lg:px-96">
+            <div className="px-6 bg-white pb-16 md:px-36 lg:px-96">
               <div className="my-0 flex justify-center">
                 <img src={store_avatar} alt={StoreName} className="text-black h-32 w-32 rounded-full active:text-primary" />
               </div>
@@ -53,42 +61,44 @@ function MyShop() {
               </Link>
               <Link className="py-6 flex flex-row justify-between">
                 <div className="flex flex-row justify-start">
-                  <IoCalculatorOutline className="text-black h-8 w-10 mr-2 active:text-primary" />
+                  <IoSettingsOutline className="text-black h-8 w-10 mr-2 active:text-primary" />
                   <p className="text-xl font-semibold ">Edit Store Info</p>
                 </div>
                 <IoArrowForwardOutline className="text-black h-8 w-10 mr-2 active:text-primary" />
               </Link>
-              <Link className="py-6 flex flex-row justify-between">
+              <Link className="py-6 flex flex-row justify-between"  to={`/MenageProduct/${email}`}>
                 <div className="flex flex-row justify-start">
-                  <IoCalculatorOutline className="text-black h-8 w-10 mr-2 active:text-primary" />
+                  <IoBriefcaseOutline className="text-black h-8 w-10 mr-2 active:text-primary" />
                   <p className="text-xl font-semibold ">Products</p>
                 </div>
                 <IoArrowForwardOutline className="text-black h-8 w-10 mr-2 active:text-primary" />
               </Link>
               <Link className="py-6 flex flex-row justify-between">
                 <div className="flex flex-row justify-start">
-                  <IoCalculatorOutline className="text-black h-8 w-10 mr-2 active:text-primary" />
+                  <IoBagAddOutline
+                    className="text-black h-8 w-10 mr-2 active:text-primary" />
                   <p className="text-xl font-semibold ">Post Feed</p>
                 </div>
                 <IoArrowForwardOutline className="text-black h-8 w-10 mr-2 active:text-primary" />
               </Link>
               <Link className="py-6 flex flex-row justify-between">
                 <div className="flex flex-row justify-start">
-                  <IoCalculatorOutline className="text-black h-8 w-10 mr-2 active:text-primary" />
+                  <IoAnalyticsOutline className="text-black h-8 w-10 mr-2 active:text-primary" />
                   <p className="text-xl font-semibold ">Sale Analysis</p>
                 </div>
                 <IoArrowForwardOutline className="text-black h-8 w-10 mr-2 active:text-primary" />
               </Link>
               <Link onClick={() => logOut()} to="/" className="py-6 flex flex-row justify-between">
                 <div className="flex flex-row justify-start">
-                  <IoCalculatorOutline className="text-red-600 h-8 w-10 mr-2 active:text-primary" />
+                  <IoExitOutline
+                    className="text-red-600 h-8 w-10 mr-2 active:text-primary" />
                   <p className="text-xl text-red-600 font-semibold ">Log Out</p>
                 </div>
                 <IoArrowForwardOutline className="text-red-600 h-8 w-10 mr-2 active:text-primary" />
               </Link>
             </div>
             :
-            <div className="px-6 bg-white md:px-36 lg:px-96">
+            <div className="px-6 bg-white  pb-16 md:px-36 lg:px-96">
               <div className="my-10">
                 <IoStorefrontOutline className="text-black h-56 w-full active:text-primary" />
               </div>
@@ -113,7 +123,7 @@ function MyShop() {
           }
         </div>
         :
-        <div className="px-6 bg-white h-screen md:px-36 lg:px-96">
+        <div className="px-6 bg-white h-screen  pb-16 md:px-36 lg:px-96">
           <div className="my-4 flex justify-start align-center">
             <Link to={`/`}>
               <IoArrowBackOutline className="text-black h-8 w-10 mr-2 active:text-primary" />

@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
-import GrantBizLogo from "../img/GrantBiz_Logo.png";
-import { useAuth } from "../context/AuthContext";
+import GrantBizLogo from "../../img/GrantBiz_Logo.png";
+import { useAuth } from "../../context/AuthContext";
 import { Alert } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
 

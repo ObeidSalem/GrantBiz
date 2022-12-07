@@ -1,11 +1,11 @@
 import React from "react";
-import GrantBizLogo from "../img/GrantBiz_Logo.png";
-import Search from "./Search";
+import GrantBizLogo from "../../img/GrantBiz_Logo.png";
+import Search from "../Home/Search";
 import BottomBar from "./BottomBar";
 import { Link } from "react-router-dom";
 import { IoPersonCircleOutline, IoHeartOutline, IoHeartSharp, IoNotificationsOutline, IoNotificationsSharp, IoExitOutline } from "react-icons/io5";
-import { useAuth } from "../context/AuthContext"
-import db from "../firebase"
+import { useAuth } from "../../context/AuthContext"
+import db from "../../firebase"
 import { onSnapshot, collection, doc, setDoc, getDocs, getDoc } from "firebase/firestore"
 import { useSelector } from 'react-redux';
 
@@ -28,7 +28,7 @@ function NavBar() {
           <div className='w-full flex justify-start align-middle  m-only'>
             {user ?
               <>
-                <Link to='/SignIn'>
+                <Link to={`/MyShop/${email}`}>
                   {store_avatar ?
                     <img src={store_avatar} alt="Avatar" className="text-stone-400 h-16 w-full active:text-primary" />
                     :

@@ -1,6 +1,6 @@
 import React, {useEffect}from 'react'
-import BottomBar from "./BottomBar";
-import NavBar from "./NavBar";
+import BottomBar from "./Navigation/BottomBar";
+import NavBar from "./Navigation/NavBar";
 import db from "../firebase"
 import { onSnapshot, collection, doc,deleteDoc, setDoc, getDocs } from "firebase/firestore"
 import { useDispatch, useSelector } from "react-redux";

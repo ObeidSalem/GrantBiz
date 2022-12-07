@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import NavBar from "./NavBar";
+import NavBar from "./Navigation/NavBar";
 import { v4 as uuidv4 } from "uuid";
 
 import db from "../firebase"
@@ -7,7 +7,7 @@ import { onSnapshot, collection, doc, setDoc, getDocs,getDoc } from "firebase/fi
 import { useDispatch, useSelector } from "react-redux";
 import { setProducts } from "../redux/actions";
 import { Link } from "react-router-dom";
-import ProductDetails from "./ProductDetails"
+import ProductDetails from "./Home/ProductDetails"
 import { IoArrowBack, IoStarOutline } from "react-icons/io5";
 import { useAuth, UserAuth } from "../context/AuthContext";
 import { setCurrentUser } from "../redux/actions/index";
