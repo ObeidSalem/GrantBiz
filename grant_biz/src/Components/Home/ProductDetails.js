@@ -138,7 +138,7 @@ function ProductDetails() {
           setError("");
           setLoading(true);
           const response = await setDoc(doc(cartref, cartdata.id), {
-           ...cartdata, image :image, title:title,userphonenumber:phone_number, Type_parameters:Type_parameters , id:cartdata.id 
+           ...cartdata, image :image, title:title,userphonenumber:phone_number,email:user.email ,id:cartdata.id 
           });
          alert("done")
           setLoading(false);
@@ -307,7 +307,7 @@ function ProductDetails() {
             <div className="mx-1">
               {/* desktop version */}
               <div
-                onClick={() => handleSubmit({ image, title, Type_parameters , id: uuidv4() })}
+                onClick={() => handleSubmit({ image, title, id: uuidv4() })}
                 className="bg-white border-2 rounded-full px-4 py-2 md:px-3  text-primary font-bold text-sm border-primary"
               >
                 <input type="button" value="add to cart"></input>

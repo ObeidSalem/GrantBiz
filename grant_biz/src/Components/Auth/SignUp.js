@@ -34,16 +34,17 @@ export default function Signup() {
     try {
       setError("");
       setLoading(true);
-      const responseAuth = await signup(email, password)
       let isnum = /^\d+$/.test(phone_number);
       if(!isnum){
         console.log("not a number")
         alert("please put a valid for number for ex 0115622xxxx")
       }
-      else{
+     
+      const responseAuth = await signup(email, password)
+    
       if (responseAuth.hasOwnProperty('message')) {
         setError(responseAuth.message);
-      }
+      
       refreshPage()
       setLoading(false);
 

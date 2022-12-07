@@ -42,7 +42,8 @@ const Cart = () => {
   }, [])
 
   const renderCartProductsList = cart_products.map((cart_product, index) => {
-    const { title, email, image, Type_parameters,id  } =cart_product;
+    const { title, email, image,id  } =cart_product;
+    console.log(email)
     if (email === user.email)
     return (
       <div className="bg-white" key={index}>
@@ -52,7 +53,7 @@ const Cart = () => {
                 <img className="rounded-lg object-cover h-56 w-min " src={image} alt={title} />
                 <div className=' ml-4'>
                 <div className="font-sans text-2xl">{title}</div>
-                <div className="font-sans text-sm text-gray-400">Size {Type_parameters}</div>
+                {/* <div className="font-sans text-sm text-gray-400">Size {Type_parameters}</div> */}
                 <div className='mt-10 '>
                 <Link
                 className="bg-primary border-2 rounded-full py-2 px-10 md:px-16  text-white font-bold text-sm "
