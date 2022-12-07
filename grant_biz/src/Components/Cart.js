@@ -43,7 +43,6 @@ const Cart = () => {
 
   const renderCartProductsList = cart_products.map((cart_product, index) => {
     const { title, email, image,id  } =cart_product;
-    console.log(email)
     if (email === user.email)
     return (
       <div className="bg-white" key={index}>
