@@ -14,7 +14,7 @@ const BottomBar = () => {
 
   return (
     <div className="fixed bottom-0 w-full bg-white border border-gray-200 m-only">
-      <div className="flex justify-around items-center justify-center w-screen space-x-0">
+      <div className="flex items-center justify-center w-screen space-x-0">
         <NavLink className="text-black py-3 text-sm text-center active:text-primary w-20" to="/" onClick={handleClick}>
           <IoHomeOutline className="text-black h-6 w-full active:text-primary" />
           Home
