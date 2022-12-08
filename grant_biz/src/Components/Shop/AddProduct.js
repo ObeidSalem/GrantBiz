@@ -23,7 +23,7 @@ const AddProduct = () => {
     const { user } = UserAuth()
 
     const currentUser = useSelector((state) => state.currentUser);
-    const { email, store_avatar, StoreName, store_location, store_type } = currentUser
+    const { email, store_avatar, StoreName, store_location, store_type,phone_number } = currentUser
 
     const navigate = useNavigate("");
     const [image, setImage] = useState("");
@@ -125,6 +125,7 @@ const AddProduct = () => {
                 rate:"5",
                 StoreName:StoreName,
                 store_avatar:store_avatar,
+                store_phone_number:phone_number
             }
             console.log("data", data)
             const response = await setDoc(doc(usersRef, id), {

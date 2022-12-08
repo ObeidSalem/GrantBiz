@@ -1,4 +1,4 @@
-import React, {useEffect}from 'react'
+import React, {useEffect,useState}from 'react'
 import BottomBar from "./Navigation/BottomBar";
 import NavBar from "./Navigation/NavBar";
 import db from "../firebase"
@@ -8,6 +8,8 @@ import { setProducts } from "../redux/actions";
 import { Link} from "react-router-dom";
 import { useAuth } from '../context/AuthContext';
 import { async } from '@firebase/util';
+import { Dialog } from "primereact/dialog";
+
 
 
 
@@ -17,6 +19,10 @@ import { async } from '@firebase/util';
 
 const Cart = () => {
     const { user } = useAuth()
+    const [paymentOptionBtnPopUp, setpaymentOptionBtnPopUp] = useState(false);
+    const currentUser = useSelector((state) => state.currentUser);
+    const { phone_number,location } = currentUser;
+
     
 
     const cart_products = useSelector((state) => state.allProducts.products);
@@ -54,25 +60,69 @@ const Cart = () => {
                 <div className="font-sans text-2xl">{title}</div>
                 {/* <div className="font-sans text-sm text-gray-400">Size {Type_parameters}</div> */}
                 <div className='mt-10 '>
-                <Link
-                className="bg-primary border-2 rounded-full py-2 px-10 md:px-16  text-white font-bold text-sm "
-                to="/"
-              >
-                <input type="button" value="buy now"></input>
-              </Link>
+                <div>
+                <button
+                  type="button"
+                  value="buy now"
+                  onClick={() => setpaymentOptionBtnPopUp(true)}
+                  className="bg-primary border-2 rounded-full px-4 py-2 md:px-16  text-white font-bold text-sm"
+                >
+                  buy now
+                </button>
+              </div>
               <button 
-              className='bg-primary border-2 rounded-full py-2 px-10 ml-2 md:px-16  text-white font-bold text-sm'
+              className='bg-red-500 border-2 rounded-full px-4 py-2 md:px-3 ml-16 text-white font-bold text-sm border-red-600'
               onClick={async() =>{await deleteDoc(doc(db,"Cart",id))}}
 
               >
               delete
               </button>
-              {/* <button
-                className="bg-primary border-2 rounded-full py-2 px-10 ml-2 md:px-16  text-white font-bold text-sm "
-                onClick={() =>deleteDoc(doc(db, "Cart", email))}
-              >
-                <input type="button" value="delete" ></input>
-              </button> */}
+              <Dialog
+                  className="absolute h-full w-full top-0 left-0 p-6 bg-gradient-to-b from-primary to-transparent from-slate-200"
+                  visible={paymentOptionBtnPopUp}
+                  onHide={() => setpaymentOptionBtnPopUp(false)}
+                >
+                  <div className="flex flex-row justify-center ">
+                    <div className="flex flex-col w-fit justify-center m-36 p-6  border-2 rounded-xl shadow-lg  bg-white ">
+                      <p className="flex justify-center mb-2 font-bold" >
+                        Choose a payment option
+                      </p>
+                      <p className=" font-bold">your location: {location}</p>
+                      <p className=" font-bold mb-4">your phone number: {phone_number}</p>
+                        
+                      <div>
+                        <button className="bg-primary border-2 rounded-full px-4 py-1 md:px-16  text-white font-bold text-sm">
+                          Online Payment
+                        </button>
+
+                        <button
+                          className="bg-primary border-2 rounded-full px-4 py-1 md:px-16  text-white font-bold text-sm"
+                          // onClick={() => createOrder({ id: uuidv4() })}
+                        >
+                          Cash On Delivery
+                        </button>
+                      </div>
+
+                      <div className="flex flex-col align-items mt-5 w-12">
+                        <div className="flex justify-between  content-around w-72">
+                          <div
+                            onClick={() => setpaymentOptionBtnPopUp(false)}
+                            className="bg-red-500 border-2 rounded-full px-4 py-2 md:px-3  text-white font-bold text-sm border-red-600"
+                          >
+                            Cancel
+                          </div>
+                          <div
+                            // onClick={saveCropImage}
+                            className="bg-white border-2 rounded-full px-4 py-2 md:px-3  text-primary font-bold text-sm border-primary"
+                          >
+                            Change your information
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </Dialog>
+
               </div>
                 </div>
            
@@ -84,6 +134,43 @@ const Cart = () => {
   });
 
 
+    /////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  //         const orderref = collection(db, "Orders");
+  // const navigate = useNavigate("");
+  // const Status = "to be prepared";
+  // async function createOrder(orderData) {
+  //   try {
+  //     setError("");
+  //     setLoading(true);
+  //      console.log("hgi",email)
+  //     const response = await setDoc(doc(orderref, orderData.id), {
+  //       ...orderData,
+  //       price: price,
+  //       image: image,
+  //       title: title,
+  //       id: orderData.id,
+  //       Status: Status,
+  //       userPhoneNumber: phone_number,
+  //       storePhoneNumber: store_phone_number,
+  //       email:email
+  //     });
+  //     alert("done");
+  //     setLoading(false);
+  //     navigate("/")
+  //   } catch (err) {
+  //     // navigate("/");
+  //     console.error(err);
+  //     console.log("cartdata", orderData);
+  //   }
+  // }
+
+
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
 
 
 
@@ -91,7 +178,7 @@ const Cart = () => {
         <div className=''>
            <div> <NavBar /> </div>
            {/* main compponents */}
-           <div className='md:mx-10'>
+           <div className='px-6 pb-20 bg-white md:px-16 lg:px-56'>
             <h1 className=' invisible w-0 h-0 md:visible md:w-fit md:h-fit uppercase text-2xl font-sans'>My cart</h1>
             {/* product detail */}
             <div className=' mb-28'>

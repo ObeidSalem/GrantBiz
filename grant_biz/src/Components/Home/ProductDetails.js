@@ -5,8 +5,12 @@ import {
   IoStorefrontOutline,
   IoChatbubbleEllipsesOutline,
 } from "react-icons/io5";
-import { Link, useParams } from "react-router-dom";
-import { selectedProduct, removeSelectedProduct, setProductStore } from "../../redux/actions";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import {
+  selectedProduct,
+  removeSelectedProduct,
+  setProductStore,
+} from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import {
   onSnapshot,
@@ -21,13 +25,12 @@ import NavBar from "../Navigation/NavBar";
 import { v4 as uuidv4 } from "uuid";
 import { useAuth, UserAuth } from "../../context/AuthContext";
 import { async } from "@firebase/util";
-import { setCurrentUser } from '../../redux/actions/index';
+import { setCurrentUser } from "../../redux/actions/index";
+import { Dialog } from "primereact/dialog";
+import { InputText } from "primereact/inputtext";
 
-
-
-const cash = (true);
-const online_pay = (true);
-
+const cash = true;
+const online_pay = true;
 
 function ProductDetails() {
   const { productId } = useParams();
@@ -56,16 +59,15 @@ function ProductDetails() {
     id,
     rate,
     email,
+    store_phone_number,
   } = product;
-  console.log("product details",product)
+  console.log("product details", product);
   // const [Title, setTitle] = useState(title);
   // const [Image, setImage]= useState(image);
   const [Error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const [Type_parameters, setType_parameters]= useState(type_parameters);
-  const [paymentOptionBtnPopUp, setpaymentOptionBtnPopUp] = useState(false)
-
-
+  const [Type_parameters, setType_parameters] = useState(type_parameters);
+  const [paymentOptionBtnPopUp, setpaymentOptionBtnPopUp] = useState(false);
 
   useEffect(() => {
     if (productId && productId !== "") fetchProductDetail(productId);
@@ -76,7 +78,6 @@ function ProductDetails() {
 
   ///////////////////////////////////////////////////////////////////////////
   const { user } = useAuth();
-
 
   const fetchUser = async () => {
     const docUsersRef = doc(db, "Users", email);
@@ -91,87 +92,98 @@ function ProductDetails() {
     return docSnap.data();
   };
   const procutStore = useSelector((state) => state.productStore);
-   const { StoreLocation, store_avatar, StoreName } = procutStore;
-   console.log("prodductstore",procutStore )
-
+  const { StoreLocation, store_avatar, StoreName } = procutStore;
+  console.log("prodductstore", procutStore);
 
   useEffect(() => {
     if (email) fetchUser(email);
-    else{}
+    else {
+    }
   }, [email]);
   ///////////////////////////////////////////////////////////////////
   // fetch curent user data
- 
-  
-    const fetchCurentUser = async () => {
-      const docUsersRef = doc(db, "Users", user.email);
-      const docSnap = await getDoc(docUsersRef);
-  
-      if (docSnap.exists()) {
-        console.log("Document data:", docSnap.data());
-        dispatch(setCurrentUser(docSnap.data()))
-  
-      } else {
-        // doc.data() will be undefined in this case
-        console.log("No such document!");
-      }
-      return docSnap.data()
-    }
-    const currentUser = useSelector((state) => state.currentUser);
-    const { phone_number } = currentUser;
-    
 
-    useEffect(() => {
-      try {
-        if(email)fetchCurentUser(email)
-      } catch (error) {
-        console.log(error)
-      }
-    }, [email])
-   
- 
- 
+  const fetchCurentUser = async () => {
+    const docUsersRef = doc(db, "Users", user.email);
+    const docSnap = await getDoc(docUsersRef);
+
+    if (docSnap.exists()) {
+      console.log("Document data:", docSnap.data());
+      dispatch(setCurrentUser(docSnap.data()));
+    } else {
+      // doc.data() will be undefined in this case
+      console.log("No such document!");
+    }
+    return docSnap.data();
+  };
+  const currentUser = useSelector((state) => state.currentUser);
+  const { phone_number,location } = currentUser;
+
+  useEffect(() => {
+    try {
+      if (email) fetchCurentUser(email);
+    } catch (error) {
+      console.log(error);
+    }
+  }, [email]);
+
   ///////////////////////////////////////////////////////////////////
   const cartref = collection(db, "Cart");
   async function handleSubmit(cartdata) {
-      try {
-          setError("");
-          setLoading(true);
-          const response = await setDoc(doc(cartref, cartdata.id), {
-           ...cartdata, image :image, title:title,userphonenumber:phone_number,email:user.email ,id:cartdata.id 
-          });
-         alert("done")
-          setLoading(false);
-      } catch (err) {
-          // navigate("/");
-          console.error(err);
-          console.log("cartdata", cartdata)
-      }
-  }
-
-
-
-  /////////////////////////////////////////////////////////////////
-  const orderref = collection(db, "Orders");
-  const Status = "to be prepared"
-  async function createOrder(orderData){
-
     try {
       setError("");
       setLoading(true);
-      console.log("hgi",orderData,phone_number)
-      const response = await setDoc(doc(orderref, orderData.id), {
-        ...orderData,price:price , image:image, title:title, Type_parameters:Type_parameters,id:orderData.id, Status: Status , userPhoneNumber:phone_number
+      const response = await setDoc(doc(cartref, cartdata.id), {
+        ...cartdata,
+        image: image,
+        title: title,
+        userphonenumber: phone_number,
+        email: user.email,
+        id: cartdata.id,
       });
-     alert("done")
+      alert("done");
       setLoading(false);
-  } catch (err) {
+    } catch (err) {
       // navigate("/");
       console.error(err);
-      console.log("cartdata", Type_parameters)
+      console.log("cartdata", cartdata);
+    }
   }
 
-   }
+  /////////////////////////////////////////////////////////////////
+  const orderref = collection(db, "Orders");
+  const navigate = useNavigate("");
+  const Status = "To Conform";
+  const  iscanlce =true;
+  async function createOrder(orderData) {
+    try {
+      setError("");
+      setLoading(true);
+       console.log("hgi",email)
+      const response = await setDoc(doc(orderref, orderData.id), {
+        ...orderData,
+        price: price,
+        image: image,
+        title: title,
+        id: orderData.id,
+        Status: Status,
+        userPhoneNumber: phone_number,
+        storePhoneNumber: store_phone_number,
+        email:email,
+        StoreName:StoreName,
+        store_avatar:store_avatar,
+        adress:location,
+        iscanlce:iscanlce,
+      });
+      alert("done");
+      setLoading(false);
+     // navigate("/")
+    } catch (err) {
+      // navigate("/");
+      console.error(err);
+      console.log("cartdata", orderData);
+    }
+  }
   ////////////////////////////////////////////////////////////////
 
   return (
@@ -209,31 +221,28 @@ function ProductDetails() {
               </div>
               <div className=" w-64">{description}</div>
             </div>
-            <Link to={`/StorePage/${email}`} className="flex-auto border h-24 w-fit rounded-xl p-3">
-            <div className="">
-              <div className="flex justify-start ">
-                <img
-                  className="ml-1 w-20 h-20 rounded-full"
-                  src={store_avatar}
-                  alt="Rounded avatar"
-                ></img>
-                <div className="ml-3">
-                  <div
-                    
-                    className="text-black font-semibold text-lg ml-2"
-                  >
-                    {StoreName}
-                  </div>
-                  {/* <div key={user.email}>{store_avatar}</div> */}
-                  <div
-                 
-                    className="text-black font-semibold text-lg"
-                  >
-                   at {StoreLocation}
+            <Link
+              to={`/StorePage/${email}`}
+              className="flex-auto border h-24 w-fit rounded-xl p-3"
+            >
+              <div className="">
+                <div className="flex justify-start ">
+                  <img
+                    className="ml-1 w-20 h-20 rounded-full"
+                    src={store_avatar}
+                    alt="Rounded avatar"
+                  ></img>
+                  <div className="ml-3">
+                    <div className="text-black font-semibold text-lg ml-2">
+                      {StoreName}
+                    </div>
+                    {/* <div key={user.email}>{store_avatar}</div> */}
+                    <div className="text-black font-semibold text-lg">
+                      at {StoreLocation}
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
             </Link>
           </div>
           <div className="m-5">
@@ -261,9 +270,8 @@ function ProductDetails() {
                 );
               })}
             </div> */}
-            
           </div>
-          
+
           <div className="flex justify-start mt-5">
             {/* <div>
               desktop version
@@ -315,17 +323,67 @@ function ProductDetails() {
             </div>
             <div className="mx-1">
               {/* desktop version */}
-              <div
-                
-              >
-                
-                <button type="button" value="buy now" onClick={() => setpaymentOptionBtnPopUp(true) } className="bg-primary border-2 rounded-full px-4 py-2 md:px-16  text-white font-bold text-sm">buy now</button>
+              <div>
+                <button
+                  type="button"
+                  value="buy now"
+                  onClick={() => setpaymentOptionBtnPopUp(true)}
+                  className="bg-primary border-2 rounded-full px-4 py-2 md:px-16  text-white font-bold text-sm"
+                >
+                  buy now
+                </button>
               </div>
               <div>
+                <Dialog
+                  className="absolute h-full w-full top-0 left-0 p-6 bg-gradient-to-b from-primary to-transparent from-slate-200"
+                  visible={paymentOptionBtnPopUp}
+                  onHide={() => setpaymentOptionBtnPopUp(false)}
+                >
+                  <div className="flex flex-row justify-center ">
+                    <div className="flex flex-col w-fit justify-center m-36 p-6  border-2 rounded-xl shadow-lg  bg-white ">
+                      <p className="flex justify-center mb-2 font-bold" >
+                        Choose a payment option
+                      </p>
+                      <p className=" font-bold">your location: {location}</p>
+                      <p className=" font-bold mb-4">your phone number: {phone_number}</p>
+                        
+                      <div>
+                        <button className="bg-primary border-2 rounded-full px-4 py-1 md:px-16  text-white font-bold text-sm">
+                          Online Payment
+                        </button>
 
-              <div>
+                        <button
+                          className="bg-primary border-2 rounded-full px-4 py-1 md:px-16  text-white font-bold text-sm"
+                          onClick={() => createOrder({ id: uuidv4() })}
+                        >
+                          Cash On Delivery
+                        </button>
+                      </div>
+
+                      <div className="flex flex-col align-items mt-5 w-12">
+                        <div className="flex justify-between  content-around w-72">
+                          <div
+                            onClick={() => setpaymentOptionBtnPopUp(false)}
+                            className="bg-red-500 border-2 rounded-full px-4 py-2 md:px-3  text-white font-bold text-sm border-red-600"
+                          >
+                            Cancel
+                          </div>
+                          <div
+                            // onClick={saveCropImage}
+                            className="bg-white border-2 rounded-full px-4 py-2 md:px-3  text-primary font-bold text-sm border-primary"
+                          >
+                            Change your information
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </Dialog>
+
+                {/* 
+                            <div>
                 <div 
-                //  className="bg-primary border-2 rounded-full px-4 py-1 md:px-16  text-white font-bold text-sm"
+                 className="bg-primary border-2 rounded-full px-4 py-1 md:px-16  text-white font-bold text-sm"
                  >
                   {paymentOptionBtnPopUp ? 
                    <div>
@@ -335,14 +393,14 @@ function ProductDetails() {
 
                     <button 
                  className="bg-primary border-2 rounded-full px-4 py-1 md:px-16  text-white font-bold text-sm"
-                 onClick={() =>createOrder({Type_parameters,id: uuidv4() })}
+                 onClick={() =>createOrder({id: uuidv4() })}
                  >
                     cash on delivry</button>
               </div>
               
                : "" }
                    </div>
-              </div>
+              </div>  */}
               </div>
             </div>
           </div>
@@ -351,6 +409,6 @@ function ProductDetails() {
       <BottomBar />
     </div>
   );
-};
+}
 
 export default ProductDetails;
