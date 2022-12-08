@@ -15,6 +15,8 @@ import {
   IoBagAddOutline,
   IoAnalyticsOutline,
   IoExitOutline,
+  IoClipboardOutline,
+  IoFileTrayOutline,
 } from "react-icons/io5";
 
 // import { useDispatch } from 'react-redux';
@@ -51,14 +53,13 @@ function MyShop() {
               <div className="flex justify-center my-2">
                 <p className="text-2xl font-semibold ">{StoreName}</p>
               </div>
+              <div className="flex justify-center my-2">
+                <p className="text-2xl font-semibold ">{email}</p>
+              </div>
+              {/* <div className="flex justify-center my-2">
+                <p className="text-2xl font-semibold ">{StoreName}</p>
+              </div> */}
               <hr />
-              <Link className="py-6 flex flex-row justify-between">
-                <div className="flex flex-row justify-start">
-                  <IoCalculatorOutline className="text-black h-8 w-10 mr-2 active:text-primary" />
-                  <p className="text-xl font-semibold ">Cashier Mood</p>
-                </div>
-                <IoArrowForwardOutline className="text-black h-8 w-10 mr-2 active:text-primary" />
-              </Link>
               <Link className="py-6 flex flex-row justify-between">
                 <div className="flex flex-row justify-start">
                   <IoSettingsOutline className="text-black h-8 w-10 mr-2 active:text-primary" />
@@ -66,10 +67,24 @@ function MyShop() {
                 </div>
                 <IoArrowForwardOutline className="text-black h-8 w-10 mr-2 active:text-primary" />
               </Link>
+              <Link className="py-6 flex flex-row justify-between"  to={`/ReceivedOrders/${email}`}>
+                <div className="flex flex-row justify-start">
+                  <IoFileTrayOutline className="text-black h-8 w-10 mr-2 active:text-primary" />
+                  <p className="text-xl font-semibold ">Received Orders</p>
+                </div>
+                <IoArrowForwardOutline className="text-black h-8 w-10 mr-2 active:text-primary" />
+              </Link>
               <Link className="py-6 flex flex-row justify-between"  to={`/MenageProduct/${email}`}>
                 <div className="flex flex-row justify-start">
                   <IoBriefcaseOutline className="text-black h-8 w-10 mr-2 active:text-primary" />
                   <p className="text-xl font-semibold ">Products</p>
+                </div>
+                <IoArrowForwardOutline className="text-black h-8 w-10 mr-2 active:text-primary" />
+              </Link>
+              <Link className="py-6 flex flex-row justify-between">
+                <div className="flex flex-row justify-start">
+                  <IoCalculatorOutline className="text-black h-8 w-10 mr-2 active:text-primary" />
+                  <p className="text-xl font-semibold ">Cashier Mood</p>
                 </div>
                 <IoArrowForwardOutline className="text-black h-8 w-10 mr-2 active:text-primary" />
               </Link>

@@ -31,6 +31,7 @@ import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { setCurrentUser } from './redux/actions/index';
 import StorePage from "./Components/Home/StorePage"
+import ReceivedOrders from "./Components/Shop/ReceivedOrders";
 
 
 
@@ -84,6 +85,7 @@ function App() {
               <Route path="/Feed" element={<Feed />} />
               <Route path="/Massages" element={<Massages />} />
               <Route path="/Cart" element={<Cart />} />
+              <Route path="/ReceivedOrders/:email" element={<ReceivedOrders />} />
               <Route path="/MenageProduct/:email" element={<MenageProduct />} />
               <Route path="/AddProduct/:email" element={<AddProduct />} />
               <Route path="/product/:productId" element={<ProductDetails />} />

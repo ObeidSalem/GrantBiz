@@ -61,7 +61,6 @@ function ProductDetails() {
     email,
     store_phone_number,
   } = product;
-  console.log("product details", product);
   // const [Title, setTitle] = useState(title);
   // const [Image, setImage]= useState(image);
   const [Error, setError] = useState("");
@@ -93,7 +92,6 @@ function ProductDetails() {
   };
   const procutStore = useSelector((state) => state.productStore);
   const { StoreLocation, store_avatar, StoreName } = procutStore;
-  console.log("prodductstore", procutStore);
 
   useEffect(() => {
     if (email) fetchUser(email);
@@ -129,51 +127,53 @@ function ProductDetails() {
 
   ///////////////////////////////////////////////////////////////////
   const cartref = collection(db, "Cart");
-  async function handleSubmit(cartdata) {
+  async function handleSubmit(cartData) {
     try {
       setError("");
       setLoading(true);
-      const response = await setDoc(doc(cartref, cartdata.id), {
-        ...cartdata,
+      const response = await setDoc(doc(cartref, cartData.id), {
+        ...cartData,
         image: image,
         title: title,
-        userphonenumber: phone_number,
+        userPhoneNumber: phone_number,
         email: user.email,
-        id: cartdata.id,
+        id: cartData.id,
       });
       alert("done");
       setLoading(false);
     } catch (err) {
       // navigate("/");
       console.error(err);
-      console.log("cartdata", cartdata);
     }
   }
 
   /////////////////////////////////////////////////////////////////
-  const orderref = collection(db, "Orders");
+  const orderRef = collection(db, "Orders");
   const navigate = useNavigate("");
-  const Status = "To Conform";
-  const  iscanlce =true;
   async function createOrder(orderData) {
     try {
       setError("");
       setLoading(true);
        console.log("hgi",email)
-      const response = await setDoc(doc(orderref, orderData.id), {
+      const response = await setDoc(doc(orderRef, orderData.id), {
         ...orderData,
         price: price,
         image: image,
         title: title,
         id: orderData.id,
-        Status: Status,
         userPhoneNumber: phone_number,
         storePhoneNumber: store_phone_number,
-        email:email,
+        sellerEmail:email,
+        customerEmail:user.email,
         StoreName:StoreName,
         store_avatar:store_avatar,
-        adress:location,
-        iscanlce:iscanlce,
+        address:location,
+        isCanceled:false,
+        isConfirmed:false,
+        isShipped:false,
+        isReceivedFromCustomer:false,
+        isReceivedFromSeller:false,
+
       });
       alert("done");
       setLoading(false);
@@ -181,7 +181,6 @@ function ProductDetails() {
     } catch (err) {
       // navigate("/");
       console.error(err);
-      console.log("cartdata", orderData);
     }
   }
   ////////////////////////////////////////////////////////////////

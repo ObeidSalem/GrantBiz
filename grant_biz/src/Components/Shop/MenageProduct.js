@@ -84,7 +84,7 @@ const MenageProduct = () => {
         } catch (error) {
             console.log(error)
         }
-    }, [])
+    }, [products])
 
     return (
         <div className="md:px-36 lg:px-96 bg-white">
