@@ -23,9 +23,9 @@ const BottomBar = () => {
           <IoPlayCircleOutline className="text-black h-6 w-full active:text-primary" /> 
           Feed
         </NavLink>
-        <NavLink className="text-black py-3 text-sm text-center active:text-primary w-20" to="/Massages" onClick={handleClick}>
+        <NavLink className="text-black py-3 text-sm text-center active:text-primary w-20" to="/Order" onClick={handleClick}>
           <IoChatbubblesOutline className="text-black h-6 w-full active:text-primary" />
-          Massages
+          Order
         </NavLink>
         <NavLink className="text-black py-3 text-sm text-center active:text-primary w-20" to="/Cart" onClick={handleClick}>
           <IoCartOutline className="text-black h-6 w-full active:text-primary" />

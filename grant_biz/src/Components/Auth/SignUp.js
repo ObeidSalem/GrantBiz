@@ -21,6 +21,7 @@ export default function Signup() {
   const [phone_number, setphone_number] = useState("");
   const [location, setlocation] = useState("");
   const [Error, setError] = useState("");
+  const [phoneError, setPhoneError] = useState("");  
   const [isOK, setisOK] = useState(false);
   const navigate = useNavigate("");
   const { createAccount } = useAuth();
@@ -33,11 +34,12 @@ export default function Signup() {
   async function handleSubmit(newUser) {
     try {
       setError("");
+      setPhoneError("");
       setLoading(true);
       let isnum = /^\d+$/.test(phone_number);
       if(!isnum){
         console.log("not a number")
-        alert("please put a valid for number for ex 0115622xxxx")
+        setPhoneError("please put a valid for number for eg. 0115622xxxx")
       }
      
       const responseAuth = await signup(email, password)
@@ -45,7 +47,7 @@ export default function Signup() {
       if (responseAuth.hasOwnProperty('message')) {
         setError(responseAuth.message);
       
-      refreshPage()
+     // refreshPage()
       setLoading(false);
 
     }
@@ -87,6 +89,19 @@ export default function Signup() {
                   {Error}
                 </Alert>
               )}
+               
+            </div>
+            <div className="flex w-full flex-col gap-2 rounded">
+              {phoneError && (
+                <Alert
+                  className="bg-red-600 rounded mb-3"
+                  variant="gradient"
+                  color="amber"
+                >
+                  {phoneError}
+                </Alert>
+              )}
+               
             </div>
             <form>
               <div>

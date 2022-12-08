@@ -74,7 +74,7 @@ function NavBar() {
           <div className="flex items-center justify-center ">
             <Link className="p-3 pc-only" to="/">Home</Link>
             <Link className="p-3 pc-only" to="/Feed">Feed</Link>
-            <Link className="p-3 pc-only" to="/Massages">Massages</Link>
+            <Link className="p-3 pc-only" to="/Order">Order</Link>
             <Link className="p-3 pc-only" to="/Cart">Cart</Link>
             <Link className="p-3 pc-only" to={`/MyShop/${email}`}>My shop</Link>
           </div>

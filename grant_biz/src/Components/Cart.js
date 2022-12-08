@@ -9,6 +9,7 @@ import { Link} from "react-router-dom";
 import { useAuth } from '../context/AuthContext';
 import { async } from '@firebase/util';
 import { Dialog } from "primereact/dialog";
+import { IoArrowBackOutline } from 'react-icons/io5';
 
 
 
@@ -49,7 +50,7 @@ const Cart = () => {
 
   const renderCartProductsList = cart_products.map((cart_product, index) => {
     const { title, email, image,id  } =cart_product;
-    if (email === user.email)
+    if (email === user?.email)
     return (
       <div className="bg-white" key={index}>
          {/* <Link to={`/product/${id}`}>  */}
@@ -176,10 +177,15 @@ const Cart = () => {
 
     return (
         <div className=''>
-           <div> <NavBar /> </div>
+           <div className="py-4 flex w-full justify-start align-center ml-4">
+        <Link to={`/`}>
+          <IoArrowBackOutline className="text-black h-8 w-10 mr-2 active:text-primary" />
+        </Link>
+        <p className="text-2xl font-semibold w-full">Back</p>
+      </div>
            {/* main compponents */}
            <div className='px-6 pb-20 bg-white md:px-16 lg:px-56'>
-            <h1 className=' invisible w-0 h-0 md:visible md:w-fit md:h-fit uppercase text-2xl font-sans'>My cart</h1>
+            <h1 className='  md:w-fit md:h-fit uppercase text-2xl font-sans md:px-16'>My cart</h1>
             {/* product detail */}
             <div className=' mb-28'>
                 {renderCartProductsList}

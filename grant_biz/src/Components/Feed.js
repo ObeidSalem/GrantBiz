@@ -77,15 +77,15 @@ function Feed() {
   return (
     <div className="bg-white">
       <NavBar />
-      <div className=" ml-2 inline-flex items-center mt-1 md:invisible">
+      {/* <div className=" ml-2 inline-flex items-center mt-1 md:invisible">
         <Link to="/">
       <IoArrowBack className="h-7 w-7"></IoArrowBack>
       </Link>
       <h1 className="ml-1 text-2xl font-mono font-bold ">Feed</h1>
 
-      </div>
+      </div> */}
       
-      <div className="px-6 pb-20 bg-background md:px-16 lg:px-56">
+      <div className="px-6 pb-20 bg-white md:px-16 lg:px-56">
         <div className="my-4 grid grid-cols-2 gap-6 xl:grid-cols-3 2xl:grid-cols-4 bg-white">
           {renderProductsList}
         </div>
