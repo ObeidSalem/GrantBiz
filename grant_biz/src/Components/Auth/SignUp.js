@@ -39,7 +39,7 @@ export default function Signup() {
       let isnum = /^\d+$/.test(phone_number);
       if(!isnum){
         console.log("not a number")
-        setPhoneError("please put a valid for number for ex 0115622xxxx")
+        setPhoneError("please put a valid for number for eg. 0115622xxxx")
       }
      
       const responseAuth = await signup(email, password)

@@ -97,7 +97,7 @@ const Orders = () => {
         <Link to={`/`}>
           <IoArrowBackOutline className="text-black h-8 w-10 mr-2 active:text-primary" />
         </Link>
-        <p className="text-2xl font-semibold w-full">Received Orders</p>
+        <p className="text-2xl font-semibold w-full">My Orders</p>
       </div>
 
       <div className="h-full w-full flex justify-start align-center overflow">
