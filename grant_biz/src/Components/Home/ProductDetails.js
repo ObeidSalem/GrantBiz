@@ -28,6 +28,7 @@ import { async } from "@firebase/util";
 import { setCurrentUser } from "../../redux/actions/index";
 import { Dialog } from "primereact/dialog";
 import { InputText } from "primereact/inputtext";
+import { Alert, Button } from "@material-tailwind/react";
 
 const cash = true;
 const online_pay = true;
@@ -61,10 +62,11 @@ function ProductDetails() {
     email,
     store_phone_number,
   } = product;
-  console.log("product details", product);
   // const [Title, setTitle] = useState(title);
   // const [Image, setImage]= useState(image);
   const [Error, setError] = useState("");
+  const [massege, setMassege] = useState("");
+  const [cartMassege, setcartMassege] = useState("");
   const [loading, setLoading] = useState(false);
   const [Type_parameters, setType_parameters] = useState(type_parameters);
   const [paymentOptionBtnPopUp, setpaymentOptionBtnPopUp] = useState(false);
@@ -93,7 +95,6 @@ function ProductDetails() {
   };
   const procutStore = useSelector((state) => state.productStore);
   const { StoreLocation, store_avatar, StoreName } = procutStore;
-  console.log("prodductstore", procutStore);
 
   useEffect(() => {
     if (email) fetchUser(email);
@@ -117,7 +118,7 @@ function ProductDetails() {
     return docSnap.data();
   };
   const currentUser = useSelector((state) => state.currentUser);
-  const { phone_number,location } = currentUser;
+  const { phone_number, location } = currentUser;
 
   useEffect(() => {
     try {
@@ -129,59 +130,67 @@ function ProductDetails() {
 
   ///////////////////////////////////////////////////////////////////
   const cartref = collection(db, "Cart");
-  async function handleSubmit(cartdata) {
+  async function handleSubmit(cartData) {
     try {
       setError("");
+      setcartMassege("");
       setLoading(true);
-      const response = await setDoc(doc(cartref, cartdata.id), {
-        ...cartdata,
+      const response = await setDoc(doc(cartref, cartData.id), {
+        ...cartData,
         image: image,
         title: title,
-        userphonenumber: phone_number,
+        userPhoneNumber: phone_number,
         email: user.email,
-        id: cartdata.id,
+        id: cartData.id,
       });
-      alert("done");
+      setcartMassege("has been added to cart");
       setLoading(false);
+      setTimeout(() => {
+        navigate("../Cart"); //this.props.navigation.navigate('')
+      }, 1500);
     } catch (err) {
       // navigate("/");
       console.error(err);
-      console.log("cartdata", cartdata);
     }
   }
 
   /////////////////////////////////////////////////////////////////
-  const orderref = collection(db, "Orders");
+  const orderRef = collection(db, "Orders");
   const navigate = useNavigate("");
-  const Status = "To Conform";
-  const  iscanlce =true;
   async function createOrder(orderData) {
     try {
       setError("");
+      setMassege("");
       setLoading(true);
-       console.log("hgi",email)
-      const response = await setDoc(doc(orderref, orderData.id), {
+      const response = await setDoc(doc(orderRef, orderData.id), {
         ...orderData,
         price: price,
         image: image,
         title: title,
         id: orderData.id,
-        Status: Status,
         userPhoneNumber: phone_number,
         storePhoneNumber: store_phone_number,
-        email:email,
-        StoreName:StoreName,
-        store_avatar:store_avatar,
-        adress:location,
-        iscanlce:iscanlce,
+        sellerEmail: email,
+        customerEmail: user.email,
+        StoreName: StoreName,
+        store_avatar: store_avatar,
+        address: location,
+        isCanceled: false,
+        isConfirmed: false,
+        isShipped: false,
+        isReceivedFromCustomer: false,
+        isReceivedFromSeller: false,
       });
-      alert("done");
+
+      setMassege("your order has been completed");
       setLoading(false);
-     // navigate("/")
+      setTimeout(() => {
+        navigate("/"); //this.props.navigation.navigate('Login')
+      }, 1500);
+      // navigate("/")
     } catch (err) {
       // navigate("/");
       console.error(err);
-      console.log("cartdata", orderData);
     }
   }
   ////////////////////////////////////////////////////////////////
@@ -320,6 +329,15 @@ function ProductDetails() {
               >
                 <input type="button" value="add to cart"></input>
               </div>
+              {cartMassege && (
+                <Alert
+                  className="bg-green-600 w-max px-3 mt-5 rounded-full flex flex-row"
+                  variant="gradient"
+                  color="green"
+                >
+                  {cartMassege}
+                </Alert>
+              )}
             </div>
             <div className="mx-1">
               {/* desktop version */}
@@ -341,12 +359,14 @@ function ProductDetails() {
                 >
                   <div className="flex flex-row justify-center ">
                     <div className="flex flex-col w-fit justify-center m-36 p-6  border-2 rounded-xl shadow-lg  bg-white ">
-                      <p className="flex justify-center mb-2 font-bold" >
+                      <p className="flex justify-center mb-2 font-bold">
                         Choose a payment option
                       </p>
                       <p className=" font-bold">your location: {location}</p>
-                      <p className=" font-bold mb-4">your phone number: {phone_number}</p>
-                        
+                      <p className=" font-bold mb-4">
+                        your phone number: {phone_number}
+                      </p>
+
                       <div>
                         <button className="bg-primary border-2 rounded-full px-4 py-1 md:px-16  text-white font-bold text-sm">
                           Online Payment
@@ -375,6 +395,15 @@ function ProductDetails() {
                             Change your information
                           </div>
                         </div>
+                        {massege && (
+                          <Alert
+                            className="bg-green-600 w-max px-3 mt-5 rounded-full flex flex-row"
+                            variant="gradient"
+                            color="green"
+                          >
+                            {massege}
+                          </Alert>
+                        )}
                       </div>
                     </div>
                   </div>

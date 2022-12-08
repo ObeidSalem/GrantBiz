@@ -15,7 +15,7 @@ import Profile from "./Components/Profile";
 import MyShop from "./Components/Shop/MyShop";
 import Product from "./Components/Home/Product";
 import Feed from "./Components/Feed";
-import Massages from "./Components/Order/Orders";
+import Order from "./Components/Order/Orders";
 import Cart from "./Components/Cart";
 import ProductDetails from "./Components/Home/ProductDetails";
 import ForgotPassword from "./Components/Auth/ForgotPassword";
@@ -82,7 +82,7 @@ function App() {
               <Route path="/SignUp" element={<SignUp />} />
               <Route path="/Profile" element={<Profile />} />
               <Route path="/Feed" element={<Feed />} />
-              <Route path="/Massages" element={<Massages />} />
+              <Route path="/Order" element={<Order />} />
               <Route path="/Cart" element={<Cart />} />
               <Route path="/MenageProduct/:email" element={<MenageProduct />} />
               <Route path="/AddProduct/:email" element={<AddProduct />} />
