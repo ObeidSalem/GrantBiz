@@ -1,365 +1,775 @@
-import React, { useEffect, useState } from 'react'
-import { IoArrowBackOutline, IoCheckmarkCircleOutline, IoCheckmarkCircleSharp, IoDownloadOutline, IoTrashOutline } from 'react-icons/io5'
-import { BsBoxSeam, BsTruck, } from "react-icons/bs";
+import React, { useEffect, useState } from "react";
+import {
+  IoArrowBackOutline,
+  IoCheckmarkCircleOutline,
+  IoCheckmarkCircleSharp,
+  IoDownloadOutline,
+  IoLocationOutline,
+  IoTrashOutline,
+  IoChatbubblesOutline,
+  IoCloseCircleSharp,
+} from "react-icons/io5";
+import { BsBoxSeam, BsTruck } from "react-icons/bs";
 
-import { useDispatch, useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
-import BottomBar from '../Navigation/BottomBar'
-import db from "../../firebase"
-import { onSnapshot, collection, doc, setDoc, getDocs, getDoc, query, where, deleteDoc, updateDoc } from "firebase/firestore"
-import { setStoreProducts } from '../../redux/actions'
-import CurrencyFormat from 'react-currency-format';
-import { UserAuth } from '../../context/AuthContext'
-
-
-
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import BottomBar from "../Navigation/BottomBar";
+import db from "../../firebase";
+import {
+  onSnapshot,
+  collection,
+  doc,
+  setDoc,
+  getDocs,
+  getDoc,
+  query,
+  where,
+  deleteDoc,
+  updateDoc,
+} from "firebase/firestore";
+import { setStoreProducts } from "../../redux/actions";
+import CurrencyFormat from "react-currency-format";
+import { UserAuth } from "../../context/AuthContext";
 
 const ReceivedOrders = () => {
+  const { user } = UserAuth();
 
-    const { user } = UserAuth()
+  const [products, setProducts] = useState([]);
 
-    const [products, setProducts] = useState([]);
+  // const dispatch = useDispatch();
 
-    // const dispatch = useDispatch();
+  const currentUser = useSelector((state) => state.currentUser);
+  const {
+    email,
+    Name,
+    own_store,
+    store_avatar,
+    StoreName,
+    store_location,
+    store_type,
+  } = currentUser;
+  // const products = useSelector((state) => state.storeProducts.products);
+  // console.log("products", products)
 
-    const currentUser = useSelector((state) => state.currentUser);
-    const { email, Name, own_store, store_avatar, StoreName, store_location, store_type } = currentUser
-    // const products = useSelector((state) => state.storeProducts.products);
-    // console.log("products", products)
+  const updateRef = collection(db, "Orders");
 
-    const updateRef = collection(db, "Orders");
+  const fetchOrders = async () => {
+    const q = query(
+      collection(db, "Orders"),
+      where("sellerEmail", "==", user.email)
+    );
 
+    const querySnapshot = await getDocs(q);
+    const data = [];
+    querySnapshot.forEach((doc) => {
+      // doc.data() is never undefined for query doc snapshots
+      // console.log(doc.id, " => ", doc.data());
+      data.push(doc.data());
+    });
+    // console.log("data", data);
+    setProducts(data);
+    // dispatch(setStoreProducts(data))
+  };
 
-    const fetchOrders = async () => {
-
-        const q = query(collection(db, "Orders"), where("sellerEmail", "==", user.email));
-
-        const querySnapshot = await getDocs(q);
-        const data = [];
-        querySnapshot.forEach((doc) => {
-            // doc.data() is never undefined for query doc snapshots
-            // console.log(doc.id, " => ", doc.data());
-            data.push(doc.data())
-        });
-        // console.log("data", data);
-        setProducts(data)
-        // dispatch(setStoreProducts(data))
-
+  useEffect(() => {
+    try {
+      if (user?.email) {
+        fetchOrders();
+      }
+    } catch (error) {
+      console.log(error);
     }
+  }, [user]);
 
+  function refreshPage() {
+    window.location.reload(false);
+  }
 
-    useEffect(() => {
-        try {
-            if (user?.email) {
-                fetchOrders()
-            }
-        } catch (error) {
-            console.log(error)
-        }
-    }, [user])
+  const [Category1, setCategory1] = useState(true);
+  const [Category2, setCategory2] = useState(false);
+  const [Category3, setCategory3] = useState(false);
+  const [Category4, setCategory4] = useState(false);
+  const [Category5, setCategory5] = useState(false);
 
-    const [Category1, setCategory1] = useState(true);
-    const [Category2, setCategory2] = useState(false);
-    const [Category3, setCategory3] = useState(false);
-    const [Category4, setCategory4] = useState(false);
+  const [Primary1, setPrimary1] = useState("text-primary");
+  const [Primary2, setPrimary2] = useState("");
+  const [Primary3, setPrimary3] = useState("");
+  const [Primary4, setPrimary4] = useState("");
+  const [Primary5, setPrimary5] = useState("");
 
-    const [Primary1, setPrimary1] = useState("text-primary");
-    const [Primary2, setPrimary2] = useState("");
-    const [Primary3, setPrimary3] = useState("");
-    const [Primary4, setPrimary4] = useState("");
+  return (
+    <div className="w-screen md:px-36 lg:px-96  bg-white overflow-none">
+      <div className="py-4 flex w-full justify-start align-center">
+        <Link to={`/`}>
+          <IoArrowBackOutline className="text-black h-8 w-10 mr-2 active:text-primary" />
+        </Link>
+        <p className="text-2xl font-semibold w-full">Received Orders</p>
+      </div>
 
-    return (
-        <div className="w-screen md:px-36 lg:px-96  bg-white overflow-none">
-            <div className="py-4 flex w-full justify-start align-center">
-                <Link to={`/`}>
-                    <IoArrowBackOutline className="text-black h-8 w-10 mr-2 active:text-primary" />
-                </Link>
-                <p className="text-2xl font-semibold w-full">Received Orders</p>
+      <div className="h-full w-full flex justify-start align-center overflow">
+        <div className=" w-full p-4 ">
+          <div className="w-full flex justify-between items-center">
+            <div className="w-full flex justify-start items-center">
+              <img
+                src={store_avatar}
+                alt={StoreName}
+                className="text-black h-10 w-10 rounded-full active:text-primary"
+              />
+              <p className="text-lg ml-4">{StoreName}</p>
             </div>
-
-            <div className="h-full w-full flex justify-start align-center overflow">
-                <div className=" w-full p-4 ">
-                    <div className="w-full flex justify-between items-center">
-                        <div className="w-full flex justify-start items-center">
-                            <img src={store_avatar} alt={StoreName}
-                                className="text-black h-10 w-10 rounded-full active:text-primary" />
-                            <p className="text-lg ml-4">{StoreName}</p>
-                        </div>
-
-                    </div>
-                    <div className="h-full w-full flex justify-center align-center ">
-                        <div className="flex w-full items-center justify-between space-x-0 ">
-
-                            <div className={`text-black py-3 text-sm text-center w-20 ${Primary1}`} to="/"
-                                onClick={() => {
-                                    setCategory1(true)
-                                    setCategory2(false)
-                                    setCategory3(false)
-                                    setCategory4(false)
-                                    setPrimary1("text-primary")
-                                    setPrimary2("")
-                                    setPrimary3("")
-                                    setPrimary4("")
-                                }}
-                            >
-                                <IoCheckmarkCircleOutline className={`text-black h-6 w-full ${Primary1}`} />
-                                To Confirm
-                            </div>
-                            <div className={`text-black py-3 text-sm text-center w-20 ${Primary2}`} to="/Feed"
-                                onClick={() => {
-                                    setCategory1(false)
-                                    setCategory2(true)
-                                    setCategory3(false)
-                                    setCategory4(false)
-                                    setPrimary1("")
-                                    setPrimary2("text-primary")
-                                    setPrimary3("")
-                                    setPrimary4("")
-                                }}
-                            >
-                                <BsBoxSeam className={`text-black h-6 w-full ${Primary2}`} />
-                                To Ship
-                            </div>
-                            <div className={`text-black py-3 text-sm text-center w-20 ${Primary3}`} to="/Feed"
-                                onClick={() => {
-                                    setCategory1(false)
-                                    setCategory2(false)
-                                    setCategory3(true)
-                                    setCategory4(false)
-                                    setPrimary1("")
-                                    setPrimary2("")
-                                    setPrimary3("text-primary")
-                                    setPrimary4("")
-                                }}
-                            >
-                                <BsTruck className={`text-black h-6 w-full ${Primary3}`} />
-                                To Receive
-                            </div>
-                            <div className={`text-black py-3 text-sm text-center w-20 ${Primary4}`} to="/Feed"
-                                onClick={() => {
-                                    setCategory1(false)
-                                    setCategory2(false)
-                                    setCategory3(false)
-                                    setCategory4(true)
-                                    setPrimary1("")
-                                    setPrimary2("")
-                                    setPrimary3("")
-                                    setPrimary4("text-primary")
-                                }}
-                            >
-                                <IoCheckmarkCircleSharp className={`text-black h-6 w-full ${Primary4}`} />
-                                Completed
-                            </div>
-                        </div>
-                    </div>
-                </div>
+          </div>
+          <div className="h-full w-full flex justify-center align-center ">
+            <div className="flex w-full items-center justify-between space-x-0 ">
+              <div
+                className={`text-black py-3 text-sm text-center w-20 ${Primary1}`}
+                to="/"
+                onClick={() => {
+                  setCategory1(true);
+                  setCategory2(false);
+                  setCategory3(false);
+                  setCategory4(false);
+                  setCategory5(false);
+                  setPrimary1("text-primary");
+                  setPrimary2("");
+                  setPrimary3("");
+                  setPrimary4("");
+                  setPrimary5("");
+                }}
+              >
+                <IoCheckmarkCircleOutline
+                  className={`text-black h-6 w-full ${Primary1}`}
+                />
+                To Confirm
+              </div>
+              <div
+                className={`text-black py-3 text-sm text-center w-20 ${Primary2}`}
+                to="/Feed"
+                onClick={() => {
+                  setCategory1(false);
+                  setCategory2(true);
+                  setCategory3(false);
+                  setCategory4(false);
+                  setCategory5(false);
+                  setPrimary1("");
+                  setPrimary2("text-primary");
+                  setPrimary3("");
+                  setPrimary4("");
+                  setPrimary5("");
+                }}
+              >
+                <BsBoxSeam className={`text-black h-6 w-full ${Primary2}`} />
+                To Ship
+              </div>
+              <div
+                className={`text-black py-3 text-sm text-center w-20 ${Primary3}`}
+                to="/Feed"
+                onClick={() => {
+                  setCategory1(false);
+                  setCategory2(false);
+                  setCategory3(true);
+                  setCategory4(false);
+                  setCategory5(false);
+                  setPrimary1("");
+                  setPrimary2("");
+                  setPrimary3("text-primary");
+                  setPrimary4("");
+                  setPrimary5("");
+                }}
+              >
+                <BsTruck className={`text-black h-6 w-full ${Primary3}`} />
+                To Receive
+              </div>
+              <div
+                className={`text-black py-3 text-sm text-center w-20 ${Primary4}`}
+                to="/Feed"
+                onClick={() => {
+                  setCategory1(false);
+                  setCategory2(false);
+                  setCategory3(false);
+                  setCategory4(true);
+                  setCategory5(false);
+                  setPrimary1("");
+                  setPrimary2("");
+                  setPrimary3("");
+                  setPrimary4("text-primary");
+                  setPrimary5("");
+                }}
+              >
+                <IoCheckmarkCircleSharp
+                  className={`text-black h-6 w-full ${Primary4}`}
+                />
+                Completed
+              </div>
+              <div
+                className={`text-black py-3 text-sm text-center w-20 ${Primary5}`}
+                to="/Feed"
+                onClick={() => {
+                  setCategory1(false);
+                  setCategory2(false);
+                  setCategory3(false);
+                  setCategory4(false);
+                  setCategory5(true);
+                  setPrimary1("");
+                  setPrimary2("");
+                  setPrimary3("");
+                  setPrimary4("");
+                  setPrimary5("text-red-900");
+                }}
+              >
+                <IoCloseCircleSharp
+                  className={`text-black h-6 w-full ${Primary5}`}
+                />
+                Canceled
+              </div>
             </div>
-
-            <div className="h-full flex flex-col justify-start align-center ">
-                {Category1 ?
-                    <>
-                        {products?.map((product) => {
-                            const { StoreName, description, image, price, rate, title, type, type_parameters, id, isConfirmed } = product
-                            console.log("product", product)
-                            if (isConfirmed == false) {
-                                return (
-                                    <div className="p-4 mx-4 my-2 flex border border-gray-400 rounded-xl " key={id}>
-                                        <div className="w-full flex flex-col justify-between items-center ">
-                                            <div className="w-full flex flex-row justify-start items-center">
-                                                <img src={image} alt={StoreName}
-                                                    className="text-black h-20 w-20 rounded active:text-primary" />
-                                                <div className="w-full flex flex-col">
-                                                    <p className="text-lg ml-4">{title}</p>
-                                                    <p className="text-md ml-4">{type} {type_parameters}</p>
-                                                </div>
-                                                <IoTrashOutline
-                                                    onClick={async () => { await deleteDoc(doc(db, "Products", id)) }}
-                                                    className="text-black h-8 w-10 mr-2 active:text-primary" />
-                                            </div>
-                                            <p className="text-sm w-full ">
-                                                {description}
-                                            </p>
-
-                                            <div className="w-full flex flex-row justify-between">
-                                                <CurrencyFormat value={price} displayType={'text'} thousandSeparator={true} prefix={'RM '} />
-                                                {/* <p className="text-md ">Available Stocks</p> */}
-                                            </div>
-                                            <div
-                                                onClick={async () => {
-                                                    const response = await updateDoc(doc(updateRef, id), {
-                                                        isConfirmed: true,
-                                                    });
-                                                }}
-                                                className="w-40 text-white text-center bg-red-600 p-2 rounded-full">
-                                                Confirm Order
-                                            </div>
-                                        </div>
-                                    </div>
-                                )
-                            }
-                        })}
-                    </>
-                    : ""
-                }
-                {Category2 ?
-                    <>
-                        {products?.map((product, index) => {
-                            const { StoreName, description, image, price, rate, title, type, type_parameters, id, isConfirmed, isShipped } = product
-                            if (isConfirmed === true && isShipped === false) {
-                                return (
-                                    <div className="p-4 mx-4 my-2 flex border border-gray-400 rounded-xl " key={id}>
-                                        <div className="w-full flex flex-col justify-between items-center ">
-                                            <div className="w-full flex flex-row justify-start items-center">
-                                                <img src={image} alt={StoreName}
-                                                    className="text-black h-20 w-20 rounded active:text-primary" />
-                                                <div className="w-full flex flex-col">
-                                                    <p className="text-lg ml-4">{title}</p>
-                                                    <p className="text-md ml-4">{type} {type_parameters}</p>
-                                                </div>
-                                                <IoTrashOutline
-                                                    onClick={async () => { await deleteDoc(doc(db, "Products", id)) }}
-                                                    className="text-black h-8 w-10 mr-2 active:text-primary" />
-                                            </div>
-                                            <p className="text-sm w-full ">
-                                                {description}
-                                            </p>
-
-                                            <div className="w-full flex flex-row justify-between">
-                                                <CurrencyFormat value={price} displayType={'text'} thousandSeparator={true} prefix={'RM '} />
-                                                {/* <p className="text-md ">Available Stocks</p> */}
-                                            </div>
-                                            <div
-                                                onClick={async () => {
-                                                    const response = await updateDoc(doc(updateRef, id), {
-                                                        isShipped: true,
-                                                    });
-                                                }}
-                                                className="w-40 text-white text-center bg-red-600 p-2 rounded-full active:bg-primary">
-                                                Confirm Shipments
-                                            </div>
-                                        </div>
-                                    </div>
-                                )
-                            }
-                        })}
-                    </>
-                    : ""
-                }
-                {Category3 ?
-                    <>
-                        {products?.map((product, index) => {
-                            const { StoreName, description, image, price, rate, title, type, type_parameters, id, isShipped, isReceivedFromSeller, isReceivedFromCustomer } = product
-                            if (isShipped === true && isReceivedFromSeller === false) {
-                                return (
-                                    <>
-                                        {isReceivedFromCustomer ?
-                                            <div className="p-4 mx-4 my-2 flex border border-gray-400 rounded-xl " key={id}>
-                                                <div className="w-full flex flex-col justify-between items-center ">
-                                                    <div className="w-full flex flex-row justify-start items-center">
-                                                        <img src={image} alt={StoreName}
-                                                            className="text-black h-20 w-20 rounded active:text-primary" />
-                                                        <div className="w-full flex flex-col">
-                                                            <p className="text-lg ml-4">{title}</p>
-                                                            <p className="text-md ml-4">{type} {type_parameters}</p>
-                                                        </div>
-                                                        <IoTrashOutline
-                                                            onClick={async () => { await deleteDoc(doc(db, "Products", id)) }}
-                                                            className="text-black h-8 w-10 mr-2 active:text-primary" />
-                                                    </div>
-                                                    <p className="text-sm w-full ">
-                                                        {description}
-                                                    </p>
-
-                                                    <div className="w-full flex flex-row justify-between">
-                                                        <CurrencyFormat value={price} displayType={'text'} thousandSeparator={true} prefix={'RM '} />
-                                                        {/* <p className="text-md ">Available Stocks</p> */}
-                                                    </div>
-                                                    <div
-                                                        onClick={async () => {
-                                                            const response = await updateDoc(doc(updateRef, id), {
-                                                                isReceivedFromSeller: true,
-                                                            });
-                                                        }}
-                                                        className="w-40 text-white text-center bg-red-600 p-2 rounded-full">
-                                                        Confirm Receiving the Money
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            :
-                                            <div className="p-4 mx-4 my-2 flex border border-gray-400 rounded-xl " key={id}>
-                                                <div className="w-full flex flex-col justify-between items-center ">
-                                                    <div className="w-full flex flex-row justify-start items-center">
-                                                        <img src={image} alt={StoreName}
-                                                            className="text-black h-20 w-20 rounded active:text-primary" />
-                                                        <div className="w-full flex flex-col">
-                                                            <p className="text-lg ml-4">{title}</p>
-                                                            <p className="text-md ml-4">{type} {type_parameters}</p>
-                                                        </div>
-                                                        <IoTrashOutline
-                                                            onClick={async () => { await deleteDoc(doc(db, "Products", id)) }}
-                                                            className="text-black h-8 w-10 mr-2 active:text-primary" />
-                                                    </div>
-                                                    <p className="text-sm w-full ">
-                                                        {description}
-                                                    </p>
-
-                                                    <div className="w-full flex flex-row justify-between">
-                                                        <CurrencyFormat value={price} displayType={'text'} thousandSeparator={true} prefix={'RM '} />
-                                                        {/* <p className="text-md ">Available Stocks</p> */}
-                                                    </div>
-                                                    <div className="w-40 text-white text-center bg-red-600 p-2 rounded-full">
-                                                        Pending Customer Confirmation of Receiving
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        }
-                                    </>
-                                )
-                            }
-                        })}
-                    </>
-                    : ""
-                }
-                {Category4 ?
-                    <>
-                        {products?.map((product, index) => {
-                            const { StoreName, description, image, price, rate, title, type, type_parameters, id, isShipped, isReceivedFromSeller, isReceivedFromCustomer } = product
-                            if (isShipped === true && isReceivedFromSeller === true && isReceivedFromCustomer === true) {
-                                return (
-                                    <div className="p-4 mx-4 my-2 flex border border-gray-400 rounded-xl " key={id}>
-                                        <div className="w-full flex flex-col justify-between items-center ">
-                                            <div className="w-full flex flex-row justify-start items-center">
-                                                <img src={image} alt={StoreName}
-                                                    className="text-black h-20 w-20 rounded active:text-primary" />
-                                                <div className="w-full flex flex-col">
-                                                    <p className="text-lg ml-4">{title}</p>
-                                                    <p className="text-md ml-4">{type} {type_parameters}</p>
-                                                </div>
-                                                <IoTrashOutline
-                                                    onClick={async () => { await deleteDoc(doc(db, "Products", id)) }}
-                                                    className="text-black h-8 w-10 mr-2 active:text-primary" />
-                                            </div>
-                                            <p className="text-sm w-full ">
-                                                {description}
-                                            </p>
-
-                                            <div className="w-full flex flex-row justify-between">
-                                                <CurrencyFormat value={price} displayType={'text'} thousandSeparator={true} prefix={'RM '} />
-                                                {/* <p className="text-md ">Available Stocks</p> */}
-                                            </div>
-                                        </div>
-                                    </div>
-                                )
-                            }
-                        })}
-                    </>
-                    : ""
-                }
-            </div>
-
-            <BottomBar />
+          </div>
         </div>
-    )
-}
+      </div>
 
-export default ReceivedOrders
+      <div className="h-full flex flex-col justify-start align-center ">
+        {Category1 ? (
+          <>
+            {products?.map((product) => {
+              const {
+                StoreName,
+                description,
+                image,
+                price,
+                rate,
+                title,
+                type,
+                type_parameters,
+                id,
+                isConfirmed,
+                orderDate,
+                userPhoneNumber,
+                address,
+              } = product;
+              console.log("product", product);
+              if (isConfirmed == false) {
+                return (
+                  <div
+                    className="p-4 mx-4 my-2 flex border border-gray-400 rounded-xl "
+                    key={id}
+                  >
+                    <div className="w-full flex flex-col justify-between items-center ">
+                      <div className="w-full flex flex-row justify-start items-center">
+                        <img
+                          src={image}
+                          alt={StoreName}
+                          className="text-black h-20 w-20 rounded active:text-primary"
+                        />
+                        <div className="w-full flex flex-col ml-12 items-start">
+                          <p className="text-lg ml-4">{title}</p>
+                          <div className="w-full flex flex-row justify-between ml-4">
+                            <CurrencyFormat
+                              value={price}
+                              displayType={"text"}
+                              thousandSeparator={true}
+                              prefix={"RM "}
+                            />
+                          </div>
+                          <div className="w-full flex flex-row justify-between ml-4 text-sm font-medium text-gray-400">
+                            Order Date: {orderDate}
+                          </div>
+                        </div>
+                      </div>
+                      <div className="flex flex-col justify-start items-start">
+                        <div className=" flex-row">
+                          <div className="float-left">
+                            <IoLocationOutline className="w-8 h-8" />
+                            Customer Address :
+                          </div>
+                          <div className="float-right mt-8 ml-2 text-gray-500">
+                            {address}
+                          </div>
+                        </div>
+                        <div className=" flex-row">
+                          <div className="float-left mr-1">
+                            <IoChatbubblesOutline className="w-8 h-8" />
+                            customer phone number:
+                          </div>
+                          <div className="float-right mt-8 ml-2 text-gray-500">
+                            {userPhoneNumber}
+                          </div>
+                        </div>
+
+                        <div
+                          onClick={async () => {
+                            const response = await updateDoc(
+                              doc(updateRef, id),
+                              {
+                                isConfirmed: true,
+                              }
+                            );
+                            refreshPage();
+                          }}
+                          className="w-40 text-white text-center bg-red-600 p-2 rounded-full hover:cursor-pointer"
+                        >
+                          Confirm Order
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                );
+              }
+            })}
+          </>
+        ) : (
+          ""
+        )}
+        {Category2 ? (
+          <>
+            {products?.map((product, index) => {
+              const {
+                StoreName,
+                description,
+                image,
+                price,
+                rate,
+                title,
+                type,
+                type_parameters,
+                id,
+                isConfirmed,
+                isShipped,
+                orderDate,
+                userPhoneNumber,
+                address,
+              } = product;
+              if (isConfirmed === true && isShipped === false) {
+                return (
+                  <div
+                    className="p-4 mx-4 my-2 flex border border-gray-400 rounded-xl "
+                    key={id}
+                  >
+                    <div className="w-full flex flex-col justify-between items-center ">
+                      <div className="w-full flex flex-row justify-start items-center">
+                        <img
+                          src={image}
+                          alt={StoreName}
+                          className="text-black h-24 md:h-40 w-24  md:w-40 rounded active:text-primary"
+                        />
+
+                        <div className="w-full flex flex-col ml-12 items-start">
+                          <p className="text-lg ml-4">{title}</p>
+                          <div className="w-full flex flex-row justify-between ml-4">
+                            <CurrencyFormat
+                              value={price}
+                              displayType={"text"}
+                              thousandSeparator={true}
+                              prefix={"RM "}
+                            />
+                          </div>
+                          <div className="w-full flex flex-row justify-between ml-4 text-sm font-medium text-gray-400">
+                            Order Date: {orderDate}
+                          </div>
+                        </div>
+                        <div
+                          onClick={async () => {
+                            const response = await updateDoc(
+                              doc(updateRef, id),
+                              {
+                                isCanceled: true,
+                                isShipped: true,
+                              }
+                            );
+                            refreshPage();
+                          }}
+                          className="w-40 text-white text-center bg-red-600 p-2 rounded-full hover:cursor-pointer"
+                        >
+                          Cancel
+                        </div>
+                      </div>
+                      <div className="flex flex-col justify-start items-start mt-1">
+                        <div className=" flex-row">
+                          <div className="float-left">
+                            <IoLocationOutline className="w-8 h-8" />
+                            Customer Address :
+                          </div>
+                          <div className="float-right mt-8 ml-2 text-gray-500">
+                            {address}
+                          </div>
+                        </div>
+                        <div className=" flex-row">
+                          <div className="float-left mr-1">
+                            <IoChatbubblesOutline className="w-8 h-8" />
+                            customer phone number:
+                          </div>
+                          <div className="float-right mt-8 ml-2 text-gray-500">
+                            {userPhoneNumber}
+                          </div>
+                        </div>
+                        <div
+                          onClick={async () => {
+                            const response = await updateDoc(
+                              doc(updateRef, id),
+                              {
+                                isShipped: true,
+                              }
+                            );
+                            refreshPage();
+                          }}
+                          className="w-40 text-white text-center bg-red-600 p-2 rounded-full active:bg-primary hover:cursor-pointer"
+                        >
+                          Confirm Shipments
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                );
+              }
+            })}
+          </>
+        ) : (
+          ""
+        )}
+        {Category3 ? (
+          <>
+            {products?.map((product, index) => {
+              const {
+                StoreName,
+                description,
+                image,
+                price,
+                rate,
+                title,
+                type,
+                type_parameters,
+                id,
+                isShipped,
+                isReceivedFromSeller,
+                isReceivedFromCustomer,
+                orderDate,
+                userPhoneNumber,
+                address,
+                isCanceled,
+              } = product;
+              if (
+                isShipped === true &&
+                isReceivedFromSeller === false &&
+                isCanceled === false
+              ) {
+                return (
+                  <>
+                    {isReceivedFromCustomer ? (
+                      <div
+                        className="p-4 mx-4 my-2 flex border border-gray-400 rounded-xl "
+                        key={id}
+                      >
+                        <div className="w-full flex flex-col justify-between items-center ">
+                          <div className="w-full flex flex-row justify-start items-center">
+                            <img
+                              src={image}
+                              alt={StoreName}
+                              className="text-black h-20 w-20 rounded active:text-primary"
+                            />
+                            <div className="w-full flex flex-col ml-12 items-start">
+                              <p className="text-lg ml-4">{title}</p>
+                              <div className="w-full flex flex-row justify-between ml-4">
+                                <CurrencyFormat
+                                  value={price}
+                                  displayType={"text"}
+                                  thousandSeparator={true}
+                                  prefix={"RM "}
+                                />
+                              </div>
+                              <div className="w-full flex flex-row justify-between ml-4 text-sm font-medium text-gray-400">
+                                Order Date: {orderDate}
+                              </div>
+                            </div>
+                          </div>
+                          <div className="flex flex-col justify-start items-start">
+                            <div className=" flex-row">
+                              <div className="float-left">
+                                <IoLocationOutline className="w-8 h-8" />
+                                Customer Address :
+                              </div>
+                              <div className="float-right mt-8 ml-2 text-gray-500">
+                                {address}
+                              </div>
+                            </div>
+                            <div className=" flex-row">
+                              <div className="float-left mr-1">
+                                <IoChatbubblesOutline className="w-8 h-8" />
+                                customer phone number:
+                              </div>
+                              <div className="float-right mt-8 ml-2 text-gray-500">
+                                {userPhoneNumber}
+                              </div>
+                            </div>
+                            <div
+                              onClick={async () => {
+                                const response = await updateDoc(
+                                  doc(updateRef, id),
+                                  {
+                                    isReceivedFromSeller: true,
+                                  }
+                                );
+                                refreshPage();
+                              }}
+                              className="w-fit text-white text-center bg-red-600 p-2 rounded-full cursor-pointer"
+                            >
+                              Confirm Receiving the Money
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    ) : (
+                      <div
+                        className="p-4 mx-4 my-2 flex border border-gray-400 rounded-xl "
+                        key={id}
+                      >
+                        <div className="w-full flex flex-col justify-between items-center ">
+                          <div className="w-full flex flex-row justify-start items-center">
+                            <img
+                              src={image}
+                              alt={StoreName}
+                              className="text-black h-20 w-20 rounded active:text-primary"
+                            />
+                            <div className="w-full flex flex-col ml-12 items-start">
+                              <p className="text-lg ml-4">{title}</p>
+                              <div className="w-full flex flex-row justify-between ml-4">
+                                <CurrencyFormat
+                                  value={price}
+                                  displayType={"text"}
+                                  thousandSeparator={true}
+                                  prefix={"RM "}
+                                />
+                              </div>
+                              <div className="w-full flex flex-row justify-between ml-4 text-sm font-medium text-gray-400">
+                                Order Date: {orderDate}
+                              </div>
+                            </div>
+                            <div
+                              onClick={async () => {
+                                const response = await updateDoc(
+                                  doc(updateRef, id),
+                                  {
+                                    isCanceled: true,
+                                    isShipped: true,
+                                  }
+                                );
+                                refreshPage();
+                              }}
+                              className="w-40 text-white text-center bg-red-600 p-2 rounded-full hover:cursor-pointer"
+                            >
+                              Cancel
+                            </div>
+                          </div>
+                          <div className="flex flex-col justify-start items-start">
+                            <div className=" flex-row">
+                              <div className="float-left">
+                                <IoLocationOutline className="w-8 h-8" />
+                                Customer Address :
+                              </div>
+                              <div className="float-right mt-8 ml-2 text-gray-500">
+                                {address}
+                              </div>
+                            </div>
+                            <div className=" flex-row">
+                              <div className="float-left mr-1">
+                                <IoChatbubblesOutline className="w-8 h-8" />
+                                customer phone number:
+                              </div>
+                              <div className="float-right mt-8 ml-2 text-gray-500">
+                                {userPhoneNumber}
+                              </div>
+                            </div>
+                            <div className="w-fit text-white text-center  bg-orange-600 p-2 rounded-full">
+                              Pending Customer Confirmation of Receiving
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                  </>
+                );
+              }
+            })}
+          </>
+        ) : (
+          ""
+        )}
+        {Category4 ? (
+          <>
+            {products?.map((product, index) => {
+              const {
+                StoreName,
+                description,
+                image,
+                price,
+                rate,
+                title,
+                type,
+                type_parameters,
+                id,
+                isShipped,
+                isReceivedFromSeller,
+                isReceivedFromCustomer,
+                orderDate,
+                userPhoneNumber,
+                address,
+              } = product;
+              if (
+                isShipped === true &&
+                isReceivedFromSeller === true &&
+                isReceivedFromCustomer === true
+              ) {
+                return (
+                  <>
+                    {" "}
+                    <div className="p-4 mx-4 my-2 flex border border-gray-400 rounded-xl ">
+                      <div className="w-full flex flex-col justify-between items-center">
+                        <div className="w-full flex justify-between items-center mb-4"></div>
+                        <div className="w-full flex flex-row justify-start items-center">
+                          <img
+                            src={image}
+                            alt={StoreName}
+                            className="text-black h-24 md:h-40 w-24  md:w-40 rounded active:text-primary"
+                          />
+                          <div className="w-full flex flex-col ml-12 items-start">
+                            <p className="text-xl font-medium ml-4">{title}</p>
+                            <div className="w-full flex flex-row justify-between ml-4 text-xl font-medium">
+                              <CurrencyFormat
+                                value={price}
+                                displayType={"text"}
+                                thousandSeparator={true}
+                                prefix={"RM "}
+                              />
+                            </div>
+                            <div className="w-full flex flex-row justify-between ml-4 text-sm font-medium text-gray-400">
+                              Order Date: {orderDate}
+                            </div>
+                          </div>
+                        </div>
+                        <div className="flex flex-col justify-start items-start">
+                          <div className=" flex-row">
+                            <div className="float-left">
+                              <IoLocationOutline className="w-8 h-8" />
+                              Address :
+                            </div>
+                            <div className="float-right mt-8 ml-2 text-gray-500">
+                              {address}
+                            </div>
+                          </div>
+                          <div className=" flex-row">
+                            <div className="float-left mr-1">
+                              <IoChatbubblesOutline className="w-8 h-8" />
+                              customer phone number:
+                            </div>
+                            <div className="float-right mt-8 ml-2 text-gray-500">
+                              {userPhoneNumber}
+                            </div>
+                          </div>
+                          <div className=" flex-row">
+                            <div className="float-left mr-1 font-bold text-green-800">
+                              The order has been Completed
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </>
+                );
+              }
+            })}
+          </>
+        ) : (
+          ""
+        )}
+        {Category5 ? (
+          <>
+            {products?.map((product, index) => {
+              const {
+                StoreName,
+                description,
+                image,
+                price,
+                rate,
+                title,
+                type,
+                type_parameters,
+                id,
+                isConfirmed,
+                isShipped,
+                storePhoneNumber,
+                store_avatar,
+                isCanceled,
+                orderDate,
+                address,
+                userPhoneNumber,
+              } = product;
+              if (isCanceled === true && isShipped === true) {
+                return (
+                  <>
+                    <div className="p-4 mx-4 my-2 flex border border-gray-400 rounded-xl ">
+                      <div className="w-full flex flex-col justify-between items-center">
+                        <div className="w-full flex justify-between items-center mb-4"></div>
+                        <div className="w-full flex flex-row justify-start items-center">
+                          <img
+                            src={image}
+                            alt={StoreName}
+                            className="text-black h-24 md:h-40 w-24  md:w-40 rounded active:text-primary"
+                          />
+                          <div className="w-full flex flex-col ml-12 items-start">
+                            <p className="text-xl font-medium ml-4">{title}</p>
+                            <div className="w-full flex flex-row justify-between ml-4 text-xl font-medium">
+                              <CurrencyFormat
+                                value={price}
+                                displayType={"text"}
+                                thousandSeparator={true}
+                                prefix={"RM "}
+                              />
+                            </div>
+                            <div className="w-full flex flex-row justify-between ml-4 text-sm font-medium text-gray-400">
+                              Order Date: {orderDate}
+                            </div>
+                          </div>
+                        </div>
+                        <div className="flex flex-col justify-start items-start">
+                          <div className=" flex-row">
+                            <div className="float-left">
+                              <IoLocationOutline className="w-8 h-8" />
+                              Address :
+                            </div>
+                            <div className="float-right mt-8 ml-2 text-gray-500">
+                              {address}
+                            </div>
+                          </div>
+                          <div className=" flex-row">
+                            <div className="float-left mr-1">
+                              <IoChatbubblesOutline className="w-8 h-8" />
+                              customer phone number:
+                            </div>
+                            <div className="float-right mt-8 ml-2 text-gray-500">
+                              {userPhoneNumber}
+                            </div>
+                          </div>
+                          <div className=" flex-row">
+                            <div className="float-left mr-1 font-bold text-red-800">
+                              The order has been canceled
+                            </div>
+                            {/* <div className="float-left mr-1 font-bold text-red-800">
+                              ,Please contact the customer for further information
+                            </div> */}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </>
+                );
+              }
+            })}
+          </>
+        ) : (
+          ""
+        )}
+      </div>
+
+      <BottomBar />
+    </div>
+  );
+};
+
+export default ReceivedOrders;

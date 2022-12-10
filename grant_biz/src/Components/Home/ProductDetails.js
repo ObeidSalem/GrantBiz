@@ -157,6 +157,7 @@ function ProductDetails() {
   /////////////////////////////////////////////////////////////////
   const orderRef = collection(db, "Orders");
   const navigate = useNavigate("");
+  const showDate = new Date();
   async function createOrder(orderData) {
     try {
       setError("");
@@ -180,6 +181,7 @@ function ProductDetails() {
         isShipped: false,
         isReceivedFromCustomer: false,
         isReceivedFromSeller: false,
+        orderDate: showDate.getDate()+"/"+showDate.getMonth()+"/"+showDate.getFullYear()+" "+showDate.getHours()+":"+showDate.getMinutes()
       });
 
       setMassege("your order has been completed");

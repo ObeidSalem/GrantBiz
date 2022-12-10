@@ -244,6 +244,7 @@ const Orders = () => {
                 isConfirmed,
                 store_avatar,
                 storePhoneNumber,
+                orderDate,
               } = product;
               //   console.log("product", product);
               if (isConfirmed == false) {
@@ -291,6 +292,9 @@ const Orders = () => {
                                 thousandSeparator={true}
                                 prefix={"RM "}
                               />
+                            </div>
+                            <div className="w-full flex flex-row justify-between ml-4 text-sm font-medium text-gray-400" >
+                              Order Date: {orderDate}
                             </div>
                           </div>
                         </div>
@@ -346,6 +350,7 @@ const Orders = () => {
                 isShipped,
                 storePhoneNumber,
                 store_avatar,
+                orderDate,
               } = product;
               if (isConfirmed === true && isShipped === false) {
                 return (
@@ -377,6 +382,9 @@ const Orders = () => {
                                 thousandSeparator={true}
                                 prefix={"RM "}
                               />
+                            </div>
+                            <div className="w-full flex flex-row justify-between ml-4 text-sm font-medium text-gray-400" >
+                              Order Date: {orderDate}
                             </div>
                           </div>
                         </div>
@@ -433,6 +441,7 @@ const Orders = () => {
                 isReceivedFromCustomer,
                 storePhoneNumber,
                 store_avatar,
+                orderDate,
               } = product;
               if (isShipped === true && isReceivedFromSeller === false) {
                 return (
@@ -469,6 +478,9 @@ const Orders = () => {
                                     prefix={"RM "}
                                   />
                                 </div>
+                                <div className="w-full flex flex-row justify-between ml-4 text-sm font-medium text-gray-400" >
+                              Order Date: {orderDate}
+                            </div>
                               </div>
                             </div>
                             <div className="flex flex-col justify-start items-start">
@@ -548,6 +560,9 @@ const Orders = () => {
                                     prefix={"RM "}
                                   />
                                 </div>
+                                <div className="w-full flex flex-row justify-between ml-4 text-sm font-medium text-gray-400" >
+                              Order Date: {orderDate}
+                            </div>
                               </div>
                             </div>
                             <div className="flex flex-col justify-start items-start">
@@ -602,6 +617,7 @@ const Orders = () => {
                 storePhoneNumber,
                 store_avatar,
                 isCanceled,
+                orderDate,
               } = product;
               if (
                 isShipped === true &&
@@ -612,16 +628,7 @@ const Orders = () => {
                   <>
                     <div className="p-4 mx-4 my-2 flex border border-gray-400 rounded-xl ">
                       <div className="w-full flex flex-col justify-between items-center">
-                        <div className="w-full flex justify-between items-center mb-4">
-                          <div className="w-full flex justify-start items-center">
-                            <img
-                              src={store_avatar}
-                              alt={StoreName}
-                              className="text-black h-10 w-10 rounded-full active:text-primary"
-                            />
-                            <p className="text-lg ml-4">{StoreName}</p>
-                          </div>
-                        </div>
+                       
                         <div className="w-full flex flex-row justify-start items-center">
                           <img
                             src={image}
@@ -637,6 +644,9 @@ const Orders = () => {
                                 thousandSeparator={true}
                                 prefix={"RM "}
                               />
+                            </div>
+                            <div className="w-full flex flex-row justify-between ml-4 text-sm font-medium text-gray-400" >
+                              Order Date: {orderDate}
                             </div>
                           </div>
                         </div>
@@ -661,7 +671,7 @@ const Orders = () => {
                           </div>
                           <div className=" flex-row">
                             <div className="float-left mr-1 font-bold text-green-800">
-                              your order has been Completed
+                              Your order has been Completed
                             </div>
                           </div>
                         </div>
@@ -693,6 +703,7 @@ const Orders = () => {
                 storePhoneNumber,
                 store_avatar,
                 isCanceled,
+                orderDate,
               } = product;
               if (isCanceled === true && isShipped === true) {
                 return (
@@ -724,6 +735,9 @@ const Orders = () => {
                                 thousandSeparator={true}
                                 prefix={"RM "}
                               />
+                            </div>
+                            <div className="w-full flex flex-row justify-between ml-4 text-sm font-medium text-gray-400" >
+                              Order Date: {orderDate}
                             </div>
                           </div>
                         </div>
