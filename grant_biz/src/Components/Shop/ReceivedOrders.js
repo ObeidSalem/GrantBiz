@@ -225,7 +225,7 @@ const ReceivedOrders = () => {
                                             </p>
 
                                             <div className="w-full flex flex-row justify-between">
-                                                <CurrencyFormat value={price} displayType={'text'} thousandSeparator={true} prefix={'RM '} />
+                                                <CurrencyFormat className="font-sans	text-md" value={price} displayType={'text'} thousandSeparator={true} prefix={'RM '} />
                                                 {/* <p className="text-md ">Available Stocks</p> */}
                                             </div>
                                             <div

@@ -168,11 +168,11 @@ function CreateMyShop() {
                                                 <div className="flex justify-between  content-around w-72 overflow-x">
                                                     <div
                                                         onClick={() => setImageCrop(false)}
-                                                        className="flex justify-center items-center px-4 py-2 w-20 max-w-xs text-xs font-semibold tracking-widest text-white uppercase transition duration-150 ease-in-out bg-gray-900 border border-transparent rounded-md active:bg-gray-900 false"
+                                                        className="flex justify-center items-center cursor-pointer px-4 py-2 w-20 max-w-xs text-xs font-semibold tracking-widest text-white uppercase transition duration-150 ease-in-out bg-gray-900 border border-transparent rounded-md active:bg-gray-900 false"
                                                     >Cancel</div>
                                                     <div
                                                         onClick={saveCropImage}
-                                                        className="flex justify-center items-center px-4 py-2 w-20 max-w-xs text-xs font-semibold tracking-widest text-white uppercase transition duration-150 ease-in-out bg-gray-900 border border-transparent rounded-md active:bg-gray-900 false"
+                                                        className="flex justify-center items-center cursor-pointer px-4 py-2 w-20 max-w-xs text-xs font-semibold tracking-widest text-white uppercase transition duration-150 ease-in-out bg-gray-900 border border-transparent rounded-md active:bg-gray-900 false"
                                                     >Save</div>
                                                 </div>
                                             </div>

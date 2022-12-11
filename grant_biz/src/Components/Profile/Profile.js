@@ -18,6 +18,7 @@ import {
   IoClipboardOutline,
   IoFileTrayOutline,
   IoCreateOutline,
+  IoPersonOutline,
 } from "react-icons/io5";
 
 
@@ -32,19 +33,19 @@ import { getStorage, ref, uploadBytes, uploadBytesResumable, getDownloadURL } fr
 // import { useDispatch } from 'react-redux';
 // import { setCurrentUser } from './redux/actions/index';
 
-function MyShop() {
+function Profile() {
   const { user, logOut } = useAuth()
 
   const { userId } = useParams();
 
   const currentUser = useSelector((state) => state.currentUser);
   console.log("currentUser", currentUser)
-  const { email, Name, own_store, store_avatar, StoreName, StoreLocation, store_type } = currentUser
-  
-  const [storeName, setStoreName] = useState(StoreName);
-  const [storeLocation, setStoreLocation] = useState(StoreLocation);
+  const { email, Name, own_store, profile_avatar, location, store_type } = currentUser
 
-  const [image, setImage] = useState(store_avatar);
+  const [storeName, setStoreName] = useState(Name);
+  const [storeLocation, setStoreLocation] = useState(location);
+
+  const [image, setImage] = useState(profile_avatar);
   const [imageCrop, setImageCrop] = useState(false);
   const [src, setSrc] = useState(false);
   const [profile, setProfile] = useState([]);
@@ -70,7 +71,7 @@ function MyShop() {
   };
 
   const storage = getStorage();
-  const storageRef = ref(storage, `/StoreAvatars/${StoreName}`);
+  const storageRef = ref(storage, `/StoreAvatars/${Name}`);
 
   const saveCropImage = () => {
     console.log("image", { image })
@@ -82,7 +83,7 @@ function MyShop() {
   async function handleSubmit() {
     try {
       const response = await updateDoc(doc(usersRef, email), {
-        store_avatar: image, StoreName:storeName, StoreLocation:storeLocation, 
+        profile_avatar: image, Name: storeName, location: storeLocation,
       });
       // refreshPage()
       setImageCrop(false)
@@ -100,7 +101,7 @@ function MyShop() {
             <Link to={`/`}>
               <IoArrowBackOutline className="text-black h-8 w-10 mr-2 active:text-primary" />
             </Link>
-            <p className="text-2xl font-semibold w-full">My Shop </p>
+            <p className="text-2xl font-semibold w-full">My Profile </p>
 
           </div>
           <br />
@@ -137,7 +138,7 @@ function MyShop() {
                   <div className="flex flex-col items-start border-solid border-black ">
                     <input
                       type="text"
-                      name="StoreName"
+                      name="Name"
                       value={storeName}
                       onChange={(e) => setStoreName(e.target.value)}
                       required
@@ -155,7 +156,7 @@ function MyShop() {
                   <div className="flex flex-col items-start">
                     <input
                       type="text"
-                      name="StoreLocation"
+                      name="location"
                       value={storeLocation}
                       onChange={(e) => setStoreLocation(e.target.value)}
                       required
@@ -182,126 +183,67 @@ function MyShop() {
               </div>
             </div>
           </Dialog>
-          {own_store ?
-            <div className="">
-              <div className="my-0 flex justify-center">
-                {image ?
-                  <div className="flex flex-col" onClick={() => { setImageCrop(true) }}                                    >
-                    <div className="flex flex-col justify-center items-center  h-48 w-48 active:text-primary">
-                      < img
-                        src={image}
-                        alt="Store Avatar"
-                        className="border-stone-400 border-2 border-black  rounded-full h-48 w-48 active:text-primary "
-                      />
-                      <div className="flex flex-col justify-center items-end w-60">
-                        <IoCreateOutline className=" text-black h-8 w-10 active:text-primary" />
-                      </div>
+
+          <div className="">
+            <div className="my-0 flex justify-center">
+              {image ?
+                <div className="flex flex-col" onClick={() => { setImageCrop(true) }}                                    >
+                  <div className="flex flex-col justify-center items-center  h-48 w-48 active:text-primary">
+                    < img
+                      src={image}
+                      alt="Store Avatar"
+                      className="border-stone-400 border-2 border-black  rounded-full h-48 w-48 active:text-primary "
+                    />
+                    <div className="flex flex-col justify-center items-end w-60">
+                      <IoCreateOutline className=" text-black h-8 w-10 active:text-primary" />
                     </div>
                   </div>
-                  :
-                  <div className="flex flex-col" onClick={() => { setImageCrop(true) }}                                    >
-                    <div className="flex flex-col justify-center items-center border-2 border-black rounded-full h-48 w-48 active:text-primary">
-                      <IoStorefrontOutline className=" h-32 w-32" />
-                      <div className="flex flex-col justify-center items-end w-60">
-                        <IoCreateOutline className=" text-black h-8 w-10 active:text-primary" />
-                      </div>
+                </div>
+                :
+                <div className="flex flex-col" onClick={() => { setImageCrop(true) }}                                    >
+                  <div className="flex flex-col justify-center items-center border-2 border-black rounded-full h-48 w-48 active:text-primary">
+                    <IoPersonOutline className=" h-32 w-32" />
+                    <div className="flex flex-col justify-center items-end w-60">
+                      <IoCreateOutline className=" text-black h-8 w-10 active:text-primary" />
                     </div>
                   </div>
-                }
-              </div>
-              <div className="flex justify-center my-2">
-                <p className="text-2xl font-semibold ">{StoreName}</p>
-              </div>
-              <div className="flex justify-center my-2">
-                <p className="text-2xl font-semibold ">{email}</p>
-              </div>
-              <div className="flex justify-center my-2">
-                <p className="text-2xl font-semibold ">{StoreLocation}</p>
-              </div>
-              <hr />
-              <div className="py-6 flex flex-row justify-between">
-                <div className="flex flex-row justify-start" onClick={() => { setImageCrop(true) }}>
-                  <IoSettingsOutline className="text-black h-8 w-10 mr-2 active:text-primary" />
-                  <p className="text-xl font-semibold ">Edit Store Info</p>
                 </div>
-                <IoArrowForwardOutline className="text-black h-8 w-10 mr-2 active:text-primary" />
-              </div>
-              <div className="py-6 flex flex-row justify-between">
-                <div className="flex flex-row justify-start" onClick={() => { setImageCrop(true) }}>
-                  <IoSettingsOutline className="text-black h-8 w-10 mr-2 active:text-primary" />
-                  <p className="text-xl font-semibold ">Edit QR Code</p>
-                </div>
-                <IoArrowForwardOutline className="text-black h-8 w-10 mr-2 active:text-primary" />
-              </div>
-              <Link className="py-6 flex flex-row justify-between" to={`/ReceivedOrders/${email}`}>
-                <div className="flex flex-row justify-start">
-                  <IoFileTrayOutline className="text-black h-8 w-10 mr-2 active:text-primary" />
-                  <p className="text-xl font-semibold ">Received Orders</p>
-                </div>
-                <IoArrowForwardOutline className="text-black h-8 w-10 mr-2 active:text-primary" />
-              </Link>
-              <Link className="py-6 flex flex-row justify-between" to={`/MenageProduct/${email}`}>
-                <div className="flex flex-row justify-start">
-                  <IoBriefcaseOutline className="text-black h-8 w-10 mr-2 active:text-primary" />
-                  <p className="text-xl font-semibold ">Products</p>
-                </div>
-                <IoArrowForwardOutline className="text-black h-8 w-10 mr-2 active:text-primary" />
-              </Link>
-              <Link className="py-6 flex flex-row justify-between">
-                <div className="flex flex-row justify-start">
-                  <IoCalculatorOutline className="text-black h-8 w-10 mr-2 active:text-primary" />
-                  <p className="text-xl font-semibold ">Cashier Mood</p>
-                </div>
-                <IoArrowForwardOutline className="text-black h-8 w-10 mr-2 active:text-primary" />
-              </Link>
-              <Link className="py-6 flex flex-row justify-between">
-                <div className="flex flex-row justify-start">
-                  <IoBagAddOutline
-                    className="text-black h-8 w-10 mr-2 active:text-primary" />
-                  <p className="text-xl font-semibold ">Post Feed</p>
-                </div>
-                <IoArrowForwardOutline className="text-black h-8 w-10 mr-2 active:text-primary" />
-              </Link>
-              <Link className="py-6 flex flex-row justify-between">
-                <div className="flex flex-row justify-start">
-                  <IoAnalyticsOutline className="text-black h-8 w-10 mr-2 active:text-primary" />
-                  <p className="text-xl font-semibold ">Sale Analysis</p>
-                </div>
-                <IoArrowForwardOutline className="text-black h-8 w-10 mr-2 active:text-primary" />
-              </Link>
-              <Link onClick={() => logOut()} to="/" className="py-6 flex flex-row justify-between">
-                <div className="flex flex-row justify-start">
-                  <IoExitOutline
-                    className="text-red-600 h-8 w-10 mr-2 active:text-primary" />
-                  <p className="text-xl text-red-600 font-semibold ">Log Out</p>
-                </div>
-                <IoArrowForwardOutline className="text-red-600 h-8 w-10 mr-2 active:text-primary" />
-              </Link>
+              }
             </div>
-            :
-            <div className="px-6 bg-white  pb-16 md:px-36 lg:px-96">
-              <div className="my-10">
-                <IoStorefrontOutline className="text-black h-56 w-full active:text-primary" />
-              </div>
-              <div className="flex justify-center my-10">
-                <p className="text-2xl font-semibold ">You don't have a shop yet!! </p>
-              </div>
-              <div className="my-10 ">
-                <p className="text-lg font-semibold ">
-                  you can choose to create<br /></p>
-                <ol className="list-decimal ml-4">
-                  <li>E-physical store: have an actual store but with no delivery system</li>
-                  <li>online shop: have delivery system</li>
-                </ol>
-              </div>
-              <div className="my-10 flex justify-center">
-                <Link
-                  className="flex justify-center items-center px-4 py-2 w-full max-w-xs text-xs font-semibold tracking-widest text-white uppercase transition duration-150 ease-in-out bg-gray-900 border border-transparent rounded-md active:bg-gray-900 false"
-                  to={`/MyShop/${email}/Create`}
-                >Create Yor Shop NOW!</Link>
-              </div>
+            <div className="flex justify-center my-2">
+              <p className="text-2xl font-semibold ">{Name}</p>
             </div>
-          }
+            <div className="flex justify-center my-2">
+              <p className="text-2xl font-semibold ">{email}</p>
+            </div>
+            <div className="flex justify-center my-2">
+              <p className="text-2xl font-semibold ">{location}</p>
+            </div>
+            <hr />
+            <div className="py-6 flex flex-row justify-between">
+              <div className="flex flex-row justify-start" onClick={() => { setImageCrop(true) }}>
+                <IoSettingsOutline className="text-black h-8 w-10 mr-2 active:text-primary" />
+                <p className="text-xl font-semibold ">Edit Profile Info</p>
+              </div>
+              <IoArrowForwardOutline className="text-black h-8 w-10 mr-2 active:text-primary" />
+            </div>
+            <Link className="py-6 flex flex-row justify-between" to={`/Order`}>
+              <div className="flex flex-row justify-start">
+                <IoFileTrayOutline className="text-black h-8 w-10 mr-2 active:text-primary" />
+                <p className="text-xl font-semibold ">Track My Orders</p>
+              </div>
+              <IoArrowForwardOutline className="text-black h-8 w-10 mr-2 active:text-primary" />
+            </Link>
+            <Link onClick={() => logOut()} to="/" className="py-6 flex flex-row justify-between">
+              <div className="flex flex-row justify-start">
+                <IoExitOutline
+                  className="text-red-600 h-8 w-10 mr-2 active:text-primary" />
+                <p className="text-xl text-red-600 font-semibold ">Log Out</p>
+              </div>
+              <IoArrowForwardOutline className="text-red-600 h-8 w-10 mr-2 active:text-primary" />
+            </Link>
+          </div>
+
         </div>
         :
         <div className="px-6 bg-white h-screen  pb-16 md:px-36 lg:px-96">
@@ -335,4 +277,4 @@ function MyShop() {
   )
 }
 
-export default MyShop
+export default Profile

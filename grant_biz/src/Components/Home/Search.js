@@ -3,7 +3,7 @@ import React from "react";
 function Search() {
   return (
     <>
-      <div className="flex flex-col ">
+      <div className="flex flex-col w-stretch">
         <div className="flex border border-gray-100 rounded p-3 hover:border-primary">
           <svg
             xmlns="http://www.w3.org/2000/svg"

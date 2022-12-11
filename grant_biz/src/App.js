@@ -11,7 +11,7 @@ import "./styles.css";
 import HomePage from "./Components/Home/HomePage";
 import SignIn from "./Components/Auth/SignIn";
 import SignUp from "./Components/Auth/SignUp";
-import Profile from "./Components/Profile";
+import Profile from "./Components/Profile/Profile";
 import MyShop from "./Components/Shop/MyShop";
 import Product from "./Components/Home/Product";
 import Feed from "./Components/Feed";
