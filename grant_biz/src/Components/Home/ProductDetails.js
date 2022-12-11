@@ -158,7 +158,6 @@ function ProductDetails() {
   const orderRef = collection(db, "Orders");
   const navigate = useNavigate("");
   const showDate = new Date();
-  console.log( showDate.getDate()+"/"+showDate.getMonth()+"/"+showDate.getFullYear()+" "+id)
   async function createOrder(orderData) {
     try {
       setError("");
