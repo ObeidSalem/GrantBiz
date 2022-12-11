@@ -60,9 +60,12 @@ function ProductDetails() {
     // store_name,
     id,
     rate,
+    COD,
+    QR_code,
     email,
     store_phone_number,
   } = product;
+  // console.log("Product", product);
   // const [Title, setTitle] = useState(title);
   // const [Image, setImage]= useState(image);
   const [Error, setError] = useState("");
@@ -158,6 +161,7 @@ function ProductDetails() {
   /////////////////////////////////////////////////////////////////
   const orderRef = collection(db, "Orders");
   const navigate = useNavigate("");
+  let QRPayment = false
   const showDate = new Date();
   async function createOrder(orderData) {
     try {
@@ -182,7 +186,8 @@ function ProductDetails() {
         isShipped: false,
         isReceivedFromCustomer: false,
         isReceivedFromSeller: false,
-        orderDate: showDate.getDate()+"/"+showDate.getMonth()+"/"+showDate.getFullYear()+" "+showDate.getHours()+":"+showDate.getMinutes()
+        QRPayment: QRPayment,
+        orderDate: showDate.getDate() + "/" + showDate.getMonth() + "/" + showDate.getFullYear() + " " + showDate.getHours() + ":" + showDate.getMinutes()
       });
       setMassege("your order has been completed");
       setLoading(false);
@@ -235,12 +240,12 @@ function ProductDetails() {
             </div>
             <Link
               to={`/StorePage/${email}`}
-              className="flex-auto border h-24 w-fit rounded-xl p-3"
+              className="flex-auto border h-24 w-fit rounded-md p-3"
             >
               <div className="">
                 <div className="flex justify-start ">
                   <img
-                    className="ml-1 w-20 h-20 rounded-full"
+                    className="ml-1 w-20 h-20 rounded-md"
                     src={store_avatar}
                     alt="Rounded avatar"
                   ></img>
@@ -268,7 +273,7 @@ function ProductDetails() {
                   
                     <div key={index} className=" mt-5  text-white font-bold text-sm">
                       <input
-                        className="border-2 ml-2 rounded-full bg-primary  h-10 w-28 hover:bg-gray-800  focus:outline-none focus:ring focus:ring-gray-700"
+                        className="border-2 ml-2 rounded-md bg-primary  h-10 w-28 hover:bg-gray-800  focus:outline-none focus:ring focus:ring-gray-700"
                         type="button"
                         value={types}
                         onClick={(e) => setType_parameters(e.target.value)}
@@ -288,7 +293,7 @@ function ProductDetails() {
             {/* <div>
               desktop version
               <Link
-                className="bg-primary border-2 rounded-full px-4 py-1 mt-5 m-2 text-white font-bold text-sm pc-only"
+                className="bg-primary border-2 rounded-md px-4 py-1 mt-5 m-2 text-white font-bold text-sm pc-only"
                 to="/"
               >
                 <input type="button" value="store"></input>
@@ -308,7 +313,7 @@ function ProductDetails() {
             {/* <div>
               desktop 
               <Link
-                className="pc-only bg-primary border-2 rounded-full px-4 py-1 mt-5 m-2 text-white font-bold text-sm "
+                className="pc-only bg-primary border-2 rounded-md px-4 py-1 mt-5 m-2 text-white font-bold text-sm "
                 to="/"
               >
                 <input type="button" value="chat"></input>
@@ -328,13 +333,13 @@ function ProductDetails() {
               {/* desktop version */}
               <div
                 onClick={() => handleSubmit({ image, title, id: uuidv4() })}
-                className="bg-white border-2 rounded-full px-4 py-2 md:px-3  text-primary font-bold text-sm border-primary"
+                className="bg-white border-2 rounded-md px-4 py-2 md:px-3  text-primary font-bold text-sm border-primary"
               >
                 <input type="button" value="add to cart"></input>
               </div>
               {cartMassege && (
                 <Alert
-                  className="bg-green-600 w-max px-3 mt-5 rounded-full flex flex-row"
+                  className="bg-green-600 w-max px-3 mt-5 rounded-md flex flex-row"
                   variant="gradient"
                   color="green"
                 >
@@ -349,7 +354,7 @@ function ProductDetails() {
                   type="button"
                   value="buy now"
                   onClick={() => setpaymentOptionBtnPopUp(true)}
-                  className="bg-primary border-2 rounded-full px-4 py-2 md:px-16  text-white font-bold text-sm"
+                  className="bg-primary border-2 rounded-md px-4 py-2 md:px-16  text-white font-bold text-sm"
                 >
                   buy now
                 </button>
@@ -360,47 +365,55 @@ function ProductDetails() {
                   visible={paymentOptionBtnPopUp}
                   onHide={() => setpaymentOptionBtnPopUp(false)}
                 >
-                  <div className="flex flex-row justify-center ">
-                    <div className="flex flex-col w-fit justify-center m-36 p-6  border-2 rounded-xl shadow-lg  bg-white ">
-                      <p className="flex justify-center mb-2 font-bold">
+                  <div className="flex flex-row justify-center w-full">
+                    <div className="flex flex-col w-full justify-center mt-36 p-4  border-2 rounded-md shadow-lg  bg-white ">
+                      <p className="flex text-lg justify-center mb-2 font-bold">
                         Choose a payment option
                       </p>
-                      <p className=" font-bold">your location: {location}</p>
-                      <p className=" font-bold mb-4">
+                      <p className=" font-semibold">your location: {location}</p>
+                      <p className=" font-semibold mb-4">
                         your phone number: {phone_number}
                       </p>
 
-                      <div>
-                        <button className="bg-primary border-2 rounded-full px-4 py-1 md:px-16  text-white font-bold text-sm">
-                          Online Payment
-                        </button>
+                      <div className="flex justify-start w-full">
+                        {QR_code &&
+                          <button
+                            onClick={() => {
+                              QRPayment = true
+                              createOrder({ id: uuidv4() })
+                            }}
+                            className="bg-primary border-2 w-fit rounded-md px-4 py-1 md:px-16  text-white font-bold text-sm">
+                            QR Code
+                          </button>
+                        }
 
-                        <button
-                          className="bg-primary border-2 rounded-full px-4 py-1 md:px-16  text-white font-bold text-sm"
-                          onClick={() => createOrder({ id: uuidv4() })}
-                        >
-                          Cash On Delivery
-                        </button>
+                        {COD &&
+                          <button
+                            className="bg-primary ml-2 border-2 w-fit rounded-md px-4 py-1 md:px-16  text-white font-bold text-sm"
+                            onClick={() => createOrder({ id: uuidv4() })}
+                          >
+                            Cash On Delivery
+                          </button>
+                        }
                       </div>
 
-                      <div className="flex flex-col align-items mt-5 w-12">
-                        <div className="flex justify-between  content-around w-72">
+                      <div className="flex flex-col align-items mt-5 ">
+                        <div className="flex justify-between w-full">
                           <div
                             onClick={() => setpaymentOptionBtnPopUp(false)}
-                            className="bg-red-500 border-2 rounded-full px-4 py-2 md:px-3  text-white font-bold text-sm border-red-600"
+                            className=" border-2 rounded-md px-4 py-2 md:px-3 text-red-600 font-bold text-sm border-red-600"
                           >
                             Cancel
                           </div>
-                          <div
-                            // onClick={saveCropImage}
-                            className="bg-white border-2 rounded-full px-4 py-2 md:px-3  text-primary font-bold text-sm border-primary"
-                          >
-                            Change your information
-                          </div>
+                          <Link
+                            to={"/Profile"}
+                            className="bg-white w-full border-2 ml-2 rounded-md px-4 py-2 md:px-3  text-primary font-bold text-sm border-primary"
+                          >Update Personal Info:
+                          </Link>
                         </div>
                         {massege && (
                           <Alert
-                            className="bg-green-600 w-max px-3 mt-5 rounded-full flex flex-row"
+                            className="bg-green-600 w-max px-3 mt-5 rounded-md flex flex-row"
                             variant="gradient"
                             color="green"
                           >
@@ -415,16 +428,16 @@ function ProductDetails() {
                 {/* 
                             <div>
                 <div 
-                 className="bg-primary border-2 rounded-full px-4 py-1 md:px-16  text-white font-bold text-sm"
+                 className="bg-primary border-2 rounded-md px-4 py-1 md:px-16  text-white font-bold text-sm"
                  >
                   {paymentOptionBtnPopUp ? 
                    <div>
                 <button 
-                 className="bg-primary border-2 rounded-full px-4 py-1 md:px-16  text-white font-bold text-sm">
+                 className="bg-primary border-2 rounded-md px-4 py-1 md:px-16  text-white font-bold text-sm">
                     pay online</button>
 
                     <button 
-                 className="bg-primary border-2 rounded-full px-4 py-1 md:px-16  text-white font-bold text-sm"
+                 className="bg-primary border-2 rounded-md px-4 py-1 md:px-16  text-white font-bold text-sm"
                  onClick={() =>createOrder({id: uuidv4() })}
                  >
                     cash on delivry</button>

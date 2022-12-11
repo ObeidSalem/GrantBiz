@@ -34,6 +34,8 @@ function CreateMyShop() {
     const [src, setSrc] = useState(false);
     const [profile, setProfile] = useState([]);
     const [pView, setPView] = useState("");
+    const [QRCodeImage, setQRCodeImage] = useState("");
+
 
     const onClose = () => {
         setPView(null)
@@ -50,47 +52,6 @@ function CreateMyShop() {
     const saveCropImage = () => {
         console.log("image", { image })
         setProfile([...profile, { image }])
-
-        const uploadTask = uploadBytesResumable(storageRef, image);
-        uploadTask.on('state_changed', (snapshot) => {
-            // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-            const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-            console.log('Upload is ' + progress + '% done');
-            switch (snapshot.state) {
-                case 'paused':
-                    console.log('Upload is paused');
-                    break;
-                case 'running':
-                    console.log('Upload is running');
-                    break;
-            }
-        },
-            (error) => {
-                // A full list of error codes is available at
-                // https://firebase.google.com/docs/storage/web/handle-errors
-                switch (error.code) {
-                    case 'storage/unauthorized':
-                        // User doesn't have permission to access the object
-                        break;
-                    case 'storage/canceled':
-                        // User canceled the upload
-                        break;
-
-                    // ...
-
-                    case 'storage/unknown':
-                        // Unknown error occurred, inspect error.serverResponse
-                        break;
-                }
-            },
-            () => {
-                // Upload completed successfully, now we can get the download URL
-                getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-                    console.log('File available at', downloadURL);
-                });
-            }
-        );
-
         setImageCrop(false)
     }
 
@@ -110,7 +71,7 @@ function CreateMyShop() {
             setError("");
             setLoading(true);
             const response = await updateDoc(doc(usersRef, email), {
-                ...newStore, own_store: true, store_avatar: image,
+                ...newStore, own_store: true, store_avatar: image, QR_code_image: QRCodeImage,
             });
             if (response.hasOwnProperty('message')) {
                 setError(response.message);
@@ -129,9 +90,31 @@ function CreateMyShop() {
         window.location.reload(false);
     }
 
+    const uploadQRImage = async (e) => {
+        const file = e.target.files[0];
+        const base64 = await convertBase64(file);
+        setQRCodeImage(base64);
+    };
+
+    const convertBase64 = (file) => {
+        return new Promise((resolve, reject) => {
+            const fileReader = new FileReader();
+            fileReader.readAsDataURL(file);
+
+            fileReader.onload = () => {
+                resolve(fileReader.result);
+            };
+
+            fileReader.onerror = (error) => {
+                reject(error);
+            };
+        });
+    };
+
+
     return (
         <div className="w-full">
-            <div className="bg-white h-screen static">
+            <div className="bg-white h-screen static px-6 pb-16 md:px-36 lg:px-96">
                 <div className="px-6 bg-white  pb-16 md:px-36 lg:px-96">
                     <div className="my-10 flex justify-start align-center">
                         <Link to={`/`}><IoArrowBackOutline className="text-black h-8 w-10 mr-2 active:text-primary" /></Link>
@@ -141,6 +124,7 @@ function CreateMyShop() {
                     <form onSubmit={handleSubmit}>
                         <div className="mt-4">
                             <div className="flex justify-center">
+
                                 <Dialog className="absolute h-full w-full top-0 left-0 p-6 bg-gradient-to-b from-primary to-transparent from-slate-200"
                                     visible={imageCrop}
                                     onHide={() => setImageCrop(false)}
@@ -179,6 +163,7 @@ function CreateMyShop() {
                                         </div>
                                     </div>
                                 </Dialog>
+                                
                                 {image ?
                                     <div className="flex flex-col" onClick={() => { setImageCrop(true) }}                                    >
                                         <div className="flex flex-col justify-center items-center  h-48 w-48 active:text-primary">
@@ -203,6 +188,7 @@ function CreateMyShop() {
                                 }
                             </div>
                         </div>
+                        <h1 className="text-lg mt-6 font-semibold">Store Info</h1>
                         <div className="mt-4">
                             <label
                                 htmlFor="email"
@@ -239,6 +225,24 @@ function CreateMyShop() {
                                 />
                             </div>
                         </div>
+                        <div className="flex flex-col " >
+                            <p className="text-lg my-4">Upload QR Code Image</p>
+                            <input
+                                type="file"
+                                accept="/image/*"
+                                // style={{ display: "none" }}
+                                onChange={uploadQRImage}
+                            />
+                            <div className="flex justify-center " >
+                                {QRCodeImage &&
+                                    < img
+                                        src={QRCodeImage}
+                                        alt="QR Code"
+                                        className="border-stone-400 border w-56 mt-4 rounded-2  w-full active:text-primary "
+                                    />
+                                }
+                            </div>
+                        </div>
                         {/* <div className="mt-4">
                             <label
                                 htmlFor="password"
@@ -260,7 +264,7 @@ function CreateMyShop() {
                         <div className="my-10 flex justify-center">
                             <div
                                 onClick={() => handleSubmit({ StoreName, StoreLocation })}
-                                className="flex justify-center items-center px-4 py-2 w-full max-w-xs text-xs font-semibold tracking-widest text-white uppercase transition duration-150 ease-in-out bg-gray-900 border border-transparent rounded-md active:bg-gray-900 false"
+                                className="flex justify-center cursor-pointer items-center px-4 py-2 w-full max-w-xs text-xs font-semibold tracking-widest text-white uppercase transition duration-150 ease-in-out bg-gray-900 border border-transparent rounded-md active:bg-gray-900 false"
                             >Continue
                             </div>
                         </div>

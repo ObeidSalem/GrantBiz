@@ -133,7 +133,7 @@ function Profile() {
                     htmlFor="email"
                     className="block text-sm font-medium text-gray-700 undefined"
                   >
-                    Store Name
+                    Profile Name
                   </label>
                   <div className="flex flex-col items-start border-solid border-black ">
                     <input
@@ -151,7 +151,7 @@ function Profile() {
                     htmlFor="password"
                     className="block text-sm font-medium text-gray-700 undefined"
                   >
-                    Store Location
+                    Home address as a client
                   </label>
                   <div className="flex flex-col items-start">
                     <input
