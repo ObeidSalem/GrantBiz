@@ -226,7 +226,7 @@ export default function Signup() {
                     value={location}
                     onChange={(e) => setlocation(e.target.value)}
                     required
-                    className="block w-full p-2  mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                    className="block w-full p-2  mt-1 border border-gray-400 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                   />
                 </div>
               </div>
@@ -239,12 +239,12 @@ export default function Signup() {
                 </label>
                 <div className="flex flex-col items-start ">
                   <input
-                    type="text"
+                    type="phone"
                     name="phone_number"
                     value={phone_number}
                     onChange={(e) => setphone_number(e.target.value)}
                     required
-                    className="appearance-none block w-full p-2  mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 "
+                    className="appearance-none block w-full p-2  mt-1 border border-gray-400 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                   />
                 </div>
               </div>

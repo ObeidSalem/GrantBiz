@@ -11,35 +11,28 @@ import { useSelector } from 'react-redux';
 
 function NavBar() {
   const { user, logOut } = useAuth()
-  // console.log("user", user)
+  console.log("user", user)
 
   const currentUser = useSelector((state) => state.currentUser);
-  const { email, store_avatar, StoreName, Name } = currentUser
+  const { email, store_avatar, StoreName, Name, profile_avatar } = currentUser
   return (
     <>
       {/* Nav bar */}
-      <div className="elative flex flex-wrap items-center justify-center h-fit px-2 py-3 bg-white border-b-2 border-gray-100">
-
-        {/* logo only shows on PC */}
-        <img src={GrantBizLogo} alt="Logo" className="pc-only md:w-24 md:h-24 ml-0 " />
+      <div className="elative flex flex-wrap items-center justify-between px-6 bg-white md:px-16 lg:px-56 h-fit py-3  border-b-2 border-gray-100">
 
         {/* Mobile version */}
         <div className='flex justify-between align-middle w-screen m-only'>
           <div className='w-full flex justify-start align-middle  m-only'>
             {user ?
               <>
-                <Link to={`/MyShop/${email}`}>
-                  {store_avatar ?
-                    <img src={store_avatar} alt="Avatar" className="text-stone-400 h-16 w-full active:text-primary" />
+                <Link to={`/Profile`}>
+                  {profile_avatar ?
+                    <img src={profile_avatar} alt="Avatar" className="text-stone-400 h-16 w-full active:text-primary" />
                     :
                     <IoPersonCircleOutline className="text-stone-400 h-16 w-full active:text-primary" />
                   }
                 </Link>
-                {StoreName ?
-                  <span className="flex items-center justify-center text-stone-500 px-2">{StoreName}</span>
-                  :
-                  <span className="flex items-center justify-center text-stone-500 px-2">{Name}</span>
-                }
+                <span className="flex items-center justify-center text-stone-500 px-2">{Name}</span>
               </>
               :
               <div className="flex justify-between align-middle w-full ">
@@ -67,7 +60,8 @@ function NavBar() {
             </div>
             : ""}
         </div>
-
+        {/* logo only shows on PC */}
+        <img src={GrantBizLogo} alt="Logo" className="pc-only md:w-24 md:h-24 ml-0 " />
         <div className="flex flex-col px-3 w-full md:w-fit">
 
           {/* nav items PC only */}
@@ -76,36 +70,28 @@ function NavBar() {
             <Link className="p-3 pc-only" to="/Feed">Feed</Link>
             <Link className="p-3 pc-only" to="/Order">Order</Link>
             <Link className="p-3 pc-only" to="/Cart">Cart</Link>
-            <Link className="p-3 pc-only" to={`/MyShop/${email}`}>My shop</Link>
+            <Link className="p-3 pc-only" to={`/MyShop/${email}`}>My Shop</Link>
+            <Link className="p-3 pc-only" to={`/Profile`}>My Profile</Link>
           </div>
 
 
-          <Search />
         </div>
+        {/* <div className="w-fit">
+          <Search />
+        </div> */}
 
         {/* PC version */}
         <div className="flex justify-center pc-only md:justify-end">
           {user ?
             // {/* Logged version */}
             <div className='flex justify-between align-middle'>
-              <div className='flex justify-center'>
+              <div className='flex justify-between'>
                 <div className='flex flex-col justify-center'>
-                  {StoreName ?
-                    <span className="flex items-center justify-center text-stone-500 px-2">{StoreName}</span>
-                    :
-                    <span className="flex items-center justify-center text-stone-500 px-2">{Name}</span>
-                  }
-                  <div className='flex justify-center'>
-                    <IoHeartOutline className="text-stone-400 h-full w-10 px-2 active:text-primary" />
-                    {/* <IoHeartSharp className="text-stone-400 h-full w-10 px-2 active:text-primary"/> */}
-                    <IoNotificationsOutline className="text-stone-400 h-full w-10 px-2 active:text-primary" />
-                    {/* <IoNotificationsSharp className="text-stone-400 h-full w-10 px-2 active:text-primary"/> */}
-                    <IoExitOutline className="text-stone-400 h-full w-10 px-2 active:text-primary" onClick={() => logOut()} />
-                  </div>
+                  <span className="flex items-center justify-center text-stone-500 px-2">{Name}</span>
                 </div>
-                <Link to='/SignIn'>
-                  {store_avatar ?
-                    <img src={store_avatar} alt="Avatar" className="text-stone-400 h-16 w-full active:text-primary" />
+                <Link to='/Profile'>
+                  {profile_avatar ?
+                    <img src={profile_avatar} alt="Avatar" className="text-stone-400 h-16 w-full active:text-primary" />
                     :
                     <IoPersonCircleOutline className="text-stone-400 h-16 w-full active:text-primary" />
                   }
@@ -125,6 +111,11 @@ function NavBar() {
           }
 
         </div>
+
+        {/* just to add margin :) */}
+        <div>
+        </div>
+
       </div>
       <BottomBar />
     </>

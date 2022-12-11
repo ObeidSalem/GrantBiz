@@ -4,6 +4,7 @@ import Search from "./Search";
 import {
   IoStorefrontOutline,
   IoChatbubbleEllipsesOutline,
+  IoArrowBackOutline,
 } from "react-icons/io5";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import {
@@ -197,17 +198,18 @@ function ProductDetails() {
   ////////////////////////////////////////////////////////////////
 
   return (
-    <div>
-      <div className=" bg-gray-50 pb-48">
-        <div className="hidden md:block">
-          <NavBar />
-        </div>
-        <div className=" visible md:invisible md:h-0 md:w-0">
-          <Search />
+    <div className=" pb-20 bg-white md:px-16 lg:px-56">
+      <div className="pb-48">
+        <div className="my-4 flex justify-start align-center">
+          <Link to={`/`}>
+            <IoArrowBackOutline className="text-black h-8 w-10 mr-2 active:text-primary" />
+          </Link>
+          <p className="text-2xl font-semibold w-full">{title} </p>
+
         </div>
         <div className="px-6  m-0 md:px-16 lg:px-56">
           {/* <div className="my-4">{renderCategoryList1}</div> */}
-          <div className="flex flex-wrap mt-4 gap-3">
+          <div className="flex flex-wrap justify-center mt-4 ">
             <div className="flex-auto">
               <img
                 className="rounded-lg object-cover h-5/6 w-96 md:h-96  "

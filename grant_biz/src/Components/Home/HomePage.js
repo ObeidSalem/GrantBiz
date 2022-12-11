@@ -9,6 +9,7 @@ import { setProducts } from "../../redux/actions";
 import { Link } from "react-router-dom";
 import ProductDetails from "./ProductDetails"
 import { IoStarOutline } from "react-icons/io5";
+import CurrencyFormat from "react-currency-format";
 
 
 
@@ -43,17 +44,17 @@ function HomePage() {
       <div className="bg-white" key={index}>
          <Link to={`/product/${id}`}> 
           <div className="">
-            <div className="bg-white hover:bg-secondary rounded-2xl p-2 m-0">
+            <div className="bg-white border-2 shadow-sl  hover:shadow-md rounded-2xl p-2 m-0">
               <div className="">
                 <img className="rounded-lg object-cover h-56 w-full" src={image} alt={title} />
               </div>
               <div className="">
-                <div className="font-sans	">{title}</div>
+                <div className="font-sans	text-2xl">{title}</div>
                 <div className="flex justify-between">
-                <div className="font-sans	">{price}RM</div>
+                <CurrencyFormat className="font-sans	text-md" value={price} displayType={'text'} thousandSeparator={true} prefix={'RM '} />
                 <div className=" flow-root">
-                <div className="font-sans	float-left ">{rate}</div>
-                <IoStarOutline className="float-right w-5 h-5" />
+                {/* <div className="font-sans	float-left ">{rate}</div> */}
+                {/* <IoStarOutline className="float-right w-5 h-5" /> */}
                 </div>
                 </div>
                 
@@ -83,7 +84,7 @@ function HomePage() {
         <div className="my-4">
           {/* {renderCategoryList} */}
         </div>
-        <div className="my-4 grid grid-cols-2 gap-6 xl:grid-cols-3 2xl:grid-cols-4 bg-white">
+        <div className="grid grid-cols-2 gap-2 xl:grid-cols-3 2xl:grid-cols-4 bg-white">
           {renderProductsList}
         </div>
       </div>
