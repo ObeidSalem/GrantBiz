@@ -158,17 +158,18 @@ function ProductDetails() {
   const orderRef = collection(db, "Orders");
   const navigate = useNavigate("");
   const showDate = new Date();
+  console.log( showDate.getDate()+"/"+showDate.getMonth()+"/"+showDate.getFullYear()+" "+id)
   async function createOrder(orderData) {
     try {
       setError("");
       setMassege("");
       setLoading(true);
-      const response = await setDoc(doc(orderRef, orderData.id), {
+      const response = await setDoc(doc(orderRef, `${showDate.getDate()}-${showDate.getMonth()}-${showDate.getFullYear()}-${showDate.getHours()}-${orderData.id}`), {
         ...orderData,
         price: price,
         image: image,
         title: title,
-        id: orderData.id,
+        id: `${showDate.getDate()}-${showDate.getMonth()}-${showDate.getFullYear()}-${showDate.getHours()}-${orderData.id}`,
         userPhoneNumber: phone_number,
         storePhoneNumber: store_phone_number,
         sellerEmail: email,
@@ -183,7 +184,6 @@ function ProductDetails() {
         isReceivedFromSeller: false,
         orderDate: showDate.getDate()+"/"+showDate.getMonth()+"/"+showDate.getFullYear()+" "+showDate.getHours()+":"+showDate.getMinutes()
       });
-
       setMassege("your order has been completed");
       setLoading(false);
       setTimeout(() => {
