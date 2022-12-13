@@ -30,6 +30,7 @@ import { setCurrentUser } from "../../redux/actions/index";
 import { Dialog } from "primereact/dialog";
 import { InputText } from "primereact/inputtext";
 import { Alert, Button } from "@material-tailwind/react";
+import CurrencyFormat from "react-currency-format";
 
 const cash = true;
 const online_pay = true;
@@ -145,7 +146,7 @@ function ProductDetails() {
         title: title,
         userPhoneNumber: phone_number,
         email: user.email,
-        id: cartData.id,
+        // id: cartData.id,
       });
       setcartMassege("has been added to cart");
       setLoading(false);
@@ -173,7 +174,7 @@ function ProductDetails() {
         price: price,
         image: image,
         title: title,
-        id: `${showDate.getDate()}-${showDate.getMonth()}-${showDate.getFullYear()}-${showDate.getHours()}-${orderData.id}`,
+        // id: `${showDate.getDate()}-${showDate.getMonth()}-${showDate.getFullYear()}-${showDate.getHours()}-${orderData.id}`,
         userPhoneNumber: phone_number,
         storePhoneNumber: store_phone_number,
         sellerEmail: email,
@@ -229,10 +230,9 @@ function ProductDetails() {
               <h2 className=" uppercase font-semibold font-mono mb-4 text-gray-600">
                 total price
               </h2>
+              
+              <CurrencyFormat className=" font-semibold	mb-4 text-2xl " value={price} displayType={'text'} thousandSeparator={true} prefix={'RM '} />
 
-              <h2 className="font-serif font-semibold uppercase	mb-4 text-2xl ">
-                RM{price}
-              </h2>
               <div className="font-sans font-semibold uppercase	mb-4 text-2xl">
                 Description
               </div>

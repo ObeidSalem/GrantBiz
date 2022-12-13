@@ -20,6 +20,7 @@ import {
     setDoc,
     getDocs,
     getDoc,
+    updateDoc,
 } from "firebase/firestore";
 import db from "../../firebase";
 import NavBar from "../Navigation/NavBar";
@@ -36,7 +37,7 @@ function ProductDetails() {
     const { productId } = useParams();
 
     const dispatch = useDispatch();
-    const docRef = doc(db, "Products", productId);
+    const docRef = doc(db, "Orders", productId);
     const fetchProductDetail = async (id) => {
         const response = await getDoc(docRef);
         if (response.exists()) {
@@ -61,6 +62,7 @@ function ProductDetails() {
         COD,
         QR_code,
         email,
+        sellerEmail,
         store_phone_number,
     } = product;
     // console.log("Product", product);
@@ -84,7 +86,7 @@ function ProductDetails() {
     const { user } = useAuth();
 
     const fetchUser = async () => {
-        const docUsersRef = doc(db, "Users", email);
+        const docUsersRef = doc(db, "Users", sellerEmail);
         const docSnap = await getDoc(docUsersRef);
 
         if (docSnap.exists()) {
@@ -99,10 +101,10 @@ function ProductDetails() {
     const { StoreLocation, store_avatar, StoreName, QR_code_image } = productStore;
 
     useEffect(() => {
-        if (email) fetchUser(email);
+        if (sellerEmail) fetchUser(sellerEmail);
         else {
         }
-    }, [email]);
+    }, [sellerEmail]);
     ///////////////////////////////////////////////////////////////////
     // fetch curent user data
 
@@ -115,38 +117,14 @@ function ProductDetails() {
     const orderRef = collection(db, "Orders");
     const navigate = useNavigate("");
     const showDate = new Date();
-    async function handleSubmit(orderData) {
+    async function handleSubmit() {
         try {
             setError("");
-            setMassege("");
-            setLoading(true);
-            const response = await setDoc(doc(orderRef, `${showDate.getDate()}-${showDate.getMonth()}-${showDate.getFullYear()}-${showDate.getHours()}-${orderData.id}`), {
-                ...orderData,
-                price: price,
-                image: image,
-                title: title,
-                id: `${showDate.getDate()}-${showDate.getMonth()}-${showDate.getFullYear()}-${showDate.getHours()}-${orderData.id}`,
-                userPhoneNumber: phone_number,
-                storePhoneNumber: store_phone_number,
-                sellerEmail: email,
-                customerEmail: user.email,
-                StoreName: StoreName,
-                store_avatar: store_avatar,
-                address: location,
-                isCanceled: false,
-                isConfirmed: false,
-                isShipped: false,
-                isReceivedFromCustomer: false,
-                isReceivedFromSeller: false,
+            const response = await updateDoc(doc(orderRef, productId), {
+                isReceivedFromCustomer: true,
                 ProofOfImage:ProofOfImage,
-                orderDate: showDate.getDate() + "/" + showDate.getMonth() + "/" + showDate.getFullYear() + " " + showDate.getHours() + ":" + showDate.getMinutes()
             });
-            setMassege("your order has been completed");
-            setLoading(false);
-            setTimeout(() => {
-                navigate("/"); //this.props.navigation.navigate('Login')
-            }, 1500);
-            // navigate("/")
+                navigate("/Order"); 
         } catch (err) {
             // navigate("/");
             console.error(err);
@@ -277,7 +255,7 @@ function ProductDetails() {
                             <div
                                 onClick={() => {
                                     if(ProofOfImage){
-                                        handleSubmit({ StoreName, StoreLocation })
+                                        handleSubmit()
                                     }else{
                                         setError("Upload Proof of Payment")
                                     }

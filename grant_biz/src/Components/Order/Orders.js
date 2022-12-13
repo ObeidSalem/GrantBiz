@@ -83,10 +83,10 @@ const Orders = () => {
     }
   }, [user]);
 
-  
+
   function refreshPage() {
     window.location.reload(false);
-}
+  }
 
   const [Category1, setCategory1] = useState(true);
   const [Category2, setCategory2] = useState(false);
@@ -101,7 +101,7 @@ const Orders = () => {
   const [Primary5, setPrimary5] = useState("");
 
   return (
-    <div className="w-screen md:px-36 lg:px-96  bg-white overflow-none">
+    <div className="w-screen mb-20 md:px-36 lg:px-96  bg-white overflow-none">
       <div className="py-4 flex w-full justify-start align-center">
         <Link to={`/`}>
           <IoArrowBackOutline className="text-black h-8 w-10 mr-2 active:text-primary" />
@@ -319,7 +319,7 @@ const Orders = () => {
                           </div>
                           <div className=" flex-row">
                             <div className="float-left mr-1 font-bold">
-                              waiting conformation from seller
+                              Pending Conformation from the Store
                             </div>
                           </div>
                         </div>
@@ -442,6 +442,7 @@ const Orders = () => {
                 storePhoneNumber,
                 store_avatar,
                 orderDate,
+                QRPayment,
               } = product;
               if (isShipped === true && isReceivedFromSeller === false) {
                 return (
@@ -479,8 +480,8 @@ const Orders = () => {
                                   />
                                 </div>
                                 <div className="w-full flex flex-row justify-between ml-4 text-sm font-medium text-gray-400" >
-                              Order Date: {orderDate}
-                            </div>
+                                  Order Date: {orderDate}
+                                </div>
                               </div>
                             </div>
                             <div className="flex flex-col justify-start items-start">
@@ -525,20 +526,29 @@ const Orders = () => {
                                   />
                                   <p className="text-lg ml-4">{StoreName}</p>
                                 </div>
-                                <div
-                                  onClick={async () => {
-                                    const response = await updateDoc(
-                                      doc(updateRef, id),
-                                      {
-                                        isReceivedFromCustomer: true,
-                                      }
-                                    );
-                                    refreshPage();
-                                  }}
-                                  className=" w-70 text-white text-center bg-red-600 p-2 ml-40 rounded-3xl"
-                                >
-                                  Confirm Receiving The order
-                                </div>
+                                {QRPayment ?
+                                  <Link
+                                    to={`/QRCheckout/${id}`}
+                                    className=" w-70 text-white text-center bg-orange-600 p-2 ml-40 rounded-3xl"
+                                  >
+                                    Complete Payment
+                                  </Link>
+                                  :
+                                  <div
+                                    onClick={async () => {
+                                      const response = await updateDoc(
+                                        doc(updateRef, id),
+                                        {
+                                          isReceivedFromCustomer: true,
+                                        }
+                                      );
+                                      refreshPage();
+                                    }}
+                                    className=" w-70 text-white text-center bg-red-600 p-2 ml-40 rounded-3xl"
+                                  >
+                                    Confirm Receiving The order
+                                  </div>
+                                }
                               </div>
                             </div>
                             <div className="w-full flex flex-row justify-start items-center">
@@ -561,8 +571,8 @@ const Orders = () => {
                                   />
                                 </div>
                                 <div className="w-full flex flex-row justify-between ml-4 text-sm font-medium text-gray-400" >
-                              Order Date: {orderDate}
-                            </div>
+                                  Order Date: {orderDate}
+                                </div>
                               </div>
                             </div>
                             <div className="flex flex-col justify-start items-start">
@@ -628,7 +638,7 @@ const Orders = () => {
                   <>
                     <div className="p-4 mx-4 my-2 flex border border-gray-400 rounded-xl ">
                       <div className="w-full flex flex-col justify-between items-center">
-                       
+
                         <div className="w-full flex flex-row justify-start items-center">
                           <img
                             src={image}

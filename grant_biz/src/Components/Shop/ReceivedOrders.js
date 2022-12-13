@@ -8,6 +8,7 @@ import {
   IoTrashOutline,
   IoChatbubblesOutline,
   IoCloseCircleSharp,
+  IoCashOutline,
 } from "react-icons/io5";
 import { BsBoxSeam, BsTruck } from "react-icons/bs";
 
@@ -98,7 +99,7 @@ const ReceivedOrders = () => {
   const [Primary5, setPrimary5] = useState("");
 
   return (
-    <div className="w-screen md:px-36 lg:px-96  bg-white overflow-none">
+    <div className="w-screen mb-20 md:px-36 lg:px-96  bg-white overflow-none">
       <div className="py-4 flex w-full justify-start align-center">
         <Link to={`/`}>
           <IoArrowBackOutline className="text-black h-8 w-10 mr-2 active:text-primary" />
@@ -121,7 +122,7 @@ const ReceivedOrders = () => {
           <div className="h-full w-full flex justify-center align-center ">
             <div className="flex w-full items-center justify-between space-x-0 ">
               <div
-                className={`text-black py-3 text-sm text-center w-20 ${Primary1}`}
+                className={`text-black py-3 mx-1 text-sm text-center w-20 ${Primary1}`}
                 to="/"
                 onClick={() => {
                   setCategory1(true);
@@ -142,7 +143,7 @@ const ReceivedOrders = () => {
                 To Confirm
               </div>
               <div
-                className={`text-black py-3 text-sm text-center w-20 ${Primary2}`}
+                className={`text-black py-3 mx-1 text-sm text-center w-20 ${Primary2}`}
                 to="/Feed"
                 onClick={() => {
                   setCategory1(false);
@@ -161,7 +162,7 @@ const ReceivedOrders = () => {
                 To Ship
               </div>
               <div
-                className={`text-black py-3 text-sm text-center w-20 ${Primary3}`}
+                className={`text-black py-3 mx-1 text-sm text-center w-20 ${Primary3}`}
                 to="/Feed"
                 onClick={() => {
                   setCategory1(false);
@@ -176,11 +177,11 @@ const ReceivedOrders = () => {
                   setPrimary5("");
                 }}
               >
-                <BsTruck className={`text-black h-6 w-full ${Primary3}`} />
-                To Receive
+                <IoCashOutline className={`text-black h-6 w-full ${Primary3}`} />
+                To Be Paid
               </div>
               <div
-                className={`text-black py-3 text-sm text-center w-20 ${Primary4}`}
+                className={`text-black py-3 mx-1 text-sm text-center w-20 ${Primary4}`}
                 to="/Feed"
                 onClick={() => {
                   setCategory1(false);
@@ -201,7 +202,7 @@ const ReceivedOrders = () => {
                 Completed
               </div>
               <div
-                className={`text-black py-3 text-sm text-center w-20 ${Primary5}`}
+                className={`text-black py-3 mx-1 text-sm text-center w-20 ${Primary5}`}
                 to="/Feed"
                 onClick={() => {
                   setCategory1(false);
@@ -444,6 +445,8 @@ const ReceivedOrders = () => {
                 userPhoneNumber,
                 address,
                 isCanceled,
+                ProofOfImage,
+                QRPayment,
               } = product;
               if (
                 isShipped === true &&
@@ -497,6 +500,9 @@ const ReceivedOrders = () => {
                               <div className="float-right mt-8 ml-2 text-gray-500">
                                 {userPhoneNumber}
                               </div>
+                            </div>
+                            <div className=" flex-row">
+                              <img className="my-4" src={ProofOfImage} alt="Prof of Payment" />
                             </div>
                             <div
                               onClick={async () => {
@@ -577,7 +583,7 @@ const ReceivedOrders = () => {
                               </div>
                             </div>
                             <div className="w-fit text-white text-center  bg-orange-600 p-2 rounded-full">
-                              Pending Customer Confirmation of Receiving
+                              Pending Customer Confirmation of Receiving the Oorder
                             </div>
                           </div>
                         </div>
