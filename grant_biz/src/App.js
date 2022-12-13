@@ -22,7 +22,7 @@ import ForgotPassword from "./Components/Auth/ForgotPassword";
 import CreateMyShop from "./Components/Shop/CreateMyShop";
 import MenageProduct from "./Components/Shop/MenageProduct";
 import AddProduct from "./Components/Shop/AddProduct";
-
+import SaleAnalysis from "./Components/Shop/saleAnalysis";
 import { useAuth } from './context/AuthContext';
 import { ThemeProvider } from "@material-tailwind/react";
 import db from "./firebase"
@@ -89,6 +89,7 @@ function App() {
               <Route path="/Cart" element={<Cart />} />
               <Route path="/ReceivedOrders/:email" element={<ReceivedOrders />} />
               <Route path="/MenageProduct/:email" element={<MenageProduct />} />
+              <Route path="/saleAnalysis/:email" element={<SaleAnalysis />} />
               <Route path="/AddProduct/:email" element={<AddProduct />} />
               <Route path="/product/:productId" element={<ProductDetails />} />
               <Route path="/QRCheckout/:productId" element={<QRCheckout />} />
@@ -96,7 +97,7 @@ function App() {
               <Route path="/MyShop/:email" element={<MyShop />} />
               <Route path="/MyShop/:email/Create" element={<CreateMyShop />} />
               <Route path="/ForgotPassword" element={<ForgotPassword />} />
-              <Route path="/Product/:id" element={<Product />} />        
+              <Route path="/Product/:id" element={<Product />} />    
             </Routes>
           </div>
         </Router>

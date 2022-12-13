@@ -262,7 +262,7 @@ function MyShop() {
                 </div>
                 <IoArrowForwardOutline className="text-black h-8 w-10 mr-2 active:text-primary" />
               </Link>
-              <Link className="py-6 flex flex-row justify-between">
+              <Link className="py-6 flex flex-row justify-between" to={`/saleAnalysis/${email}`}>
                 <div className="flex flex-row justify-start">
                   <IoAnalyticsOutline className="text-black h-8 w-10 mr-2 active:text-primary" />
                   <p className="text-xl font-semibold ">Sale Analysis</p>
