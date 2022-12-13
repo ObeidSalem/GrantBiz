@@ -583,7 +583,7 @@ const ReceivedOrders = () => {
                               </div>
                             </div>
                             <div className="w-fit text-white text-center  bg-orange-600 p-2 rounded-full">
-                              Pending Customer Confirmation of Receiving the Oorder
+                              Pending Customer Confirmation of Receiving the Order
                             </div>
                           </div>
                         </div>

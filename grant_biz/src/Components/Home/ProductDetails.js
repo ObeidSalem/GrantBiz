@@ -146,7 +146,7 @@ function ProductDetails() {
         title: title,
         userPhoneNumber: phone_number,
         email: user.email,
-        // id: cartData.id,
+        id: cartData.id,
       });
       setcartMassege("has been added to cart");
       setLoading(false);
@@ -174,7 +174,7 @@ function ProductDetails() {
         price: price,
         image: image,
         title: title,
-        // id: `${showDate.getDate()}-${showDate.getMonth()}-${showDate.getFullYear()}-${showDate.getHours()}-${orderData.id}`,
+        id: `${showDate.getDate()}-${showDate.getMonth()}-${showDate.getFullYear()}-${showDate.getHours()}-${orderData.id}`,
         userPhoneNumber: phone_number,
         storePhoneNumber: store_phone_number,
         sellerEmail: email,

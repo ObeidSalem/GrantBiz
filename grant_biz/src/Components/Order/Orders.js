@@ -122,7 +122,7 @@ const Orders = () => {
           <div className="h-full w-full flex justify-center align-center ">
             <div className="flex w-full items-center justify-between space-x-0 ">
               <div
-                className={`text-black py-3 text-sm text-center w-20 ${Primary1}`}
+                className={`text-black py-3 mx-1 text-sm text-center w-20 ${Primary1}`}
                 to="/"
                 onClick={() => {
                   setCategory1(true);
@@ -143,7 +143,7 @@ const Orders = () => {
                 To Confirm
               </div>
               <div
-                className={`text-black py-3 text-sm text-center w-20 ${Primary2}`}
+                className={`text-black py-3 mx-1 text-sm text-center w-20 ${Primary2}`}
                 to="/Feed"
                 onClick={() => {
                   setCategory1(false);
@@ -162,7 +162,7 @@ const Orders = () => {
                 To Ship
               </div>
               <div
-                className={`text-black py-3 text-sm text-center w-20 ${Primary3}`}
+                className={`text-black py-3 mx-1 text-sm text-center w-20 ${Primary3}`}
                 to="/Feed"
                 onClick={() => {
                   setCategory1(false);
@@ -181,7 +181,7 @@ const Orders = () => {
                 To Receive
               </div>
               <div
-                className={`text-black py-3 text-sm text-center w-20 ${Primary4}`}
+                className={`text-black py-3 mx-1 text-sm text-center w-20 ${Primary4}`}
                 to="/Feed"
                 onClick={() => {
                   setCategory1(false);
@@ -202,7 +202,7 @@ const Orders = () => {
                 Completed
               </div>
               <div
-                className={`text-black py-3 text-sm text-center w-20 ${Primary5}`}
+                className={`text-black py-3 mx-1 text-sm text-center w-20 ${Primary5}`}
                 to="/Feed"
                 onClick={() => {
                   setCategory1(false);
