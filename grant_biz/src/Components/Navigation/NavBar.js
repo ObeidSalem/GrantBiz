@@ -11,7 +11,7 @@ import { useSelector } from 'react-redux';
 
 function NavBar() {
   const { user, logOut } = useAuth()
-  console.log("user", user)
+  // console.log("user", user)
 
   const currentUser = useSelector((state) => state.currentUser);
   const { email, store_avatar, StoreName, Name, profile_avatar } = currentUser

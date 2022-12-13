@@ -4,6 +4,16 @@ import { getAuth } from "firebase/auth";
 import { getStorage } from "firebase/storage";
 
 
+// if ('serviceWorker' in navigator) {
+//   navigator.serviceWorker.register('../firebase-messaging-sw.js')
+//     .then(function(registration) {
+//       console.log('Registration successful, scope is:', registration.scope);
+//     }).catch(function(err) {
+//       console.log('Service worker registration failed, error:', err);
+//     });
+//   }
+
+
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
   authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
@@ -19,6 +29,9 @@ const app = initializeApp(firebaseConfig)
 
 // const firestore = app.firestore()
 // firestore.settings({timestampsInSnapshots: true,})
+
+
+
 
 export const db = getFirestore(app)
 export const storage = getStorage(app);

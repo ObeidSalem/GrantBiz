@@ -31,6 +31,7 @@ import {
 import { setStoreProducts } from "../../redux/actions";
 import CurrencyFormat from "react-currency-format";
 import { UserAuth } from "../../context/AuthContext";
+import emailjs from "@emailjs/browser";
 
 const ReceivedOrders = () => {
   const { user } = UserAuth();
@@ -97,6 +98,27 @@ const ReceivedOrders = () => {
   const [Primary3, setPrimary3] = useState("");
   const [Primary4, setPrimary4] = useState("");
   const [Primary5, setPrimary5] = useState("");
+  const [emailCancel, setEmailCancel] = useState({
+    fullName: "GrandBiz",
+    email: user.email,
+    message:
+      "the order has been cancelled,please check your shop for more info",
+  });
+  const [comformEmail, setcomformEmail] = useState({
+    fullName: "GrandBiz",
+    email: user.email,
+    message: "you have conform that you had received the order",
+  });
+  const [ConfirmShipments, setConfirmShipments] = useState({
+    fullName: "GrandBiz",
+    email: user.email,
+    message: "you have conform that you had shipped the order",
+  });
+  const [ConfirmReceivingMoney, setConfirmReceivingMoney] = useState({
+    fullName: "GrandBiz",
+    email: user.email,
+    message: "you have conform that you received the money for the order",
+  });
 
   return (
     <div className="w-screen mb-20 md:px-36 lg:px-96  bg-white overflow-none">
@@ -303,6 +325,21 @@ const ReceivedOrders = () => {
                                 isConfirmed: true,
                               }
                             );
+                            emailjs
+                              .send(
+                                "service_gyzz5nb",
+                                "template_z48cde4",
+                                comformEmail,
+                                "CyPHO2_SKVKTmOJ7P"
+                              )
+                              .then(
+                                (result) => {
+                                  console.log(result.text);
+                                },
+                                (error) => {
+                                  console.log(error.text);
+                                }
+                              );
                             refreshPage();
                           }}
                           className="w-40 text-white text-center bg-red-600 p-2 rounded-full hover:cursor-pointer"
@@ -375,6 +412,21 @@ const ReceivedOrders = () => {
                                 isShipped: true,
                               }
                             );
+                            emailjs
+                              .send(
+                                "service_gyzz5nb",
+                                "template_z48cde4",
+                                emailCancel,
+                                "CyPHO2_SKVKTmOJ7P"
+                              )
+                              .then(
+                                (result) => {
+                                  console.log(result.text);
+                                },
+                                (error) => {
+                                  console.log(error.text);
+                                }
+                              );
                             refreshPage();
                           }}
                           className="w-40 text-white text-center bg-red-600 p-2 rounded-full hover:cursor-pointer"
@@ -409,6 +461,21 @@ const ReceivedOrders = () => {
                                 isShipped: true,
                               }
                             );
+                            emailjs
+                              .send(
+                                "service_gyzz5nb",
+                                "template_z48cde4",
+                                ConfirmShipments,
+                                "CyPHO2_SKVKTmOJ7P"
+                              )
+                              .then(
+                                (result) => {
+                                  console.log(result.text);
+                                },
+                                (error) => {
+                                  console.log(error.text);
+                                }
+                              );
                             refreshPage();
                           }}
                           className="w-40 text-white text-center bg-red-600 p-2 rounded-full active:bg-primary hover:cursor-pointer"
@@ -512,6 +579,21 @@ const ReceivedOrders = () => {
                                     isReceivedFromSeller: true,
                                   }
                                 );
+                                emailjs
+                                  .send(
+                                    "service_gyzz5nb",
+                                    "template_z48cde4",
+                                    ConfirmReceivingMoney,
+                                    "CyPHO2_SKVKTmOJ7P"
+                                  )
+                                  .then(
+                                    (result) => {
+                                      console.log(result.text);
+                                    },
+                                    (error) => {
+                                      console.log(error.text);
+                                    }
+                                  );
                                 refreshPage();
                               }}
                               className="w-fit text-white text-center bg-red-600 p-2 rounded-full cursor-pointer"
@@ -556,6 +638,21 @@ const ReceivedOrders = () => {
                                     isShipped: true,
                                   }
                                 );
+                                emailjs
+                                  .send(
+                                    "service_gyzz5nb",
+                                    "template_z48cde4",
+                                    emailCancel,
+                                    "CyPHO2_SKVKTmOJ7P"
+                                  )
+                                  .then(
+                                    (result) => {
+                                      console.log(result.text);
+                                    },
+                                    (error) => {
+                                      console.log(error.text);
+                                    }
+                                  );
                                 refreshPage();
                               }}
                               className="w-40 text-white text-center bg-red-600 p-2 rounded-full hover:cursor-pointer"

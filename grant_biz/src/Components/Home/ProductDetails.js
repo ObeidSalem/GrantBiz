@@ -31,6 +31,9 @@ import { Dialog } from "primereact/dialog";
 import { InputText } from "primereact/inputtext";
 import { Alert, Button } from "@material-tailwind/react";
 import CurrencyFormat from "react-currency-format";
+// import { sendEmail } from "./send-email";
+import qs from 'qs';
+import { Linking } from 'react';
 
 const cash = true;
 const online_pay = true;
@@ -201,8 +204,8 @@ function ProductDetails() {
       console.error(err);
     }
   }
-  ////////////////////////////////////////////////////////////////
-
+  ////////////////////////////////////////////////////////////////// 
+ 
   return (
     <div className=" pb-20 bg-white md:px-16 lg:px-56">
       <div className="pb-48">
@@ -211,7 +214,6 @@ function ProductDetails() {
             <IoArrowBackOutline className="text-black h-8 w-10 mr-2 active:text-primary" />
           </Link>
           <p className="text-2xl font-semibold w-full">{title} </p>
-
         </div>
         <div className="px-6  m-0 md:px-16 lg:px-56">
           {/* <div className="my-4">{renderCategoryList1}</div> */}

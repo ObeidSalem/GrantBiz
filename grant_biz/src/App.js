@@ -72,6 +72,7 @@ function App() {
       console.log(error)
     }
   }, [user])
+  
 
   return (
     <>
