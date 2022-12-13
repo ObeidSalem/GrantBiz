@@ -31,6 +31,8 @@ import {
 import { setStoreProducts } from "../../redux/actions";
 import CurrencyFormat from "react-currency-format";
 import { UserAuth } from "../../context/AuthContext";
+import emailjs from "@emailjs/browser";
+import { async } from '@firebase/util';
 
 const Orders = () => {
   const { user } = UserAuth();
@@ -83,10 +85,9 @@ const Orders = () => {
     }
   }, [user]);
 
-  
   function refreshPage() {
     window.location.reload(false);
-}
+  }
 
   const [Category1, setCategory1] = useState(true);
   const [Category2, setCategory2] = useState(false);
@@ -99,7 +100,38 @@ const Orders = () => {
   const [Primary3, setPrimary3] = useState("");
   const [Primary4, setPrimary4] = useState("");
   const [Primary5, setPrimary5] = useState("");
+  const [emailCancel, setEmailCancel] = useState({
+    fullName: 'GrandBiz',
+    email: user.email,
+    message: 'your order has been cancelled'
+  });
+  const [comformEmail, setcomformEmail] = useState({
+    fullName: 'GrandBiz',
+    email: user.email,
+    message: 'you have conform that you had received your order'
+  });
 
+  
+ ////////////////////////////////////////////////////////////////// 
+  // send email notifications
+ 
+
+  // function sendMassages(e) {
+  //   // e.preventDefault();
+
+  //   emailjs.send('service_gyzz5nb', 'template_z48cde4', emailCancel, 'CyPHO2_SKVKTmOJ7P')
+  //   .then((result) => {
+  //     console.log(result.text);
+  // }, (error) => {
+  //     console.log(error.text);
+  // });
+
+
+
+    
+  // }
+  
+  ////////////////////////////////////////////////////////////////
   return (
     <div className="w-screen md:px-36 lg:px-96  bg-white overflow-none">
       <div className="py-4 flex w-full justify-start align-center">
@@ -270,6 +302,12 @@ const Orders = () => {
                                   isShipped: true,
                                 }
                               );
+                              emailjs.send('service_gyzz5nb', 'template_z48cde4', emailCancel, 'CyPHO2_SKVKTmOJ7P')
+                              .then((result) => {
+                                console.log(result.text);
+                            }, (error) => {
+                                console.log(error.text);
+                            });
                               refreshPage();
                             }}
                             className="w-40 text-white text-center bg-red-600 p-2 rounded-full"
@@ -277,6 +315,11 @@ const Orders = () => {
                             Cancel
                           </div>
                         </div>
+                        {/*  */}
+                        <div>
+                        </div>
+
+                        {/*  */}
                         <div className="w-full flex flex-row justify-start items-center">
                           <img
                             src={image}
@@ -293,7 +336,7 @@ const Orders = () => {
                                 prefix={"RM "}
                               />
                             </div>
-                            <div className="w-full flex flex-row justify-between ml-4 text-sm font-medium text-gray-400" >
+                            <div className="w-full flex flex-row justify-between ml-4 text-sm font-medium text-gray-400">
                               Order Date: {orderDate}
                             </div>
                           </div>
@@ -383,7 +426,7 @@ const Orders = () => {
                                 prefix={"RM "}
                               />
                             </div>
-                            <div className="w-full flex flex-row justify-between ml-4 text-sm font-medium text-gray-400" >
+                            <div className="w-full flex flex-row justify-between ml-4 text-sm font-medium text-gray-400">
                               Order Date: {orderDate}
                             </div>
                           </div>
@@ -478,9 +521,9 @@ const Orders = () => {
                                     prefix={"RM "}
                                   />
                                 </div>
-                                <div className="w-full flex flex-row justify-between ml-4 text-sm font-medium text-gray-400" >
-                              Order Date: {orderDate}
-                            </div>
+                                <div className="w-full flex flex-row justify-between ml-4 text-sm font-medium text-gray-400">
+                                  Order Date: {orderDate}
+                                </div>
                               </div>
                             </div>
                             <div className="flex flex-col justify-start items-start">
@@ -533,6 +576,12 @@ const Orders = () => {
                                         isReceivedFromCustomer: true,
                                       }
                                     );
+                                    emailjs.send('service_gyzz5nb', 'template_z48cde4', comformEmail, 'CyPHO2_SKVKTmOJ7P')
+                                    .then((result) => {
+                                      console.log(result.text);
+                                  }, (error) => {
+                                      console.log(error.text);
+                                  });
                                     refreshPage();
                                   }}
                                   className=" w-70 text-white text-center bg-red-600 p-2 ml-40 rounded-3xl"
@@ -560,9 +609,9 @@ const Orders = () => {
                                     prefix={"RM "}
                                   />
                                 </div>
-                                <div className="w-full flex flex-row justify-between ml-4 text-sm font-medium text-gray-400" >
-                              Order Date: {orderDate}
-                            </div>
+                                <div className="w-full flex flex-row justify-between ml-4 text-sm font-medium text-gray-400">
+                                  Order Date: {orderDate}
+                                </div>
                               </div>
                             </div>
                             <div className="flex flex-col justify-start items-start">
@@ -628,7 +677,6 @@ const Orders = () => {
                   <>
                     <div className="p-4 mx-4 my-2 flex border border-gray-400 rounded-xl ">
                       <div className="w-full flex flex-col justify-between items-center">
-                       
                         <div className="w-full flex flex-row justify-start items-center">
                           <img
                             src={image}
@@ -645,7 +693,7 @@ const Orders = () => {
                                 prefix={"RM "}
                               />
                             </div>
-                            <div className="w-full flex flex-row justify-between ml-4 text-sm font-medium text-gray-400" >
+                            <div className="w-full flex flex-row justify-between ml-4 text-sm font-medium text-gray-400">
                               Order Date: {orderDate}
                             </div>
                           </div>
@@ -736,7 +784,7 @@ const Orders = () => {
                                 prefix={"RM "}
                               />
                             </div>
-                            <div className="w-full flex flex-row justify-between ml-4 text-sm font-medium text-gray-400" >
+                            <div className="w-full flex flex-row justify-between ml-4 text-sm font-medium text-gray-400">
                               Order Date: {orderDate}
                             </div>
                           </div>

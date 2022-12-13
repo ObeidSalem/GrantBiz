@@ -30,6 +30,9 @@ import { setCurrentUser } from "../../redux/actions/index";
 import { Dialog } from "primereact/dialog";
 import { InputText } from "primereact/inputtext";
 import { Alert, Button } from "@material-tailwind/react";
+// import { sendEmail } from "./send-email";
+import qs from 'qs';
+import { Linking } from 'react';
 
 const cash = true;
 const online_pay = true;
@@ -164,26 +167,45 @@ function ProductDetails() {
       setError("");
       setMassege("");
       setLoading(true);
-      const response = await setDoc(doc(orderRef, `${showDate.getDate()}-${showDate.getMonth()}-${showDate.getFullYear()}-${showDate.getHours()}-${orderData.id}`), {
-        ...orderData,
-        price: price,
-        image: image,
-        title: title,
-        id: `${showDate.getDate()}-${showDate.getMonth()}-${showDate.getFullYear()}-${showDate.getHours()}-${orderData.id}`,
-        userPhoneNumber: phone_number,
-        storePhoneNumber: store_phone_number,
-        sellerEmail: email,
-        customerEmail: user.email,
-        StoreName: StoreName,
-        store_avatar: store_avatar,
-        address: location,
-        isCanceled: false,
-        isConfirmed: false,
-        isShipped: false,
-        isReceivedFromCustomer: false,
-        isReceivedFromSeller: false,
-        orderDate: showDate.getDate()+"/"+showDate.getMonth()+"/"+showDate.getFullYear()+" "+showDate.getHours()+":"+showDate.getMinutes()
-      });
+      const response = await setDoc(
+        doc(
+          orderRef,
+          `${showDate.getDate()}-${showDate.getMonth()}-${showDate.getFullYear()}-${showDate.getHours()}-${
+            orderData.id
+          }`
+        ),
+        {
+          ...orderData,
+          price: price,
+          image: image,
+          title: title,
+          id: `${showDate.getDate()}-${showDate.getMonth()}-${showDate.getFullYear()}-${showDate.getHours()}-${
+            orderData.id
+          }`,
+          userPhoneNumber: phone_number,
+          storePhoneNumber: store_phone_number,
+          sellerEmail: email,
+          customerEmail: user.email,
+          StoreName: StoreName,
+          store_avatar: store_avatar,
+          address: location,
+          isCanceled: false,
+          isConfirmed: false,
+          isShipped: false,
+          isReceivedFromCustomer: false,
+          isReceivedFromSeller: false,
+          orderDate:
+            showDate.getDate() +
+            "/" +
+            showDate.getMonth() +
+            "/" +
+            showDate.getFullYear() +
+            " " +
+            showDate.getHours() +
+            ":" +
+            showDate.getMinutes(),
+        }
+      );
       setMassege("your order has been completed");
       setLoading(false);
       setTimeout(() => {
@@ -195,8 +217,8 @@ function ProductDetails() {
       console.error(err);
     }
   }
-  ////////////////////////////////////////////////////////////////
-
+  ////////////////////////////////////////////////////////////////// 
+ 
   return (
     <div className=" pb-20 bg-white md:px-16 lg:px-56">
       <div className="pb-48">
@@ -205,7 +227,6 @@ function ProductDetails() {
             <IoArrowBackOutline className="text-black h-8 w-10 mr-2 active:text-primary" />
           </Link>
           <p className="text-2xl font-semibold w-full">{title} </p>
-
         </div>
         <div className="px-6  m-0 md:px-16 lg:px-56">
           {/* <div className="my-4">{renderCategoryList1}</div> */}
