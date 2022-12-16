@@ -48,11 +48,11 @@ export default function Signup() {
       // }
 
       if (
-        Name != '' &&
-        email != '' &&
-        location != '' &&
-        phone_number != '' &&
-        matricNumber != ''
+        Name !== '' &&
+        email !== '' &&
+        location !== '' &&
+        phone_number !== '' &&
+        matricNumber !== ''
       ) {
         const responseAuth = await signup(email, password);
 
@@ -69,8 +69,8 @@ export default function Signup() {
         own_store: false,
         location: location,
         phone_number,
-        phone_number,
         QRCodeImage,
+        saleAnalysisEmails:[],
       });
       navigate("/");
     }

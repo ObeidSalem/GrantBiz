@@ -10,7 +10,7 @@
       content="Web site and pwa created using create-react-app"
     />
     <link rel="apple-touch-icon" href="./image/icon_logo.png" />
-    <link rel="manifest" href="./manifest.json" />
+    <link rel="manifest" href="./manifest.json" crossorigin=”use-credentials” />
     <title>GrandBiz</title>
   </head>
   <body>
@@ -20,7 +20,7 @@
       if ("serviceWorker" in navigator) {
         window.addEventListener("load", () => {
           navigator.serviceWorker
-            .register("./serviceworker.js")
+            .register('/serviceworker.js')
             .then((reg) => console.log("Success: ", reg.scope))
             .catch((err) => console.log("Failure: ", err));
         });
