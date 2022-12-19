@@ -164,7 +164,7 @@ function Profile() {
                     />
                   </div>
                 </div>
-                <div className="flex flex-col align-items mt-5 w-12">
+                <div className="flex flex-col align-items mt-5 w-12 ">
                   <div className="flex justify-between  content-around w-72 overflow-x">
                     <div
                       onClick={() => setImageCrop(false)}
@@ -184,11 +184,11 @@ function Profile() {
             </div>
           </Dialog>
 
-          <div className="">
-            <div className="my-0 flex justify-center">
+          <div className=" ">
+            <div className="my-0 flex justify-center ">
               {image ?
                 <div className="flex flex-col" onClick={() => { setImageCrop(true) }}                                    >
-                  <div className="flex flex-col justify-center items-center  h-48 w-48 active:text-primary">
+                  <div className="flex flex-col justify-center items-center  h-48 w-48 active:text-primary ">
                     < img
                       src={image}
                       alt="Store Avatar"
@@ -200,7 +200,7 @@ function Profile() {
                   </div>
                 </div>
                 :
-                <div className="flex flex-col" onClick={() => { setImageCrop(true) }}                                    >
+                <div className="flex flex-col  hover:cursor-pointer" onClick={() => { setImageCrop(true) }}                                    >
                   <div className="flex flex-col justify-center items-center border-2 border-black rounded-full h-48 w-48 active:text-primary">
                     <IoPersonOutline className=" h-32 w-32" />
                     <div className="flex flex-col justify-center items-end w-60">
@@ -220,7 +220,7 @@ function Profile() {
               <p className="text-2xl font-semibold ">{location}</p>
             </div>
             <hr />
-            <div className="py-6 flex flex-row justify-between">
+            <div className="py-6 flex flex-row justify-between hover:cursor-pointer">
               <div className="flex flex-row justify-start" onClick={() => { setImageCrop(true) }}>
                 <IoSettingsOutline className="text-black h-8 w-10 mr-2 active:text-primary" />
                 <p className="text-xl font-semibold ">Edit Profile Info</p>

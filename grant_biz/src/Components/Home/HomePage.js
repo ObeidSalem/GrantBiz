@@ -39,7 +39,8 @@ function HomePage() {
 
 
   const renderProductsList = products.map((product, index) => {
-    const { title, store_name, description, price, store_avatar, image, type, rate,id  } =product;
+    const { title, store_name, description, price, store_avatar, image, type, rate,id,isHide  } =product;
+    if(!isHide)
     return (
       <div className="bg-white" key={index}>
          <Link to={`/product/${id}`}> 

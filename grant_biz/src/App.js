@@ -16,6 +16,7 @@ import MyShop from "./Components/Shop/MyShop";
 import Product from "./Components/Home/Product";
 import Feed from "./Components/Feed";
 import Order from "./Components/Order/Orders";
+import SaleAnalysis from "./Components/Shop/SaleAnalysis";
 import Cart from "./Components/Cart";
 import ProductDetails from "./Components/Home/ProductDetails";
 import ForgotPassword from "./Components/Auth/ForgotPassword";
@@ -89,6 +90,7 @@ function App() {
               <Route path="/ReceivedOrders/:email" element={<ReceivedOrders />} />
               <Route path="/MenageProduct/:email" element={<MenageProduct />} />
               <Route path="/AddProduct/:email" element={<AddProduct />} />
+              <Route path="/SaleAnalysis/:email" element={<SaleAnalysis />} />
               <Route path="/product/:productId" element={<ProductDetails />} />
               <Route path="/StorePage/:email" element={<StorePage />} />
               <Route path="/MyShop/:email" element={<MyShop />} />

@@ -74,7 +74,7 @@ export default function Signup() {
         own_store: false,
         location: location,
         phone_number,
-        phone_number,
+        saleAnalysisEmails:[newUser.email],
       });
        navigate("/");
     }

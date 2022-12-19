@@ -30,9 +30,10 @@ import { setCurrentUser } from "../../redux/actions/index";
 import { Dialog } from "primereact/dialog";
 import { InputText } from "primereact/inputtext";
 import { Alert, Button } from "@material-tailwind/react";
+import emailjs from "@emailjs/browser";
 // import { sendEmail } from "./send-email";
-import qs from 'qs';
-import { Linking } from 'react';
+import qs from "qs";
+import { Linking } from "react";
 
 const cash = true;
 const online_pay = true;
@@ -65,6 +66,7 @@ function ProductDetails() {
     rate,
     email,
     store_phone_number,
+    quantity,
   } = product;
   // const [Title, setTitle] = useState(title);
   // const [Image, setImage]= useState(image);
@@ -74,6 +76,11 @@ function ProductDetails() {
   const [loading, setLoading] = useState(false);
   const [Type_parameters, setType_parameters] = useState(type_parameters);
   const [paymentOptionBtnPopUp, setpaymentOptionBtnPopUp] = useState(false);
+  const [newOrderEmail, setNewOrderEmail] = useState({
+    fullName: "GrandBiz",
+    email: email,
+    message: "new order has been placed,please check your shop",
+  });
 
   useEffect(() => {
     if (productId && productId !== "") fetchProductDetail(productId);
@@ -157,7 +164,7 @@ function ProductDetails() {
       console.error(err);
     }
   }
-
+  
   /////////////////////////////////////////////////////////////////
   const orderRef = collection(db, "Orders");
   const navigate = useNavigate("");
@@ -167,6 +174,21 @@ function ProductDetails() {
       setError("");
       setMassege("");
       setLoading(true);
+      emailjs
+        .send(
+          "service_gyzz5nb",
+          "template_z48cde4",
+          newOrderEmail,
+          "CyPHO2_SKVKTmOJ7P"
+        )
+        .then(
+          (result) => {
+            console.log(result.text);
+          },
+          (error) => {
+            console.log(error.text);
+          }
+        );
       const response = await setDoc(
         doc(
           orderRef,
@@ -191,7 +213,9 @@ function ProductDetails() {
           address: location,
           isCanceled: false,
           isConfirmed: false,
+          quantity: quantity,
           isShipped: false,
+          idProduct: id,
           isReceivedFromCustomer: false,
           isReceivedFromSeller: false,
           orderDate:
@@ -217,8 +241,24 @@ function ProductDetails() {
       console.error(err);
     }
   }
-  ////////////////////////////////////////////////////////////////// 
- 
+  //////////////////////////////////////////////////////////////////
+  function quantityCheck() {
+    if (quantity > 0)
+      return (
+        <>
+          <button
+            type="button"
+            value="buy now"
+            onClick={() => setpaymentOptionBtnPopUp(true)}
+            className="bg-primary border-2 rounded-full px-4 py-2 md:px-16  text-white font-bold text-sm"
+          >
+            buy now
+          </button>
+        </>
+      );
+  }
+  //////////////////////////////////////////////////////////////////
+
   return (
     <div className=" pb-20 bg-white md:px-16 lg:px-56">
       <div className="pb-48">
@@ -252,7 +292,10 @@ function ProductDetails() {
               <div className="font-sans font-semibold uppercase	mb-4 text-2xl">
                 Description
               </div>
-              <div className=" w-64">{description}</div>
+              <div className=" w-64 font-sans font-semibold">{description}</div>
+              <div className=" w-64 font-sans font-semibold">
+                in stock: {quantity}
+              </div>
             </div>
             <Link
               to={`/StorePage/${email}`}
@@ -365,16 +408,8 @@ function ProductDetails() {
             </div>
             <div className="mx-1">
               {/* desktop version */}
-              <div>
-                <button
-                  type="button"
-                  value="buy now"
-                  onClick={() => setpaymentOptionBtnPopUp(true)}
-                  className="bg-primary border-2 rounded-full px-4 py-2 md:px-16  text-white font-bold text-sm"
-                >
-                  buy now
-                </button>
-              </div>
+              {/* {if (quantity>0)} */}
+              <div>{quantityCheck()}</div>
               <div>
                 <Dialog
                   className="absolute h-full w-full top-0 left-0 p-6 bg-gradient-to-b from-primary to-transparent from-slate-200"

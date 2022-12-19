@@ -119,10 +119,15 @@ const ReceivedOrders = () => {
     message: "you have conform that you received the money for the order",
   });
 
+  //////////////////////////////////////////////////////////////////////////////////////////
+
+
+    //////////////////////////////////////////////////////////////////////////////////////////
+
   return (
     <div className="w-screen md:px-36 lg:px-96  bg-white overflow-none">
       <div className="py-4 flex w-full justify-start align-center">
-        <Link to={`/`}>
+        <Link to={`/MyShop/${email}`}>
           <IoArrowBackOutline className="text-black h-8 w-10 mr-2 active:text-primary" />
         </Link>
         <p className="text-2xl font-semibold w-full">Received Orders</p>
@@ -511,6 +516,8 @@ const ReceivedOrders = () => {
                 userPhoneNumber,
                 address,
                 isCanceled,
+                quantity,
+                idProduct,
               } = product;
               if (
                 isShipped === true &&
@@ -573,6 +580,9 @@ const ReceivedOrders = () => {
                                     isReceivedFromSeller: true,
                                   }
                                 );
+                                await updateDoc(doc(db, "Products", idProduct), {
+                                  quantity:quantity-1,
+                                });
                                 emailjs
                                   .send(
                                     "service_gyzz5nb",
