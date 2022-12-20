@@ -282,7 +282,7 @@ const Orders = () => {
               if (isConfirmed == false) {
                 return (
                   <>
-                    <div className="p-4 mx-4 my-2 flex border border-gray-400 rounded-xl ">
+                    <div className="p-4 mx-4 my-2 flex w-fit border border-gray-400 rounded-xl ">
                       <div className="w-full flex flex-col justify-between items-center">
                         <div className="w-full flex justify-between items-center mb-4">
                           <div className="w-full flex justify-start items-center">
@@ -310,7 +310,7 @@ const Orders = () => {
                             });
                               refreshPage();
                             }}
-                            className="w-40 text-white text-center bg-red-600 p-2 rounded-full"
+                            className="w-40 text-white text-center bg-red-600 p-2 rounded-xl cursor-pointer "
                           >
                             Cancel
                           </div>
@@ -362,7 +362,7 @@ const Orders = () => {
                           </div>
                           <div className=" flex-row">
                             <div className="float-left mr-1 font-bold">
-                              waiting conformation from seller
+                              Pending conformation from seller
                             </div>
                           </div>
                         </div>
@@ -398,7 +398,7 @@ const Orders = () => {
               if (isConfirmed === true && isShipped === false) {
                 return (
                   <>
-                    <div className="p-4 mx-4 my-2 flex border border-gray-400 rounded-xl ">
+                    <div className="p-4 mx-4 my-2 flex border w-fit border-gray-400 rounded-xl ">
                       <div className="w-full flex flex-col justify-between items-center">
                         <div className="w-full flex justify-between items-center mb-4">
                           <div className="w-full flex justify-start items-center">
@@ -491,7 +491,7 @@ const Orders = () => {
                   <>
                     {isReceivedFromCustomer ? (
                       <>
-                        <div className="p-4 mx-4 my-2 flex border border-gray-400 rounded-xl ">
+                        <div className="p-4 mx-4 my-2 flex border w-fit border-gray-400 rounded-xl ">
                           <div className="w-full flex flex-col justify-between items-center">
                             <div className="w-full flex justify-between items-center mb-4">
                               <div className="w-full flex justify-start items-center">
@@ -547,7 +547,7 @@ const Orders = () => {
                               </div>
                               <div className=" flex-row">
                                 <div className="float-left mr-1 font-bold">
-                                  waiting conformation from seller
+                                  Pending conformation from seller
                                 </div>
                               </div>
                             </div>
@@ -584,7 +584,7 @@ const Orders = () => {
                                   });
                                     refreshPage();
                                   }}
-                                  className=" w-70 text-white text-center bg-red-600 p-2 ml-40 rounded-3xl"
+                                  className=" w-70 text-white text-center bg-red-600 p-2 ml-40  rounded-xl cursor-pointer "
                                 >
                                   Confirm Receiving The order
                                 </div>
@@ -675,7 +675,7 @@ const Orders = () => {
               ) {
                 return (
                   <>
-                    <div className="p-4 mx-4 my-2 flex border border-gray-400 rounded-xl ">
+                    <div className="p-4 mx-4 my-2 flex border w-fit border-gray-400 rounded-xl ">
                       <div className="w-full flex flex-col justify-between items-center">
                         <div className="w-full flex flex-row justify-start items-center">
                           <img

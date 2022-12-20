@@ -121,26 +121,26 @@ const ReceivedOrders = () => {
   const [comformEmail, setcomformEmail] = useState({
     fullName: "GrandBiz",
     email: user.email,
-    message: "You have conform that you had received the order",
+    message: "You have confirm that you had received the order",
   });
   const [ConfirmShipments, setConfirmShipments] = useState({
     fullName: "GrandBiz",
     email: user.email,
-    message: "You have conform that you had shipped the order",
+    message: "You have confirm that you had shipped the order",
   });
   const [ConfirmReceivingMoney, setConfirmReceivingMoney] = useState({
     fullName: "GrandBiz",
     email: user.email,
-    message: "You have conform that you received the money for the order",
+    message: "You have confirm that you received the money for the order",
   });
 
   //////////////////////////////////////////////////////////////////////////////////////////
 
 
-    //////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////
 
   return (
-    <div className="w-screen md:px-36 lg:px-96  bg-white overflow-none">
+    <div className="w-screen md:px-36 lg:px-96 mb-20 bg-white overflow-none">
       <div className="py-4 flex w-full justify-start align-center">
         <Link to={`/MyShop/${email}`}>
           <IoArrowBackOutline className="text-black h-8 w-10 mr-2 active:text-primary" />
@@ -291,7 +291,7 @@ const ReceivedOrders = () => {
               if (isConfirmed == false) {
                 return (
                   <div
-                    className="p-4 mx-4 my-2 flex border border-gray-400 rounded-xl "
+                    className="p-4 mx-4 my-2 w-fit flex border border-gray-400 rounded-xl "
                     key={id}
                   >
                     <div className="w-full flex flex-col justify-between items-center ">
@@ -329,41 +329,64 @@ const ReceivedOrders = () => {
                         <div className=" flex-row">
                           <div className="float-left mr-1">
                             <IoChatbubblesOutline className="w-8 h-8" />
-                            customer phone number:
+                            Customer Phone No.:
                           </div>
                           <div className="float-right mt-8 ml-2 text-gray-500">
                             {userPhoneNumber}
                           </div>
                         </div>
 
-                        <div
-                          onClick={async () => {
-                            const response = await updateDoc(
-                              doc(ordersRef, id),
-                              {
-                                isConfirmed: true,
-                              }
-                            );
-                            emailjs
-                              .send(
-                                "service_gyzz5nb",
-                                "template_z48cde4",
-                                comformEmail,
-                                "CyPHO2_SKVKTmOJ7P"
-                              )
-                              .then(
-                                (result) => {
-                                  console.log(result.text);
-                                },
-                                (error) => {
-                                  console.log(error.text);
+                        <div className="flex flex-row mt-2">
+                          <div
+                            onClick={async () => {
+                              const response = await updateDoc(
+                                doc(ordersRef, id),
+                                {
+                                  isConfirmed: true,
                                 }
                               );
-                            refreshPage();
-                          }}
-                          className="w-40 text-white text-center bg-red-600 p-2 rounded-full hover:cursor-pointer"
-                        >
-                          Confirm Order
+                              emailjs
+                                .send(
+                                  "service_gyzz5nb",
+                                  "template_z48cde4",
+                                  comformEmail,
+                                  "CyPHO2_SKVKTmOJ7P"
+                                )
+                                .then(
+                                  (result) => {
+                                    console.log(result.text);
+                                  },
+                                  (error) => {
+                                    console.log(error.text);
+                                  }
+                                );
+                              refreshPage();
+                            }}
+                            className="w-36 mr-1 text-white text-center bg-primary p-2  rounded-xl cursor-pointer  hover:cursor-pointer"
+                          >
+                            Confirm Order
+                          </div>
+                          <div
+                            onClick={async () => {
+                              const response = await updateDoc(
+                                doc(ordersRef, id),
+                                {
+                                  isCanceled: true,
+                                  isShipped: true,
+                                }
+                              );
+                              emailjs.send('service_gyzz5nb', 'template_z48cde4', emailCancel, 'CyPHO2_SKVKTmOJ7P')
+                                .then((result) => {
+                                  console.log(result.text);
+                                }, (error) => {
+                                  console.log(error.text);
+                                });
+                              refreshPage();
+                            }}
+                            className="w-36 ml-1 text-center bg-white p-2  rounded-xl border-2 border-red-600 cursor-pointer  hover:cursor-pointer"
+                          >
+                            Cancel Order
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -397,7 +420,7 @@ const ReceivedOrders = () => {
               if (isConfirmed === true && isShipped === false) {
                 return (
                   <div
-                    className="p-4 mx-4 my-2 flex border border-gray-400 rounded-xl "
+                    className="p-4 mx-4 my-2 w-fit flex border border-gray-400 rounded-xl "
                     key={id}
                   >
                     <div className="w-full flex flex-col justify-between items-center ">
@@ -448,7 +471,7 @@ const ReceivedOrders = () => {
                               );
                             refreshPage();
                           }}
-                          className="w-40 text-white text-center bg-red-600 p-2 rounded-full hover:cursor-pointer"
+                          className="w-40 text-white text-center bg-red-600 p-2  rounded-xl cursor-pointer hover:cursor-pointer"
                         >
                           Cancel
                         </div>
@@ -466,7 +489,7 @@ const ReceivedOrders = () => {
                         <div className=" flex-row">
                           <div className="float-left mr-1">
                             <IoChatbubblesOutline className="w-8 h-8" />
-                            Customer phone number:
+                            Customer Phone No.:
                           </div>
                           <div className="float-right mt-8 ml-2 text-gray-500">
                             {userPhoneNumber}
@@ -497,7 +520,7 @@ const ReceivedOrders = () => {
                               );
                             refreshPage();
                           }}
-                          className="w-40 text-white text-center bg-red-600 p-2 rounded-full active:bg-primary hover:cursor-pointer"
+                          className="w-40 text-white text-center bg-red-600 p-2  rounded-xl cursor-pointer  active:bg-primary hover:cursor-pointer"
                         >
                           Confirm Shipments
                         </div>
@@ -555,7 +578,7 @@ const ReceivedOrders = () => {
                   <>
                     {isReceivedFromCustomer ? (
                       <div
-                        className="p-4 mx-4 my-2 flex border border-gray-400 rounded-xl "
+                        className="p-4 mx-4 my-2 w-fit flex border border-gray-400 rounded-xl "
                         key={id}
                       >
                         <div className="w-full flex flex-col justify-between items-center ">
@@ -593,7 +616,7 @@ const ReceivedOrders = () => {
                             <div className=" flex-row">
                               <div className="float-left mr-1">
                                 <IoChatbubblesOutline className="w-8 h-8" />
-                                customer phone number:
+                                Customer Phone No.:
                               </div>
                               <div className="float-right mt-8 ml-2 text-gray-500">
                                 {userPhoneNumber}
@@ -649,7 +672,7 @@ const ReceivedOrders = () => {
                                   }
                                 );
                                 await updateDoc(doc(db, "Products", idProduct), {
-                                  quantity:quantity-1,
+                                  quantity: quantity - 1,
                                 });
                                 emailjs
                                   .send(
@@ -668,7 +691,7 @@ const ReceivedOrders = () => {
                                   );
                                 refreshPage();
                               }}
-                              className="w-fit text-white text-center bg-red-600 p-2 rounded-full cursor-pointer"
+                              className="w-fit text-white text-center bg-red-600 p-2  rounded-xl cursor-pointer"
                             >
                               Confirm Receiving the Money
                             </div>
@@ -707,7 +730,6 @@ const ReceivedOrders = () => {
                                   doc(ordersRef, id),
                                   {
                                     isCanceled: true,
-                                    isShipped: true,
                                   }
                                 );
                                 emailjs
@@ -727,7 +749,7 @@ const ReceivedOrders = () => {
                                   );
                                 refreshPage();
                               }}
-                              className="w-40 text-white text-center bg-red-600 p-2 rounded-full hover:cursor-pointer"
+                              className="w-40 text-white text-center bg-red-600 p-2  rounded-xl cursor-pointer  hover:cursor-pointer"
                             >
                               Cancel
                             </div>
@@ -745,7 +767,7 @@ const ReceivedOrders = () => {
                             <div className=" flex-row">
                               <div className="float-left mr-1">
                                 <IoChatbubblesOutline className="w-8 h-8" />
-                                Customer phone number:
+                                Customer Phone No.:
                               </div>
                               <div className="float-right mt-8 ml-2 text-gray-500">
                                 {userPhoneNumber}
@@ -794,7 +816,7 @@ const ReceivedOrders = () => {
                 return (
                   <>
                     {" "}
-                    <div className="p-4 mx-4 my-2 flex border border-gray-400 rounded-xl ">
+                    <div className="p-4 mx-4 my-2  w-fit flex border border-gray-400 rounded-xl ">
                       <div className="w-full flex flex-col justify-between items-center">
                         <div className="w-full flex justify-between items-center mb-4"></div>
                         <div className="w-full flex flex-row justify-start items-center">
@@ -878,7 +900,7 @@ const ReceivedOrders = () => {
               if (isCanceled === true && isShipped === true) {
                 return (
                   <>
-                    <div className="p-4 mx-4 my-2 flex border border-gray-400 rounded-xl ">
+                    <div className="p-4 mx-4 my-2  w-fit  flex border border-gray-400 rounded-xl ">
                       <div className="w-full flex flex-col justify-between items-center">
                         <div className="w-full flex justify-between items-center mb-4"></div>
                         <div className="w-full flex flex-row justify-start items-center">
@@ -915,7 +937,7 @@ const ReceivedOrders = () => {
                           <div className=" flex-row">
                             <div className="float-left mr-1">
                               <IoChatbubblesOutline className="w-8 h-8" />
-                              customer phone number:
+                              Customer Phone No.:
                             </div>
                             <div className="float-right mt-8 ml-2 text-gray-500">
                               {userPhoneNumber}
