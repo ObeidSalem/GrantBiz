@@ -37,31 +37,44 @@ function SaleAnalysis() {
   const { user } = UserAuth();
   
   const {email}=useParams()
+
   const currentUser = useSelector((state) => state.currentUser);
-  const { saleAnalysisEmails, Income } = currentUser;
+  const { saleAnalysisEmails } = currentUser;
   const [Email, setEmail] = useState("");
+  const [Income, setIncome] = useState("");
   const navigate = useNavigate("");
 
-  console.log("EmailID", email)
+  console.log(".Income", Income)
 
-  const fetchProducts = () => {
-    return onSnapshot(collection(db, "Users"), (snapshot) => {
-      const data = snapshot.docs.map(doc => doc.data())
-      // dispatch(setProducts(data))
-    })
+  const fetchUser = async () => {
+    try {
+      const docRef = await doc(db, "Users", email);
 
+      const docSnap = await getDoc(docRef);
+
+      if (docSnap.exists()) {
+        // console.log("Document data:", docSnap.data());
+        setIncome(docSnap.data().Income)
+
+      } else {
+        // doc.data() will be undefined in this case
+        console.log("No such document!");
+      }
+      return docSnap.data().Income
+    } catch (error) {
+      // console.log(error)
+    }
   }
 
   useEffect(() => {
-
     try {
-      // fetchProducts()
+      if(user){
+        fetchUser()
+      }
     } catch (error) {
       console.log(error)
     }
-
-
-  }, [])
+  }, [user]) 
 
   const checkEmail = saleAnalysisEmails?.find((item) => item === user.email);
 
