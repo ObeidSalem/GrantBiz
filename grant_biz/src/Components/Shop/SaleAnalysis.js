@@ -27,7 +27,7 @@ import {
 import db from "../../firebase";
 import { useDispatch, useSelector } from "react-redux";
 import { setCurrentUser } from "../../redux/actions/index";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { IoTrashBinSharp } from "react-icons/io5";
 import { async } from "@firebase/util";
 
@@ -35,10 +35,33 @@ ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement);
 
 function SaleAnalysis() {
   const { user } = UserAuth();
+  
+  const {email}=useParams()
   const currentUser = useSelector((state) => state.currentUser);
   const { saleAnalysisEmails, Income } = currentUser;
-  const [email, setEmail] = useState("");
+  const [Email, setEmail] = useState("");
   const navigate = useNavigate("");
+
+  console.log("EmailID", email)
+
+  const fetchProducts = () => {
+    return onSnapshot(collection(db, "Users"), (snapshot) => {
+      const data = snapshot.docs.map(doc => doc.data())
+      // dispatch(setProducts(data))
+    })
+
+  }
+
+  useEffect(() => {
+
+    try {
+      // fetchProducts()
+    } catch (error) {
+      console.log(error)
+    }
+
+
+  }, [])
 
   const checkEmail = saleAnalysisEmails?.find((item) => item === user.email);
 
@@ -105,7 +128,7 @@ function SaleAnalysis() {
     e.preventDefault();
     const updateRef = collection(db, "Users");
     await updateDoc(doc(updateRef, user.email), {
-      saleAnalysisEmails: [...saleAnalysisEmails, email],
+      saleAnalysisEmails: [...saleAnalysisEmails, Email],
     });
     console.log("done");
     refreshPage();

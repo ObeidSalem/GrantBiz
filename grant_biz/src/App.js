@@ -65,6 +65,25 @@ function App() {
     }
   }
 
+  const fetchProducts = () => {
+    return onSnapshot(collection(db, "Products"), (snapshot) => {
+      const data = snapshot.docs.map(doc => doc.data())
+      dispatch(setProducts(data))
+    })
+
+  }
+
+  useEffect(() => {
+
+    try {
+      fetchProducts()
+    } catch (error) {
+      console.log(error)
+    }
+
+
+  }, [])
+
   useEffect(() => {
     try {
       if(user){
