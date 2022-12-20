@@ -15,26 +15,9 @@ import CurrencyFormat from "react-currency-format";
 
 function HomePage() {
   
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
-  const fetchProducts = () => {
-    return onSnapshot(collection(db, "Products"), (snapshot) => {
-      const data = snapshot.docs.map(doc => doc.data())
-      dispatch(setProducts(data))
-    })
-
-  }
-
-  useEffect(() => {
-
-    try {
-      fetchProducts()
-    } catch (error) {
-      console.log(error)
-    }
-
-
-  }, [])
+ 
 
   const products = useSelector((state) => state.allProducts.products);
   const renderProductsList = products.map((product, index) => {
