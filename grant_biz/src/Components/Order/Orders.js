@@ -485,6 +485,7 @@ const Orders = () => {
                 storePhoneNumber,
                 store_avatar,
                 orderDate,
+                QRPayment,
               } = product;
               if (isShipped === true && isReceivedFromSeller === false) {
                 return (
@@ -568,7 +569,7 @@ const Orders = () => {
                                   />
                                   <p className="text-lg ml-4">{StoreName}</p>
                                 </div>
-                                <div
+                                {/* <div
                                   onClick={async () => {
                                     const response = await updateDoc(
                                       doc(updateRef, id),
@@ -587,7 +588,30 @@ const Orders = () => {
                                   className=" w-70 text-white text-center bg-red-600 p-2 ml-40 rounded-3xl"
                                 >
                                   Confirm Receiving The order
-                                </div>
+                                </div> */}
+                                {QRPayment ?
+                                  <Link
+                                    to={`/QRCheckout/${id}`}
+                                    className=" w-70 text-white text-center bg-orange-600 p-2 ml-40 rounded-3xl"
+                                  >
+                                    Complete Payment
+                                  </Link>
+                                  :
+                                  <div
+                                    onClick={async () => {
+                                      const response = await updateDoc(
+                                        doc(updateRef, id),
+                                        {
+                                          isReceivedFromCustomer: true,
+                                        }
+                                      );
+                                      refreshPage();
+                                    }}
+                                    className=" w-70 text-white text-center bg-red-600 p-2 ml-40 rounded-3xl"
+                                  >
+                                    Confirm Receiving The order
+                                  </div>
+                                }
                               </div>
                             </div>
                             <div className="w-full flex flex-row justify-start items-center">

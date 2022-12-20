@@ -220,8 +220,8 @@ function Profile() {
               <p className="text-2xl font-semibold ">{location}</p>
             </div>
             <hr />
-            <div className="py-6 flex flex-row justify-between hover:cursor-pointer">
-              <div className="flex flex-row justify-start" onClick={() => { setImageCrop(true) }}>
+            <div  onClick={() => { setImageCrop(true) }} className="py-6 flex flex-row justify-between hover:cursor-pointer">
+              <div className="flex flex-row justify-start">
                 <IoSettingsOutline className="text-black h-8 w-10 mr-2 active:text-primary" />
                 <p className="text-xl font-semibold ">Edit Profile Info</p>
               </div>

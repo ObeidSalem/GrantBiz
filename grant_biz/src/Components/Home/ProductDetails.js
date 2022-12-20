@@ -34,6 +34,7 @@ import emailjs from "@emailjs/browser";
 // import { sendEmail } from "./send-email";
 import qs from "qs";
 import { Linking } from "react";
+import CurrencyFormat from "react-currency-format";
 
 const cash = true;
 const online_pay = true;
@@ -64,6 +65,8 @@ function ProductDetails() {
     // store_name,
     id,
     rate,
+    COD,
+    QR_code,
     email,
     store_phone_number,
     quantity,
@@ -164,10 +167,11 @@ function ProductDetails() {
       console.error(err);
     }
   }
-  
+
   /////////////////////////////////////////////////////////////////
   const orderRef = collection(db, "Orders");
   const navigate = useNavigate("");
+  let QRPayment = false
   const showDate = new Date();
   async function createOrder(orderData) {
     try {
@@ -192,18 +196,16 @@ function ProductDetails() {
       const response = await setDoc(
         doc(
           orderRef,
-          `${showDate.getDate()}-${showDate.getMonth()}-${showDate.getFullYear()}-${showDate.getHours()}-${
-            orderData.id
+          `${showDate.getDate()}-${showDate.getMonth()}-${showDate.getFullYear()}-${showDate.getHours()}-${orderData.id
           }`
         ),
         {
           ...orderData,
+          ProductId: id,
           price: price,
           image: image,
           title: title,
-          id: `${showDate.getDate()}-${showDate.getMonth()}-${showDate.getFullYear()}-${showDate.getHours()}-${
-            orderData.id
-          }`,
+          id: `${showDate.getDate()}-${showDate.getMonth()}-${showDate.getFullYear()}-${showDate.getHours()}-${orderData.id}`,
           userPhoneNumber: phone_number,
           storePhoneNumber: store_phone_number,
           sellerEmail: email,
@@ -218,16 +220,8 @@ function ProductDetails() {
           idProduct: id,
           isReceivedFromCustomer: false,
           isReceivedFromSeller: false,
-          orderDate:
-            showDate.getDate() +
-            "/" +
-            showDate.getMonth() +
-            "/" +
-            showDate.getFullYear() +
-            " " +
-            showDate.getHours() +
-            ":" +
-            showDate.getMinutes(),
+          QRPayment: QRPayment,
+          orderDate: showDate.getDate() + "/" + showDate.getMonth() + "/" + showDate.getFullYear() + " " + showDate.getHours() + ":" + showDate.getMinutes()
         }
       );
       setMassege("your order has been completed");
@@ -248,7 +242,7 @@ function ProductDetails() {
         <>
           <button
             type="button"
-            value="buy now"
+            value="Purchase Now"
             onClick={() => setpaymentOptionBtnPopUp(true)}
             className="bg-primary border-2 rounded-full px-4 py-2 md:px-16  text-white font-bold text-sm"
           >
@@ -270,7 +264,7 @@ function ProductDetails() {
         </div>
         <div className="px-6  m-0 md:px-16 lg:px-56">
           {/* <div className="my-4">{renderCategoryList1}</div> */}
-          <div className="flex flex-wrap justify-center mt-4 ">
+          <div className="flex flex-col justify-center mt-4 ">
             <div className="flex-auto">
               <img
                 className="rounded-lg object-cover h-5/6 w-96 md:h-96  "
@@ -283,214 +277,130 @@ function ProductDetails() {
                 {title}
               </h1>
               <h2 className=" uppercase font-semibold font-mono mb-4 text-gray-600">
-                total price
+                Total Price
               </h2>
-
-              <h2 className="font-serif font-semibold uppercase	mb-4 text-2xl ">
-                RM{price}
-              </h2>
-              <div className="font-sans font-semibold uppercase	mb-4 text-2xl">
+              <CurrencyFormat className="font-sans	text-md" value={price} displayType={'text'} thousandSeparator={true} prefix={'RM '} />
+              <div className="font-sans font-semibold uppercase	mt-4 text-2xl">
                 Description
               </div>
               <div className=" w-64 font-sans font-semibold">{description}</div>
-              <div className=" w-64 font-sans font-semibold">
+              {/* <div className=" w-64 font-sans font-semibold">
                 in stock: {quantity}
-              </div>
+              </div> */}
             </div>
             <Link
               to={`/StorePage/${email}`}
-              className="flex-auto border h-24 w-fit rounded-xl p-3"
+              className="flex-auto border h-24 w-full rounded-xl p-3"
             >
-              <div className="">
-                <div className="flex justify-start ">
-                  <img
-                    className="ml-1 w-20 h-20 rounded-full"
-                    src={store_avatar}
-                    alt="Rounded avatar"
-                  ></img>
-                  <div className="ml-3">
-                    <div className="text-black font-semibold text-lg ml-2">
-                      {StoreName}
-                    </div>
-                    {/* <div key={user.email}>{store_avatar}</div> */}
-                    <div className="text-black font-semibold text-lg">
-                      at {StoreLocation}
-                    </div>
+              <div className="flex justify-start w-full ">
+                <img
+                  className="ml-1 w-20 h-20 rounded-full"
+                  src={store_avatar}
+                  alt="Rounded avatar"
+                ></img>
+                <div className="ml-3">
+                  <div className="text-black font-semibold text-lg">
+                    {StoreName}
+                  </div>
+                  {/* <div key={user.email}>{store_avatar}</div> */}
+                  <div className="text-black font-semibold text-lg">
+                    at {StoreLocation}
                   </div>
                 </div>
               </div>
             </Link>
-          </div>
-          <div className="m-5">
-            {/* <div className="font-sans font-semibold uppercase	mb-4 text-xl">
-              {type}
-            </div> */}
-            {/* <div className="flex justify-start md:p-1">
-              {type_parameters?.map((types, index) => {
-                return (
-                  <>
-                  
-                    <div key={index} className=" mt-5  text-white font-bold text-sm">
-                      <input
-                        className="border-2 ml-2 rounded-full bg-primary  h-10 w-28 hover:bg-gray-800  focus:outline-none focus:ring focus:ring-gray-700"
-                        type="button"
-                        value={types}
-                        onClick={(e) => setType_parameters(e.target.value)}
-                       
 
-                      ></input>
-                    </div>
-                    
-                   
-                  </>
-                );
-              })}
-            </div> */}
-          </div>
-
-          <div className="flex justify-start mt-5">
-            {/* <div>
-              desktop version
-              <Link
-                className="bg-primary border-2 rounded-full px-4 py-1 mt-5 m-2 text-white font-bold text-sm pc-only"
-                to="/"
-              >
-                <input type="button" value="store"></input>
-              </Link>
-            </div> */}
-            <div className=" mx-5">
-              {/* phone version */}
-              <Link
-                className=" text-black py-3 text-sm text-center w-20 "
-                to="/"
-              >
-                <IoStorefrontOutline className="text-primary h-6 w-full " />
-                store
-                {/* <input type="button" value="store"></input> */}
-              </Link>
-            </div>
-            {/* <div>
-              desktop 
-              <Link
-                className="pc-only bg-primary border-2 rounded-full px-4 py-1 mt-5 m-2 text-white font-bold text-sm "
-                to="/"
-              >
-                <input type="button" value="chat"></input>
-              </Link>
-            </div> */}
-            <div className="mx-3">
-              {/* phone version */}
-              <Link
-                className=" text-black py-3 text-sm text-center w-20 "
-                to="/"
-              >
-                <IoChatbubbleEllipsesOutline className="text-primary h-6 w-full " />
-                chat
-              </Link>
-            </div>
-            <div className="mx-1">
-              {/* desktop version */}
-              <div
-                onClick={() => handleSubmit({ image, title, id: uuidv4() })}
-                className="bg-white border-2 rounded-full px-4 py-2 md:px-3  text-primary font-bold text-sm border-primary"
-              >
-                <input type="button" value="add to cart"></input>
+            <div className="flex justify-center mt-5">
+              <div className="mx-1">
+                <div
+                  onClick={() => handleSubmit({ image, title, id: uuidv4() })}
+                  className="bg-white border-2 rounded-full px-4 py-2 md:px-3 cursor-pointer text-primary font-bold text-sm border-primary"
+                >
+                  <input className="cursor-pointer" type="button" value="Add to Cart"></input>
+                </div>
               </div>
-              {cartMassege && (
-                <Alert
-                  className="bg-green-600 w-max px-3 mt-5 rounded-full flex flex-row"
-                  variant="gradient"
-                  color="green"
-                >
-                  {cartMassege}
-                </Alert>
-              )}
-            </div>
-            <div className="mx-1">
-              {/* desktop version */}
-              {/* {if (quantity>0)} */}
-              <div>{quantityCheck()}</div>
-              <div>
-                <Dialog
-                  className="absolute h-full w-full top-0 left-0 p-6 bg-gradient-to-b from-primary to-transparent from-slate-200"
-                  visible={paymentOptionBtnPopUp}
-                  onHide={() => setpaymentOptionBtnPopUp(false)}
-                >
-                  <div className="flex flex-row justify-center ">
-                    <div className="flex flex-col w-fit justify-center m-36 p-6  border-2 rounded-xl shadow-lg  bg-white ">
-                      <p className="flex justify-center mb-2 font-bold">
-                        Choose a payment option
-                      </p>
-                      <p className=" font-bold">your location: {location}</p>
-                      <p className=" font-bold mb-4">
-                        your phone number: {phone_number}
-                      </p>
+              <div className="mx-1">
+                {/* desktop version */}
+                {/* {if (quantity>0)} */}
+                <div>{quantityCheck()}</div>
+                <div>
+                  <Dialog
+                    className="absolute h-full w-full top-0 left-0 p-6 bg-gradient-to-b from-primary to-transparent from-slate-200"
+                    visible={paymentOptionBtnPopUp}
+                    onHide={() => setpaymentOptionBtnPopUp(false)}
+                  >
+                    <div className="flex flex-row justify-center ">
+                      <div className="flex flex-col w-fit justify-center m-36 p-6  border-2 rounded-xl shadow-lg  bg-white ">
+                        <p className="flex justify-center mb-2 font-bold">
+                          Choose a payment option
+                        </p>
+                        <p className=" font-bold">Your Location: {location}</p>
+                        <p className=" font-bold mb-4">
+                          Your Phone No.: {phone_number}
+                        </p>
 
-                      <div>
-                        <button className="bg-primary border-2 rounded-full px-4 py-1 md:px-16  text-white font-bold text-sm">
-                          Online Payment
-                        </button>
+                        <div className="flex justify-start w-full">
+                          {QR_code &&
+                            <button
+                              onClick={() => {
+                                QRPayment = true
+                                createOrder({ id: uuidv4() })
+                              }}
+                              className="bg-primary border-2 w-fit rounded-md px-4 py-1 md:px-16  text-white font-bold text-sm">
+                              QR Code
+                            </button>
+                          }
 
-                        <button
-                          className="bg-primary border-2 rounded-full px-4 py-1 md:px-16  text-white font-bold text-sm"
-                          onClick={() => createOrder({ id: uuidv4() })}
-                        >
-                          Cash On Delivery
-                        </button>
-                      </div>
-
-                      <div className="flex flex-col align-items mt-5 w-12">
-                        <div className="flex justify-between  content-around w-72">
-                          <div
-                            onClick={() => setpaymentOptionBtnPopUp(false)}
-                            className="bg-red-500 border-2 rounded-full px-4 py-2 md:px-3  text-white font-bold text-sm border-red-600"
-                          >
-                            Cancel
-                          </div>
-                          <div
-                            // onClick={saveCropImage}
-                            className="bg-white border-2 rounded-full px-4 py-2 md:px-3  text-primary font-bold text-sm border-primary"
-                          >
-                            Change your information
-                          </div>
+                          {COD &&
+                            <button
+                              className="bg-primary ml-2 border-2 w-fit rounded-md px-4 py-1 md:px-16  text-white font-bold text-sm"
+                              onClick={() => createOrder({ id: uuidv4() })}
+                            >
+                              Cash On Delivery
+                            </button>
+                          }
                         </div>
-                        {massege && (
-                          <Alert
-                            className="bg-green-600 w-max px-3 mt-5 rounded-full flex flex-row"
-                            variant="gradient"
-                            color="green"
-                          >
-                            {massege}
-                          </Alert>
-                        )}
+
+                        <div className="flex flex-col align-items mt-5 w-12">
+                          <div className="flex justify-between  content-around w-72">
+                            <div
+                              onClick={() => setpaymentOptionBtnPopUp(false)}
+                              className="bg-red-500 border-2 rounded-full px-4 py-2 md:px-3  text-white font-bold text-sm border-red-600"
+                            >
+                              Cancel
+                            </div>
+                            <div
+                              // onClick={saveCropImage}
+                              className="bg-white border-2 rounded-full px-4 py-2 md:px-3  text-primary font-bold text-sm border-primary"
+                            >
+                              Change your information
+                            </div>
+                          </div>
+                          {massege && (
+                            <Alert
+                              className="bg-green-600 w-max px-3 mt-5 rounded-full flex flex-row"
+                              variant="gradient"
+                              color="green"
+                            >
+                              {massege}
+                            </Alert>
+                          )}
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </Dialog>
-
-                {/* 
-                            <div>
-                <div 
-                 className="bg-primary border-2 rounded-full px-4 py-1 md:px-16  text-white font-bold text-sm"
-                 >
-                  {paymentOptionBtnPopUp ? 
-                   <div>
-                <button 
-                 className="bg-primary border-2 rounded-full px-4 py-1 md:px-16  text-white font-bold text-sm">
-                    pay online</button>
-
-                    <button 
-                 className="bg-primary border-2 rounded-full px-4 py-1 md:px-16  text-white font-bold text-sm"
-                 onClick={() =>createOrder({id: uuidv4() })}
-                 >
-                    cash on delivry</button>
-              </div>
-              
-               : "" }
-                   </div>
-              </div>  */}
+                  </Dialog>
+                </div>
               </div>
             </div>
+            {cartMassege && (
+              <Alert
+                className="bg-green-600 w-full px-3 mt-5 rounded-2 flex flex-row"
+                variant="gradient"
+                color="green"
+              >
+                {cartMassege}
+              </Alert>
+            )}
           </div>
         </div>
       </div>

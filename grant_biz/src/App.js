@@ -23,14 +23,13 @@ import ForgotPassword from "./Components/Auth/ForgotPassword";
 import CreateMyShop from "./Components/Shop/CreateMyShop";
 import MenageProduct from "./Components/Shop/MenageProduct";
 import AddProduct from "./Components/Shop/AddProduct";
-
 import { useAuth } from './context/AuthContext';
 import { ThemeProvider } from "@material-tailwind/react";
 import db from "./firebase"
 import { onSnapshot, collection, doc, setDoc, getDocs, getDoc } from "firebase/firestore"
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { setCurrentUser } from './redux/actions/index';
+import { setCurrentUser, setProducts } from './redux/actions/index';
 import StorePage from "./Components/Home/StorePage"
 import ReceivedOrders from "./Components/Shop/ReceivedOrders";
 
@@ -38,10 +37,13 @@ import ReceivedOrders from "./Components/Shop/ReceivedOrders";
 
 function App() {
 
-  const currentUser = useSelector((state) => state.currentUser);
+  // const currentUser = useSelector((state) => state.currentUser);
   // console.log("currentUser", currentUser)
-  const dispatch = useDispatch();
   const { user } = useAuth()
+  const dispatch = useDispatch();
+
+  // const products = useSelector((state) => state.allProducts.products);
+
 
   const fetchUser = async () => {
     try {
@@ -71,8 +73,7 @@ function App() {
     } catch (error) {
       console.log(error)
     }
-  }, [user])
-  
+  }, [user])  
 
   return (
     <>

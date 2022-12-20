@@ -27,7 +27,7 @@ function NavBar() {
               <>
                 <Link to={`/Profile`}>
                   {profile_avatar ?
-                    <img src={profile_avatar} alt="Avatar" className="text-stone-400 h-16 w-full active:text-primary" />
+                    <img src={profile_avatar} alt="Avatar" className="text-stone-400 h-16 w-16 active:text-primary" />
                     :
                     <IoPersonCircleOutline className="text-stone-400 h-16 w-full active:text-primary" />
                   }
@@ -91,7 +91,7 @@ function NavBar() {
                 </div>
                 <Link to='/Profile'>
                   {profile_avatar ?
-                    <img src={profile_avatar} alt="Avatar" className="text-stone-400 h-16 w-full active:text-primary" />
+                    <img src={profile_avatar} alt="Avatar" className="text-stone-400 h-16 w-16 active:text-primary" />
                     :
                     <IoPersonCircleOutline className="text-stone-400 h-16 w-full active:text-primary" />
                   }

@@ -39,16 +39,39 @@ function MyShop() {
 
   const currentUser = useSelector((state) => state.currentUser);
   console.log("currentUser", currentUser)
-  const { email, Name, own_store, store_avatar, StoreName, StoreLocation, store_type } = currentUser
-  
+  const { email, Name, own_store, store_avatar, StoreName, StoreLocation, store_type, QR_code_image } = currentUser
+
   const [storeName, setStoreName] = useState(StoreName);
   const [storeLocation, setStoreLocation] = useState(StoreLocation);
 
   const [image, setImage] = useState(store_avatar);
+  const [QRCodeImage, setQRCodeImage] = useState(QR_code_image);
   const [imageCrop, setImageCrop] = useState(false);
+  const [imageQRCode, setImageQRCode] = useState(false);
   const [src, setSrc] = useState(false);
   const [profile, setProfile] = useState([]);
   const [pView, setPView] = useState("");
+
+  const uploadQRImage = async (e) => {
+    const file = e.target.files[0];
+    const base64 = await convertBase64(file);
+    setQRCodeImage(base64);
+  };
+
+  const convertBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(file);
+
+      fileReader.onload = () => {
+        resolve(fileReader.result);
+      };
+
+      fileReader.onerror = (error) => {
+        reject(error);
+      };
+    });
+  };
 
   const onClose = () => {
     setPView(null)
@@ -79,10 +102,22 @@ function MyShop() {
   }
 
   const usersRef = collection(db, "Users");
+  async function handleSubmitQR() {
+    try {
+      const response = await updateDoc(doc(usersRef, email), {
+        QR_code_image: QRCodeImage,
+      });
+      // refreshPage()
+      setImageQRCode(false)
+    } catch (err) {
+      // refreshPage()
+      console.error(err);
+    }
+  }
   async function handleSubmit() {
     try {
       const response = await updateDoc(doc(usersRef, email), {
-        store_avatar: image, StoreName:storeName, StoreLocation:storeLocation, 
+        store_avatar: image, StoreName: storeName, StoreLocation: storeLocation,
       });
       // refreshPage()
       setImageCrop(false)
@@ -182,18 +217,56 @@ function MyShop() {
               </div>
             </div>
           </Dialog>
+          <Dialog className="absolute h-full w-full top-0 left-0 p-6 bg-gradient-to-b from-primary to-transparent from-slate-200"
+            visible={imageQRCode}
+            onHide={() => setImageQRCode(false)}
+          >
+            <div className="flex flex-row justify-center ">
+              <div className="flex flex-col w-fit justify-center mt-4 m-0 p-6 border-2 rounded-xl shadow-lg  bg-white">
+                <p> Update QR Code</p>
+                <InputText
+                  type="file"
+                  accept="/image/*"
+                  onChange={uploadQRImage}
+                />
+                <div className="flex flex-col mt-4 align-items w-12">
+                  <div className="flex justify-between  content-around w-72 overflow-x">
+                    <div
+                      onClick={() => setImageQRCode(false)}
+                      className="flex justify-center items-center cursor-pointer px-4 py-2 w-20 max-w-xs text-xs font-semibold tracking-widest text-white uppercase transition duration-150 ease-in-out bg-gray-900 border border-transparent rounded-md active:bg-gray-900 false"
+                    >Cancel</div>
+                    <div
+                      onClick={handleSubmitQR}
+                      className="flex justify-center items-center cursor-pointer px-4 py-2 w-20 max-w-xs text-xs font-semibold tracking-widest text-white uppercase transition duration-150 ease-in-out bg-gray-900 border border-transparent rounded-md active:bg-gray-900 false"
+                    >Update</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </Dialog>
+
           {own_store ?
             <div className="">
               <div className="my-0 flex justify-center">
                 {image ?
-                  <div className="flex flex-col" onClick={() => { setImageCrop(true) }}                                    >
-                    <div className="flex flex-col justify-center items-center  h-48 w-48 active:text-primary">
+                  <div className="flex flex-row" >
+                    <div onClick={() => { setImageCrop(true) }} className="flex flex-col justify-center items-center m-1 h-32 w-32 active:text-primary">
                       < img
                         src={image}
                         alt="Store Avatar"
-                        className="border-stone-400 border-2 border-black  rounded-full h-48 w-48 active:text-primary "
+                        className="border-stone-400 border-2 border-black  rounded-full h-32 w-32 active:text-primary "
                       />
-                      <div className="flex flex-col justify-center items-end w-60">
+                      <div className="flex flex-col justify-center items-start w-32">
+                        <IoCreateOutline className=" text-black h-8 w-10 active:text-primary" />
+                      </div>
+                    </div>
+                    <div onClick={() => { setImageQRCode(true) }} className="flex flex-col justify-center items-center m-1 h-32 w-32 active:text-primary">
+                      < img
+                        src={QRCodeImage}
+                        alt="Store Avatar"
+                        className="border-stone-400 border-2 border-black  h-32 active:text-primary "
+                      />
+                      <div className="flex flex-col justify-center items-end w-32">
                         <IoCreateOutline className=" text-black h-8 w-10 active:text-primary" />
                       </div>
                     </div>
@@ -219,15 +292,15 @@ function MyShop() {
                 <p className="text-2xl font-semibold ">{StoreLocation}</p>
               </div>
               <hr />
-              <div className="py-6 flex flex-row justify-between">
-                <div className="flex flex-row justify-start" onClick={() => { setImageCrop(true) }}>
+              <div onClick={() => { setImageCrop(true) }} className="py-6 flex flex-row justify-between">
+                <div className="flex flex-row justify-start">
                   <IoSettingsOutline className="text-black h-8 w-10 mr-2 active:text-primary" />
                   <p className="text-xl font-semibold ">Edit Store Info</p>
                 </div>
                 <IoArrowForwardOutline className="text-black h-8 w-10 mr-2 active:text-primary" />
               </div>
-              <div className="py-6 flex flex-row justify-between">
-                <div className="flex flex-row justify-start" onClick={() => { setImageCrop(true) }}>
+              <div onClick={() => { setImageQRCode(true) }} className="py-6 flex flex-row justify-between">
+                <div className="flex flex-row justify-start">
                   <IoSettingsOutline className="text-black h-8 w-10 mr-2 active:text-primary" />
                   <p className="text-xl font-semibold ">Edit QR Code</p>
                 </div>
@@ -262,7 +335,7 @@ function MyShop() {
                 </div>
                 <IoArrowForwardOutline className="text-black h-8 w-10 mr-2 active:text-primary" />
               </Link>
-              <Link className="py-6 flex flex-row justify-between"  to={`/saleAnalysis/${email}`}>
+              <Link className="py-6 flex flex-row justify-between" to={`/saleAnalysis/${email}`}>
                 <div className="flex flex-row justify-start">
                   <IoAnalyticsOutline className="text-black h-8 w-10 mr-2 active:text-primary" />
                   <p className="text-xl font-semibold ">Sale Analysis</p>

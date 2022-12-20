@@ -34,6 +34,7 @@ function CreateMyShop() {
     const [src, setSrc] = useState(false);
     const [profile, setProfile] = useState([]);
     const [pView, setPView] = useState("");
+    const [QRCodeImage, setQRCodeImage] = useState("");
 
     const onClose = () => {
         setPView(null)
@@ -110,7 +111,11 @@ function CreateMyShop() {
             setError("");
             setLoading(true);
             const response = await updateDoc(doc(usersRef, email), {
-                ...newStore, own_store: true, store_avatar: image,
+                ...newStore, 
+                own_store: true, 
+                store_avatar: image, 
+                QR_code_image: QRCodeImage,
+                Income: [0,0,0,0,0,0,0,0,0,0,0]
             });
             if (response.hasOwnProperty('message')) {
                 setError(response.message);
