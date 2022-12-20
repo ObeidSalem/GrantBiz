@@ -174,6 +174,7 @@ function ProductDetails() {
       setLoading(true);
       const response = await setDoc(doc(orderRef, `${showDate.getDate()}-${showDate.getMonth()}-${showDate.getFullYear()}-${showDate.getHours()}-${orderData.id}`), {
         ...orderData,
+        ProductId: id,
         price: price,
         image: image,
         title: title,

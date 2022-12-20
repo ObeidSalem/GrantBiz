@@ -22,7 +22,7 @@ import ForgotPassword from "./Components/Auth/ForgotPassword";
 import CreateMyShop from "./Components/Shop/CreateMyShop";
 import MenageProduct from "./Components/Shop/MenageProduct";
 import AddProduct from "./Components/Shop/AddProduct";
-import SaleAnalysis from "./Components/Shop/saleAnalysis";
+import SaleAnalysis from "./Components/Shop/SaleAnalysis";
 import { useAuth } from './context/AuthContext';
 import { ThemeProvider } from "@material-tailwind/react";
 import db from "./firebase"
@@ -89,7 +89,7 @@ function App() {
               <Route path="/Cart" element={<Cart />} />
               <Route path="/ReceivedOrders/:email" element={<ReceivedOrders />} />
               <Route path="/MenageProduct/:email" element={<MenageProduct />} />
-              <Route path="/saleAnalysis/:email" element={<SaleAnalysis />} />
+              <Route path="/SaleAnalysis/:email" element={<SaleAnalysis />} />
               <Route path="/AddProduct/:email" element={<AddProduct />} />
               <Route path="/product/:productId" element={<ProductDetails />} />
               <Route path="/QRCheckout/:productId" element={<QRCheckout />} />

@@ -26,7 +26,7 @@ const AddProduct = () => {
     const { user } = UserAuth()
 
     const currentUser = useSelector((state) => state.currentUser);
-    const { email, store_avatar, StoreName, store_location, store_type, phone_number, QR_code_image } = currentUser
+    const { email, store_avatar, StoreName, store_location, store_type, phone_number, QR_code_image, Income } = currentUser
 
     const navigate = useNavigate("");
 
@@ -73,6 +73,10 @@ const AddProduct = () => {
 
     const usersRef = collection(db, "Users");
     const productRef = collection(db, "Products");
+
+
+    console.log("Income", ...Income)
+
     async function handleSubmit({ id }) {
 
         setError("")
@@ -94,13 +98,14 @@ const AddProduct = () => {
             store_phone_number: phone_number,
             COD: COD,
             QR_code: QRCode,
+            ProductMonthlyIncome: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         }
         // console.log("data", data)
         if (COD || QRCode) {
             if (QRCodeImage && QRCode) {
                 try {
                     const responseUser = await updateDoc(doc(usersRef, user.email), {
-                        QR_code_image: QRCodeImage
+                        QR_code_image: QRCodeImage,
                     });
                     const responseProduct = await setDoc(doc(productRef, id), {
                         ...data
@@ -113,6 +118,8 @@ const AddProduct = () => {
 
             } else if (COD && !QRCode) {
                 try {
+                    const responseUser = await updateDoc(doc(usersRef, user.email), {
+                    });
                     const responseProduct = await setDoc(doc(productRef, id), {
                         ...data
                     });
@@ -130,6 +137,7 @@ const AddProduct = () => {
         }
 
     }
+
 
     return (
         <div className="md:px-36 lg:px-96 bg-white">

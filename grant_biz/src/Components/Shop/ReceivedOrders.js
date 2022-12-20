@@ -38,6 +38,11 @@ const ReceivedOrders = () => {
 
   const [products, setProducts] = useState([]);
 
+  const showDate = new Date();
+  const [targetProductIncome, setTargetProductIncome] = useState({})
+
+
+
   // const dispatch = useDispatch();
 
   const currentUser = useSelector((state) => state.currentUser);
@@ -49,11 +54,14 @@ const ReceivedOrders = () => {
     StoreName,
     store_location,
     store_type,
+    Income
   } = currentUser;
-  // const products = useSelector((state) => state.storeProducts.products);
-  // console.log("products", products)
 
-  const updateRef = collection(db, "Orders");
+
+
+  const ordersRef = collection(db, "Orders");
+  const usersRef = collection(db, "Users");
+  const productsRef = collection(db, "Products");
 
   const fetchOrders = async () => {
     const q = query(
@@ -83,6 +91,13 @@ const ReceivedOrders = () => {
     }
   }, [user]);
 
+  console.log("targetProductIncome", targetProductIncome)
+
+  useEffect(() => {
+    setTargetProductIncome(Income)
+
+  }, [currentUser]);
+
   function refreshPage() {
     window.location.reload(false);
   }
@@ -107,17 +122,17 @@ const ReceivedOrders = () => {
   const [comformEmail, setcomformEmail] = useState({
     fullName: "GrandBiz",
     email: user.email,
-    message: "you have conform that you had received the order",
+    message: "You have conform that you had received the order",
   });
   const [ConfirmShipments, setConfirmShipments] = useState({
     fullName: "GrandBiz",
     email: user.email,
-    message: "you have conform that you had shipped the order",
+    message: "You have conform that you had shipped the order",
   });
   const [ConfirmReceivingMoney, setConfirmReceivingMoney] = useState({
     fullName: "GrandBiz",
     email: user.email,
-    message: "you have conform that you received the money for the order",
+    message: "You have conform that you received the money for the order",
   });
 
   return (
@@ -268,7 +283,7 @@ const ReceivedOrders = () => {
                 userPhoneNumber,
                 address,
               } = product;
-              console.log("product", product);
+              // console.log("product", product);
               if (isConfirmed == false) {
                 return (
                   <div
@@ -320,7 +335,7 @@ const ReceivedOrders = () => {
                         <div
                           onClick={async () => {
                             const response = await updateDoc(
-                              doc(updateRef, id),
+                              doc(ordersRef, id),
                               {
                                 isConfirmed: true,
                               }
@@ -406,7 +421,7 @@ const ReceivedOrders = () => {
                         <div
                           onClick={async () => {
                             const response = await updateDoc(
-                              doc(updateRef, id),
+                              doc(ordersRef, id),
                               {
                                 isCanceled: true,
                                 isShipped: true,
@@ -447,7 +462,7 @@ const ReceivedOrders = () => {
                         <div className=" flex-row">
                           <div className="float-left mr-1">
                             <IoChatbubblesOutline className="w-8 h-8" />
-                            customer phone number:
+                            Customer phone number:
                           </div>
                           <div className="float-right mt-8 ml-2 text-gray-500">
                             {userPhoneNumber}
@@ -456,7 +471,7 @@ const ReceivedOrders = () => {
                         <div
                           onClick={async () => {
                             const response = await updateDoc(
-                              doc(updateRef, id),
+                              doc(ordersRef, id),
                               {
                                 isShipped: true,
                               }
@@ -514,7 +529,17 @@ const ReceivedOrders = () => {
                 isCanceled,
                 ProofOfImage,
                 QRPayment,
+                ProductId,
               } = product;
+
+              // const Index = Income?.findIndex(item => item.ProductID === ProductId)
+              // console.log("index",Income?.findIndex(item => item.ProductID === ProductId))
+              // const incomeCurrentMonth = Income?.find(item => item.ProductID === ProductId).ProductMonthlyIncome[showDate.getMonth()]
+              // console.log("incomeCurrentMonth", incomeCurrentMonth)
+              // const value = incomeCurrentMonth+Number(price)
+              // setTargetProductIncome()
+              // console.log("incrementedIncome",targetProductIncome)
+
               if (
                 isShipped === true &&
                 isReceivedFromSeller === false &&
@@ -572,13 +597,56 @@ const ReceivedOrders = () => {
                               <img className="my-4" src={ProofOfImage} alt="Prof of Payment" />
                             </div>
                             <div
-                              onClick={async () => {
-                                const response = await updateDoc(
-                                  doc(updateRef, id),
+                              onClick={async (event) => {
+
+                                let UserIncomeData;
+                                let ProductIncomeData;
+                                const docUserRef = doc(db, "Users", user.email);
+                                const docProductRef = doc(db, "Products", ProductId);
+                                const responseUserGet = await getDoc(docUserRef);
+                                const responseProduct = await getDoc(docProductRef);
+
+                                if (responseUserGet.exists()) {
+                                  UserIncomeData = responseUserGet.data().Income;
+                                } else {
+                                  console.log("Document does not exist");
+                                }
+
+                                if (responseProduct.exists()) {
+                                  ProductIncomeData = responseProduct.data().productIncome;
+                                } else {
+                                  console.log("Document does not exist");
+                                }
+
+                                UserIncomeData.forEach((a, i) => {
+                                  if (i == showDate.getMonth()) {
+                                    UserIncomeData[i] += Number(price);
+                                    ProductIncomeData[i] += Number(price);
+                                  } else {
+                                    // console.log('nOT cORRECT iNDEX')
+                                  }
+                                });
+
+                                const responseUserUpdate = await updateDoc(
+                                  doc(usersRef, user.email),
+                                  {
+                                    Income: UserIncomeData,
+                                  }
+                                );
+                                const responseProductUpdate = await updateDoc(
+                                  doc(productsRef, ProductId),
+                                  {
+                                    productIncome: ProductIncomeData,
+                                  }
+                                );
+                                const responseOrder = await updateDoc(
+                                  doc(ordersRef, id),
                                   {
                                     isReceivedFromSeller: true,
                                   }
                                 );
+                                console.log('event', ProductId);
+
                                 emailjs
                                   .send(
                                     "service_gyzz5nb",
@@ -632,7 +700,7 @@ const ReceivedOrders = () => {
                             <div
                               onClick={async () => {
                                 const response = await updateDoc(
-                                  doc(updateRef, id),
+                                  doc(ordersRef, id),
                                   {
                                     isCanceled: true,
                                     isShipped: true,
@@ -673,7 +741,7 @@ const ReceivedOrders = () => {
                             <div className=" flex-row">
                               <div className="float-left mr-1">
                                 <IoChatbubblesOutline className="w-8 h-8" />
-                                customer phone number:
+                                Customer phone number:
                               </div>
                               <div className="float-right mt-8 ml-2 text-gray-500">
                                 {userPhoneNumber}
@@ -759,7 +827,7 @@ const ReceivedOrders = () => {
                           <div className=" flex-row">
                             <div className="float-left mr-1">
                               <IoChatbubblesOutline className="w-8 h-8" />
-                              customer phone number:
+                              Customer Phone No.:
                             </div>
                             <div className="float-right mt-8 ml-2 text-gray-500">
                               {userPhoneNumber}

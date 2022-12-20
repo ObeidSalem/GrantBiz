@@ -36,6 +36,17 @@ function CreateMyShop() {
     const [pView, setPView] = useState("");
     const [QRCodeImage, setQRCodeImage] = useState("");
 
+    const Income = [{
+        ProductID: "sdfadfds",
+        ProductName: "Title",
+        ProductMonthlyIncome: [2, 3, 1, 4, 6, 7, 8, 9, 4, 4, 10, 7],
+      },
+      {
+        ProductID: "fdgs",
+        ProductName: "Title",
+        ProductMonthlyIncome: [2, 3, 1, 4, 6, 7, 8, 9, 4, 4, 10, 7],
+      }]
+
 
     const onClose = () => {
         setPView(null)
@@ -71,7 +82,12 @@ function CreateMyShop() {
             setError("");
             setLoading(true);
             const response = await updateDoc(doc(usersRef, email), {
-                ...newStore, own_store: true, store_avatar: image, QR_code_image: QRCodeImage,
+                ...newStore, 
+                own_store: true, 
+                store_avatar: 
+                image, 
+                QR_code_image: QRCodeImage,
+                Income: [0,0,0,0,0,0,0,0,0,0,0]
             });
             if (response.hasOwnProperty('message')) {
                 setError(response.message);
