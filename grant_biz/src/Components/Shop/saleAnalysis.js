@@ -31,12 +31,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { IoTrashBinSharp } from "react-icons/io5";
 import { async } from "@firebase/util";
 
-ChartJS.register(
-  LineElement,
-  CategoryScale,
-  LinearScale,
-  PointElement
-)
+ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement);
 
 function SaleAnalysis() {
   const { user } = UserAuth();
