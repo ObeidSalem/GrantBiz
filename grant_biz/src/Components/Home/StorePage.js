@@ -59,7 +59,7 @@ const StorePage = () => {
     return (      
       <Link to={`/product/${id}`} className="bg-white" key={index}>
           <div className="">
-            <div className="bg-white hover:bg-secondary rounded-2xl p-2 m-0">
+            <div className="bg-white border-2 shadow-sl  hover:shadow-md rounded-2xl p-2 m-0" >
               <div className="">
                 <img className="rounded-lg object-cover h-56 w-full" src={image} alt={title} />
               </div>
@@ -112,15 +112,12 @@ const StorePage = () => {
   return (
     
     <>
-      <div className=" bg-gray-50 pb-48">
+      <div className=" bg-white-50 pb-48">
         <div className="hidden md:block">
           <NavBar />
         </div>
-        <div className=" visible md:invisible md:h-0 md:w-0">
-          <Search />
-        </div>
             <div className=" border shadow-sm h-24 w-full rounded-xl p-3 px-2 ">
-              <div className="flex justify-start mx-3 ">
+              <div className="flex justify-start mx-20 ">
                 <img
                   className="ml-1 w-20 h-20 rounded-full"
                   src={store_avatar}
@@ -144,7 +141,7 @@ const StorePage = () => {
               </div>
             </div>
             {/* main Components */}
-            <div className="my-4 grid grid-cols-2 gap-6 xl:grid-cols-3 2xl:grid-cols-4 bg-white">
+            <div className="grid grid-cols-2 gap-2 xl:grid-cols-3 2xl:grid-cols-4 bg-white mx-8">
                 {renderStoreProductsList}
 
             </div>

@@ -38,9 +38,17 @@ import { Alert } from "@material-tailwind/react";
 const AddProduct = () => {
   const { user } = UserAuth();
 
-
   const currentUser = useSelector((state) => state.currentUser);
-  const { email, store_avatar, StoreName, store_location, store_type, phone_number, QR_code_image, Income } = currentUser
+  const {
+    email,
+    store_avatar,
+    StoreName,
+    store_location,
+    store_type,
+    phone_number,
+    QR_code_image,
+    Income,
+  } = currentUser;
 
   const navigate = useNavigate("");
 
@@ -88,11 +96,9 @@ const AddProduct = () => {
   const usersRef = collection(db, "Users");
   const productRef = collection(db, "Products");
 
-
   // console.log("Income", ...Income)
 
   async function handleSubmit({ id }) {
-
     setError("");
 
     // const splitArrayTypeParameters = typeParameters.split(", ");
@@ -115,7 +121,7 @@ const AddProduct = () => {
       isHide: false,
       quantity: quantity,
       productIncome: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    }
+    };
     // console.log("data", data)
     if (COD || QRCode) {
       if (QRCodeImage && QRCode) {
@@ -124,20 +130,18 @@ const AddProduct = () => {
             QR_code_image: QRCodeImage,
           });
           const responseProduct = await setDoc(doc(productRef, id), {
-            ...data
+            ...data,
           });
           navigate("/");
         } catch (err) {
           console.error(err);
           // setError(err)
         }
-
       } else if (COD && !QRCode) {
         try {
-          const responseUser = await updateDoc(doc(usersRef, user.email), {
-          });
+          const responseUser = await updateDoc(doc(usersRef, user.email), {});
           const responseProduct = await setDoc(doc(productRef, id), {
-            ...data
+            ...data,
           });
           navigate("/");
         } catch (err) {
@@ -145,18 +149,17 @@ const AddProduct = () => {
           // setError(err)
         }
       } else {
-        setError("upload QR Code")
+        setError("upload QR Code");
       }
-
     } else {
-      setError("At least one of the payment methods should be checked")
+      setError("At least one of the payment methods should be checked");
     }
   }
 
   return (
     <div className="md:px-36 lg:px-96 bg-white">
       <div className="bg-white h-screen static">
-        <div className="px-6 bg-white  pb-16 md:px-36 lg:px-96">
+        <div className="px-6 bg-white pb-16">
           <div className="my-10 flex justify-start align-center">
             <Link to={`/`}>
               <IoArrowBackOutline className="text-black h-8 w-10 mr-2 active:text-primary" />
@@ -383,7 +386,10 @@ const AddProduct = () => {
                   </div>
                 ) : (
                   <div className="flex flex-col ">
-                    <p className="text-lg my-4">Upload QR Code Image</p>
+                    <p className="text-lg mt-4">
+                      Upload Proof of Payment in JPEG of PNG
+                    </p>
+                    <p className="text-lg mb-2">Less than 500KB</p>
                     <input
                       type="file"
                       accept="/image/*"
@@ -415,6 +421,5 @@ const AddProduct = () => {
     </div>
   );
 };
-
 
 export default AddProduct;
