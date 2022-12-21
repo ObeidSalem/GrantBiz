@@ -340,8 +340,7 @@ const ReceivedOrders = () => {
                                   isConfirmed: true,
                                 }
                               );
-                              emailjs
-                                .send(
+                              emailjs.send(
                                   "service_gyzz5nb",
                                   "template_z48cde4",
                                   comformEmail,
@@ -355,7 +354,7 @@ const ReceivedOrders = () => {
                                     console.log(error.text);
                                   }
                                 );
-                              refreshPage();
+                              // refreshPage();
                             }}
                             className="w-36 mr-1 text-white text-center bg-primary p-2  rounded-xl cursor-pointer  hover:cursor-pointer"
                           >

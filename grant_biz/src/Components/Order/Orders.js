@@ -603,7 +603,7 @@ const Orders = () => {
                                             console.log(error.text);
                                           }
                                         );
-                                      refreshPage();
+                                       refreshPage();
                                     }}
                                     className=" w-fit mr-1 text-white text-center bg-primary p-2  rounded-xl cursor-pointer  hover:cursor-pointer"
                                   >

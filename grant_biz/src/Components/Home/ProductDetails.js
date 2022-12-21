@@ -71,6 +71,7 @@ function ProductDetails() {
     store_phone_number,
     quantity,
   } = product;
+  let userEmail = email;
   // const [Title, setTitle] = useState(title);
   // const [Image, setImage]= useState(image);
   const [Error, setError] = useState("");
@@ -81,7 +82,7 @@ function ProductDetails() {
   const [paymentOptionBtnPopUp, setpaymentOptionBtnPopUp] = useState(false);
   const [newOrderEmail, setNewOrderEmail] = useState({
     fullName: "GrandBiz",
-    email: email,
+    email: userEmail,
     message: "new order has been placed,please check your shop",
   });
 
@@ -182,7 +183,7 @@ function ProductDetails() {
         .send(
           "service_gyzz5nb",
           "template_z48cde4",
-          newOrderEmail,
+           newOrderEmail,
           "CyPHO2_SKVKTmOJ7P"
         )
         .then(
@@ -190,7 +191,6 @@ function ProductDetails() {
             console.log(result.text);
           },
           (error) => {
-            // console,log()
             console.log(error.text);
           }
         );
