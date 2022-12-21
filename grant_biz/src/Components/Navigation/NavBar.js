@@ -67,7 +67,7 @@ function NavBar() {
           {/* nav items PC only */}
           <div className="flex items-center justify-center ">
             <Link className="p-3 pc-only" to="/">Home</Link>
-            <Link className="p-3 pc-only" to="/Feed">Feed</Link>
+            <Link className="p-3 pc-only" to={`/FutureUpdate`}>Feed</Link>
             <Link className="p-3 pc-only" to="/Order">Order</Link>
             <Link className="p-3 pc-only" to="/Cart">Cart</Link>
             <Link className="p-3 pc-only" to={`/MyShop/${email}`}>My Shop</Link>

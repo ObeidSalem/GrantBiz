@@ -284,7 +284,7 @@ function ProductDetails() {
               <div className="font-sans font-semibold uppercase	mt-4 text-2xl">
                 Description
               </div>
-              <div className=" w-64 font-sans font-semibold">{description}</div>
+              <div className=" w-56 text-black font-sans font-semibold">{description}</div>
               {/* <div className=" w-64 font-sans font-semibold">
                 in stock: {quantity}
               </div> */}

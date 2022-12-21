@@ -29,12 +29,12 @@ function HomePage() {
         <div className="bg-white" key={index}>
           <Link to={`/product/${id}`}>
             <div className="">
-              <div className="bg-white border-2 shadow-sl  hover:shadow-md rounded-2xl p-2 m-0">
+              <div className="bg-white border-2 shadow-sl h-80 align-between hover:shadow-md rounded-2xl p-2 m-0">
                 <div className="">
                   <img className="rounded-lg object-cover h-56 w-full" src={image} alt={title} />
                 </div>
                 <div className="">
-                  <div className="font-sans	text-2xl">{title}</div>
+                  <div className="font-sans	text-xl">{title}</div>
                   <div className="flex justify-between">
                     <CurrencyFormat className="font-sans	text-md" value={price} displayType={'text'} thousandSeparator={true} prefix={'RM '} />
                     <div className=" flow-root">
@@ -61,7 +61,7 @@ function HomePage() {
             {/* <p className="text-2xl bold ">See All</p> */}
           </div>
           <img
-            className="rounded-xl object-cover image fit h-56 w-full 2xl:h-96 border-gray-600"
+            className="border rounded-xl object-cover image fit h-56 w-full 2xl:h-96 border-gray-300"
             src={GrantBizAD}
             alt={"title"}
           />

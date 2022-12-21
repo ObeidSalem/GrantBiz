@@ -208,7 +208,7 @@ export default function Signup() {
                     }}
                     // setmatric_number(e.target.value)}
                     required
-                    className="block w-full p-2  mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                    className="block w-full p-2  mt-1 border border-gray-400 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                   />
                 </div>
               </div>
@@ -235,7 +235,7 @@ export default function Signup() {
                   htmlFor="phone_number"
                   className="block text-sm font-medium text-gray-700 undefined"
                 >
-                  phone number
+                  Phone No.
                 </label>
                 <div className="flex flex-col items-start ">
                   <input
@@ -285,7 +285,7 @@ export default function Signup() {
                       matric_number,
                     })
                   }
-                  className="inline-flex items-center px-4 py-2 ml-4 text-xs font-semibold tracking-widest text-white uppercase transition duration-150 ease-in-out bg-gray-900 border border-transparent rounded-md active:bg-gray-900 false"
+                  className="inline-flex items-center px-4 py-2 ml-4 text-xs font-semibold tracking-widest text-white uppercase transition duration-150 ease-in-out bg-gray-900 border border-transparent rounded-md active:bg-gray-900 false cursor-pointer"
                 >
                   Register
                 </div>

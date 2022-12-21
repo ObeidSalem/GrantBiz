@@ -33,6 +33,8 @@ import QRCheckout from "./Components/Order/QRCheckout";
 import { setCurrentUser, setProducts } from './redux/actions/index';
 import StorePage from "./Components/Home/StorePage"
 import ReceivedOrders from "./Components/Shop/ReceivedOrders";
+import FutureUpdate from "./Components/FutureUpdate";
+import PageNotFound from "./Components/PageNotFound";
 
 
 
@@ -108,6 +110,7 @@ function App() {
               <Route path="/Feed" element={<Feed />} />
               <Route path="/Order" element={<Order />} />
               <Route path="/Cart" element={<Cart />} />
+              <Route path="/FutureUpdate" element={<FutureUpdate />} />
               <Route path="/ReceivedOrders/:email" element={<ReceivedOrders />} />
               <Route path="/MenageProduct/:email" element={<MenageProduct />} />
               <Route path="/AddProduct/:email" element={<AddProduct />} />
@@ -118,7 +121,8 @@ function App() {
               <Route path="/MyShop/:email" element={<MyShop />} />
               <Route path="/MyShop/:email/Create" element={<CreateMyShop />} />
               <Route path="/ForgotPassword" element={<ForgotPassword />} />
-              <Route path="/Product/:id" element={<Product />} />        
+              <Route path="/Product/:id" element={<Product />} />    
+              <Route path="*" element={<PageNotFound />} />    
             </Routes>
           </div>
         </Router>

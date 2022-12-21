@@ -161,7 +161,7 @@ const AddProduct = () => {
             <Link to={`/`}>
               <IoArrowBackOutline className="text-black h-8 w-10 mr-2 active:text-primary" />
             </Link>
-            <p className="text-2xl font-semibold w-full">Add new Product</p>
+            <h2 className="text-2xl font-semibold w-full">Add new Product</h2>
           </div>
           <br />
           <form onSubmit={handleSubmit}>
@@ -174,7 +174,9 @@ const AddProduct = () => {
                 >
                   <div className="flex flex-row justify-center ">
                     <div className="flex flex-col  justify-center m-0 p-6 border-2 rounded-xl shadow-lg  bg-white">
-                      <p>Add Product Image</p>
+                      <h2 className="text-lg ">Add Product Image</h2>
+                      <p className="">Only JPEG or PNG formats accepted</p>
+                      <p className="mb-2">Less than 500KB</p>
                       <input
                         type="file"
                         accept="/image/*"
@@ -384,6 +386,8 @@ const AddProduct = () => {
                 ) : (
                   <div className="flex flex-col ">
                     <p className="text-lg my-4">Upload QR Code Image</p>
+                    <p className="text-lg ">Only JPEG or PNG formats accepted</p>
+                    <p className="text-lg mb-2">Less than 500KB</p>
                     <input
                       type="file"
                       accept="/image/*"

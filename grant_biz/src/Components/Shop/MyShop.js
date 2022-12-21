@@ -223,7 +223,9 @@ function MyShop() {
           >
             <div className="flex flex-row justify-center ">
               <div className="flex flex-col w-fit justify-center mt-4 m-0 p-6 border-2 rounded-xl shadow-lg  bg-white">
-                <p> Update QR Code</p>
+                <h2 className="text-lg"> Update QR Code</h2>
+                <p >Only JPEG or PNG formats accepted</p>
+                <p className=" mb-2">Less than 500KB</p>
                 <InputText
                   type="file"
                   accept="/image/*"
@@ -260,16 +262,18 @@ function MyShop() {
                         <IoCreateOutline className=" text-black h-8 w-10 active:text-primary" />
                       </div>
                     </div>
-                    <div onClick={() => { setImageQRCode(true) }} className="flex flex-col justify-center items-center m-1 h-32 w-32 active:text-primary">
-                      < img
-                        src={QRCodeImage}
-                        alt="Store Avatar"
-                        className="border-stone-400 border-2 border-black  h-32 active:text-primary "
-                      />
-                      <div className="flex flex-col justify-center items-end w-32">
-                        <IoCreateOutline className=" text-black h-8 w-10 active:text-primary" />
+                    {QRCodeImage &&
+                      <div onClick={() => { setImageQRCode(true) }} className="flex flex-col justify-center items-center m-1 h-32 w-32 active:text-primary">
+                        < img
+                          src={QRCodeImage}
+                          alt="QRCodeImage"
+                          className="border-stone-400 border-2 border-black  h-32 active:text-primary "
+                        />
+                        <div className="flex flex-col justify-center items-end w-32">
+                          <IoCreateOutline className=" text-black h-8 w-10 active:text-primary" />
+                        </div>
                       </div>
-                    </div>
+                    }
                   </div>
                   :
                   <div className="flex flex-col" onClick={() => { setImageCrop(true) }}                                    >
@@ -313,6 +317,13 @@ function MyShop() {
                 </div>
                 <IoArrowForwardOutline className="text-black h-8 w-10 mr-2 active:text-primary" />
               </Link>
+              <Link className="py-6 flex flex-row justify-between" to={`/saleAnalysis/${email}`}>
+                <div className="flex flex-row justify-start">
+                  <IoAnalyticsOutline className="text-black h-8 w-10 mr-2 active:text-primary" />
+                  <p className="text-xl font-semibold ">Sale Analysis</p>
+                </div>
+                <IoArrowForwardOutline className="text-black h-8 w-10 mr-2 active:text-primary" />
+              </Link>
               <Link className="py-6 flex flex-row justify-between" to={`/MenageProduct/${email}`}>
                 <div className="flex flex-row justify-start">
                   <IoBriefcaseOutline className="text-black h-8 w-10 mr-2 active:text-primary" />
@@ -320,27 +331,20 @@ function MyShop() {
                 </div>
                 <IoArrowForwardOutline className="text-black h-8 w-10 mr-2 active:text-primary" />
               </Link>
-              <Link className="py-6 flex flex-row justify-between">
+              <Link className="py-6 flex flex-row justify-between" to={`/FutureUpdate`}>
                 <div className="flex flex-row justify-start">
-                  <IoCalculatorOutline className="text-black h-8 w-10 mr-2 active:text-primary" />
-                  <p className="text-xl font-semibold ">Cashier Mood</p>
+                  <IoCalculatorOutline className="text-gray-500 h-8 w-10 mr-2 active:text-primary" />
+                  <p className="text-xl font-semibold text-gray-500">Cashier Mood</p>
                 </div>
-                <IoArrowForwardOutline className="text-black h-8 w-10 mr-2 active:text-primary" />
+                <IoArrowForwardOutline className="text-gray-500 h-8 w-10 mr-2 active:text-primary" />
               </Link>
-              <Link className="py-6 flex flex-row justify-between">
+              <Link className="py-6 flex flex-row justify-between"  to={`/FutureUpdate`}>
                 <div className="flex flex-row justify-start">
                   <IoBagAddOutline
-                    className="text-black h-8 w-10 mr-2 active:text-primary" />
-                  <p className="text-xl font-semibold ">Post Feed</p>
+                    className="text-gray-500 h-8 w-10 mr-2 active:text-primary" />
+                  <p className="text-xl font-semibold text-gray-500">Post Feed</p>
                 </div>
-                <IoArrowForwardOutline className="text-black h-8 w-10 mr-2 active:text-primary" />
-              </Link>
-              <Link className="py-6 flex flex-row justify-between" to={`/saleAnalysis/${email}`}>
-                <div className="flex flex-row justify-start">
-                  <IoAnalyticsOutline className="text-black h-8 w-10 mr-2 active:text-primary" />
-                  <p className="text-xl font-semibold ">Sale Analysis</p>
-                </div>
-                <IoArrowForwardOutline className="text-black h-8 w-10 mr-2 active:text-primary" />
+                <IoArrowForwardOutline className="text-gray-500 h-8 w-10 mr-2 active:text-primary" />
               </Link>
               <Link onClick={() => logOut()} to="/" className="py-6 flex flex-row justify-between">
                 <div className="flex flex-row justify-start">

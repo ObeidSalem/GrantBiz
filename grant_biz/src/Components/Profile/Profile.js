@@ -42,8 +42,8 @@ function Profile() {
   console.log("currentUser", currentUser)
   const { email, Name, own_store, profile_avatar, location, store_type } = currentUser
 
-  const [storeName, setStoreName] = useState(Name);
-  const [storeLocation, setStoreLocation] = useState(location);
+  const [customerName, setCustomerName] = useState(Name);
+  const [customerLocation, setCustomerLocation] = useState(location);
 
   const [image, setImage] = useState(profile_avatar);
   const [imageCrop, setImageCrop] = useState(false);
@@ -83,7 +83,7 @@ function Profile() {
   async function handleSubmit() {
     try {
       const response = await updateDoc(doc(usersRef, email), {
-        profile_avatar: image, Name: storeName, location: storeLocation,
+        profile_avatar: image, Name: customerName, location: customerLocation,
       });
       // refreshPage()
       setImageCrop(false)
@@ -111,7 +111,7 @@ function Profile() {
           >
             <div className="flex flex-row justify-center ">
               <div className="flex flex-col w-fit justify-center m-0 p-6 border-2 rounded-xl shadow-lg  bg-white">
-                <p> Update Store Avatar</p>
+                <p> Update Profile Avatar</p>
                 <Avatar
                   className="m-0"
                   width={285}
@@ -133,14 +133,14 @@ function Profile() {
                     htmlFor="email"
                     className="block text-sm font-medium text-gray-700 undefined"
                   >
-                    Store Name
+                    Customer Name
                   </label>
                   <div className="flex flex-col items-start border-solid border-black ">
                     <input
                       type="text"
                       name="Name"
-                      value={storeName}
-                      onChange={(e) => setStoreName(e.target.value)}
+                      value={customerName}
+                      onChange={(e) => setCustomerName(e.target.value)}
                       required
                       className="block w-full  p-2  mt-1 border border-gray-400 rounded-md shadow-sm "
                     />
@@ -151,14 +151,14 @@ function Profile() {
                     htmlFor="password"
                     className="block text-sm font-medium text-gray-700 undefined"
                   >
-                    Store Location
+                    Customer Location
                   </label>
                   <div className="flex flex-col items-start">
                     <input
                       type="text"
                       name="location"
-                      value={storeLocation}
-                      onChange={(e) => setStoreLocation(e.target.value)}
+                      value={customerLocation}
+                      onChange={(e) => setCustomerLocation(e.target.value)}
                       required
                       className="block w-full  p-2  mt-1 border border-gray-400 rounded-md shadow-sm "
                     />
@@ -191,7 +191,7 @@ function Profile() {
                   <div className="flex flex-col justify-center items-center  h-48 w-48 active:text-primary ">
                     < img
                       src={image}
-                      alt="Store Avatar"
+                      alt="Profile Avatar"
                       className="border-stone-400 border-2 border-black  rounded-full h-48 w-48 active:text-primary "
                     />
                     <div className="flex flex-col justify-center items-end w-60">
