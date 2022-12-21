@@ -114,7 +114,7 @@ const AddProduct = () => {
       QR_code: QRCode,
       isHide: false,
       quantity: quantity,
-      ProductMonthlyIncome: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      productIncome: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     }
     // console.log("data", data)
     if (COD || QRCode) {

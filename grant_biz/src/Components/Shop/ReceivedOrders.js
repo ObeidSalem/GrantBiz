@@ -31,6 +31,7 @@ import { setStoreProducts } from "../../redux/actions";
 import CurrencyFormat from "react-currency-format";
 import { UserAuth } from "../../context/AuthContext";
 import emailjs from "@emailjs/browser";
+import { connectStorageEmulator } from "firebase/storage";
 
 const ReceivedOrders = () => {
   const { user } = UserAuth();
@@ -38,9 +39,7 @@ const ReceivedOrders = () => {
   const [products, setProducts] = useState([]);
 
   const showDate = new Date();
-  const [targetProductIncome, setTargetProductIncome] = useState({})
-
-
+  const [targetProductIncome, setTargetProductIncome] = useState({});
 
   // const dispatch = useDispatch();
 
@@ -53,10 +52,8 @@ const ReceivedOrders = () => {
     StoreName,
     store_location,
     store_type,
-    Income
+    Income,
   } = currentUser;
-
-
 
   const ordersRef = collection(db, "Orders");
   const usersRef = collection(db, "Users");
@@ -90,11 +87,10 @@ const ReceivedOrders = () => {
     }
   }, [user]);
 
-  console.log("targetProductIncome", targetProductIncome)
+  console.log("targetProductIncome", targetProductIncome);
 
   useEffect(() => {
-    setTargetProductIncome(Income)
-
+    setTargetProductIncome(Income);
   }, [currentUser]);
 
   function refreshPage() {
@@ -135,7 +131,6 @@ const ReceivedOrders = () => {
   });
 
   //////////////////////////////////////////////////////////////////////////////////////////
-
 
   //////////////////////////////////////////////////////////////////////////////////////////
 
@@ -375,12 +370,21 @@ const ReceivedOrders = () => {
                                   isShipped: true,
                                 }
                               );
-                              emailjs.send('service_gyzz5nb', 'template_z48cde4', emailCancel, 'CyPHO2_SKVKTmOJ7P')
-                                .then((result) => {
-                                  console.log(result.text);
-                                }, (error) => {
-                                  console.log(error.text);
-                                });
+                              emailjs
+                                .send(
+                                  "service_gyzz5nb",
+                                  "template_z48cde4",
+                                  emailCancel,
+                                  "CyPHO2_SKVKTmOJ7P"
+                                )
+                                .then(
+                                  (result) => {
+                                    console.log(result.text);
+                                  },
+                                  (error) => {
+                                    console.log(error.text);
+                                  }
+                                );
                               refreshPage();
                             }}
                             className="w-36 ml-1 text-center bg-white p-2  rounded-xl border-2 border-red-600 cursor-pointer  hover:cursor-pointer"
@@ -578,7 +582,7 @@ const ReceivedOrders = () => {
                   <>
                     {isReceivedFromCustomer ? (
                       <div
-                        className="p-4 mx-4 my-2 w-fit flex border border-gray-400 rounded-xl "
+                        className="p-4 mx-4 my-2 w-fit md:w-3/5 flex border border-gray-400 rounded-xl "
                         key={id}
                       >
                         <div className="w-full flex flex-col justify-between items-center ">
@@ -622,24 +626,37 @@ const ReceivedOrders = () => {
                                 {userPhoneNumber}
                               </div>
                             </div>
+                            {QRPayment && (
+                              <div className=" flex-row">
+                                <img
+                                  className="my-4"
+                                  src={ProofOfImage}
+                                  alt="Proof of Payment"
+                                />
+                              </div>
+                            )}
                             <div
                               onClick={async (event) => {
-
                                 let UserIncomeData;
                                 let ProductIncomeData;
                                 const docUserRef = doc(db, "Users", user.email);
-                                const docProductRef = doc(db, "Products", ProductId);
-                                const responseUserGet = await getDoc(docUserRef);
-                                const responseProduct = await getDoc(docProductRef);
+                                const docProductRef = doc(db, "Products", ProductId );
+                                const responseUserGet = await getDoc(  docUserRef
+                                );
+                                const responseProduct = await getDoc(
+                                  docProductRef
+                                );
 
                                 if (responseUserGet.exists()) {
-                                  UserIncomeData = responseUserGet.data().Income;
+                                  UserIncomeData =
+                                    responseUserGet.data().Income;
                                 } else {
                                   console.log("Document does not exist");
                                 }
 
                                 if (responseProduct.exists()) {
-                                  ProductIncomeData = responseProduct.data().productIncome;
+                                  ProductIncomeData =
+                                    responseProduct.data().productIncome;
                                 } else {
                                   console.log("Document does not exist");
                                 }
@@ -652,6 +669,8 @@ const ReceivedOrders = () => {
                                     // console.log('nOT cORRECT iNDEX')
                                   }
                                 });
+
+                                console.log("UserIncomeData",UserIncomeData,"ProductIncomeData",ProductIncomeData)
 
                                 const responseUserUpdate = await updateDoc(
                                   doc(usersRef, user.email),
@@ -671,9 +690,12 @@ const ReceivedOrders = () => {
                                     isReceivedFromSeller: true,
                                   }
                                 );
-                                await updateDoc(doc(db, "Products", idProduct), {
-                                  quantity: quantity - 1,
-                                });
+                                await updateDoc(
+                                  doc(db, "Products", idProduct),
+                                  {
+                                    quantity: quantity - 1,
+                                  }
+                                );
                                 emailjs
                                   .send(
                                     "service_gyzz5nb",
@@ -691,16 +713,16 @@ const ReceivedOrders = () => {
                                   );
                                 refreshPage();
                               }}
-                              className="w-fit text-white text-center bg-red-600 p-2  rounded-xl cursor-pointer"
+                              className="w-fit text-white text-center bg-primary p-2  rounded-xl cursor-pointer"
                             >
-                              Confirm Receiving the Money
+                              Confirm Money Receiving  
                             </div>
                           </div>
                         </div>
                       </div>
                     ) : (
                       <div
-                        className="p-4 mx-4 my-2 flex border border-gray-400 rounded-xl "
+                        className="p-4 mx-4 my-2 w-full md:w-3/5 flex border border-gray-400 rounded-xl "
                         key={id}
                       >
                         <div className="w-full flex flex-col justify-between items-center ">
@@ -773,8 +795,8 @@ const ReceivedOrders = () => {
                                 {userPhoneNumber}
                               </div>
                             </div>
-                            <div className="w-fit text-white text-center  bg-orange-600 p-2 rounded-full">
-                              Pending Customer Confirmation of Receiving
+                            <div className="w-fit text-center text-xl  text-orange-600 p-2 rounded-full">
+                              Pending Customer Confirmation
                             </div>
                           </div>
                         </div>
@@ -807,6 +829,8 @@ const ReceivedOrders = () => {
                 orderDate,
                 userPhoneNumber,
                 address,
+                ProofOfImage,
+                QRPayment,
               } = product;
               if (
                 isShipped === true &&
@@ -859,9 +883,19 @@ const ReceivedOrders = () => {
                               {userPhoneNumber}
                             </div>
                           </div>
+                          {QRPayment && (
+                              <div className=" flex-row">
+                                <div>Proof Of Online Payment:-</div>
+                                <img
+                                  className="my-4"
+                                  src={ProofOfImage}
+                                  alt="Proof of Payment"
+                                />
+                              </div>
+                            )}
                           <div className=" flex-row">
                             <div className="float-left mr-1 font-bold text-green-800">
-                              The order has been Completed
+                              The Order Has Been Completed
                             </div>
                           </div>
                         </div>

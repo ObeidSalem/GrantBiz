@@ -29,6 +29,7 @@ import db from "./firebase"
 import { onSnapshot, collection, doc, setDoc, getDocs, getDoc } from "firebase/firestore"
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
+import QRCheckout from "./Components/Order/QRCheckout";
 import { setCurrentUser, setProducts } from './redux/actions/index';
 import StorePage from "./Components/Home/StorePage"
 import ReceivedOrders from "./Components/Shop/ReceivedOrders";
@@ -112,6 +113,7 @@ function App() {
               <Route path="/AddProduct/:email" element={<AddProduct />} />
               <Route path="/SaleAnalysis/:email" element={<SaleAnalysis />} />
               <Route path="/product/:productId" element={<ProductDetails />} />
+              <Route path="/QRCheckout/:productId" element={<QRCheckout />} />
               <Route path="/StorePage/:email" element={<StorePage />} />
               <Route path="/MyShop/:email" element={<MyShop />} />
               <Route path="/MyShop/:email/Create" element={<CreateMyShop />} />

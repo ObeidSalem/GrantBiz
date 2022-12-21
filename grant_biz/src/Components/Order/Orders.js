@@ -32,7 +32,7 @@ import { setStoreProducts } from "../../redux/actions";
 import CurrencyFormat from "react-currency-format";
 import { UserAuth } from "../../context/AuthContext";
 import emailjs from "@emailjs/browser";
-import { async } from '@firebase/util';
+import { async } from "@firebase/util";
 
 const Orders = () => {
   const { user } = UserAuth();
@@ -101,20 +101,18 @@ const Orders = () => {
   const [Primary4, setPrimary4] = useState("");
   const [Primary5, setPrimary5] = useState("");
   const [emailCancel, setEmailCancel] = useState({
-    fullName: 'GrandBiz',
+    fullName: "GrandBiz",
     email: user.email,
-    message: 'your order has been cancelled'
+    message: "your order has been cancelled",
   });
   const [comformEmail, setcomformEmail] = useState({
-    fullName: 'GrandBiz',
+    fullName: "GrandBiz",
     email: user.email,
-    message: 'you have conform that you had received your order'
+    message: "you have conform that you had received your order",
   });
 
-  
- ////////////////////////////////////////////////////////////////// 
+  //////////////////////////////////////////////////////////////////
   // send email notifications
- 
 
   // function sendMassages(e) {
   //   // e.preventDefault();
@@ -126,11 +124,8 @@ const Orders = () => {
   //     console.log(error.text);
   // });
 
-
-
-    
   // }
-  
+
   ////////////////////////////////////////////////////////////////
   return (
     <div className="w-screen md:px-36 lg:px-96  bg-white overflow-none">
@@ -141,7 +136,7 @@ const Orders = () => {
         <p className="text-2xl font-semibold w-full">My Orders</p>
       </div>
 
-      <div className="h-full w-full flex justify-start align-center overflow">
+      <div className="h-full w-full flex justify-center align-center overflow">
         <div className=" w-full p-4 ">
           {/* <div className="w-full flex justify-between items-center">
                         <div className="w-full flex justify-start items-center">
@@ -259,7 +254,7 @@ const Orders = () => {
         </div>
       </div>
 
-      <div className="h-full flex flex-col justify-start align-center ">
+      <div className="h-full flex flex-col w-full justify-center align-center ">
         {Category1 ? (
           <>
             {products?.map((product) => {
@@ -282,7 +277,7 @@ const Orders = () => {
               if (isConfirmed == false) {
                 return (
                   <>
-                    <div className="p-4 mx-4 my-2 flex w-fit border border-gray-400 rounded-xl ">
+                    <div className="p-4 mx-4 my-2 flex justify-end w-fit md:w-3/5  border border-gray-400 rounded-xl ">
                       <div className="w-full flex flex-col justify-between items-center">
                         <div className="w-full flex justify-between items-center mb-4">
                           <div className="w-full flex justify-start items-center">
@@ -302,22 +297,30 @@ const Orders = () => {
                                   isShipped: true,
                                 }
                               );
-                              emailjs.send('service_gyzz5nb', 'template_z48cde4', emailCancel, 'CyPHO2_SKVKTmOJ7P')
-                              .then((result) => {
-                                console.log(result.text);
-                            }, (error) => {
-                                console.log(error.text);
-                            });
+                              emailjs
+                                .send(
+                                  "service_gyzz5nb",
+                                  "template_z48cde4",
+                                  emailCancel,
+                                  "CyPHO2_SKVKTmOJ7P"
+                                )
+                                .then(
+                                  (result) => {
+                                    console.log(result.text);
+                                  },
+                                  (error) => {
+                                    console.log(error.text);
+                                  }
+                                );
                               refreshPage();
                             }}
-                            className="w-40 text-white text-center bg-red-600 p-2 rounded-xl cursor-pointer "
+                            className="w-36 ml-1 text-center bg-white p-2  rounded-xl border-2 border-red-600 cursor-pointer  hover:cursor-pointer "
                           >
-                            Cancel
+                            Cancel order
                           </div>
                         </div>
                         {/*  */}
-                        <div>
-                        </div>
+                        <div></div>
 
                         {/*  */}
                         <div className="w-full flex flex-row justify-start items-center">
@@ -485,6 +488,7 @@ const Orders = () => {
                 storePhoneNumber,
                 store_avatar,
                 orderDate,
+                QRPayment,
               } = product;
               if (isShipped === true && isReceivedFromSeller === false) {
                 return (
@@ -556,7 +560,7 @@ const Orders = () => {
                       </>
                     ) : (
                       <>
-                        <div className="p-4 mx-4 my-2 flex border border-gray-400 rounded-xl ">
+                        <div className="p-4 mx-4 my-2  w-fit flex border border-gray-400 rounded-xl ">
                           <div className="w-full flex flex-col justify-between items-center">
                             <div className="w-full flex justify-between items-center mb-4">
                               <div className="w-full flex justify-between items-center">
@@ -568,26 +572,44 @@ const Orders = () => {
                                   />
                                   <p className="text-lg ml-4">{StoreName}</p>
                                 </div>
-                                <div
-                                  onClick={async () => {
-                                    const response = await updateDoc(
-                                      doc(updateRef, id),
-                                      {
-                                        isReceivedFromCustomer: true,
-                                      }
-                                    );
-                                    emailjs.send('service_gyzz5nb', 'template_z48cde4', comformEmail, 'CyPHO2_SKVKTmOJ7P')
-                                    .then((result) => {
-                                      console.log(result.text);
-                                  }, (error) => {
-                                      console.log(error.text);
-                                  });
-                                    refreshPage();
-                                  }}
-                                  className=" w-70 text-white text-center bg-red-600 p-2 ml-40  rounded-xl cursor-pointer "
-                                >
-                                  Confirm Receiving The order
-                                </div>
+                                {QRPayment ? (
+                                  <Link
+                                    to={`/QRCheckout/${id}`}
+                                    className=" w-70 text-black text-center border-2 border-orange-600 p-2 ml-40 rounded-xl cursor-pointer"
+                                  >
+                                    Complete Payment
+                                  </Link>
+                                ) : (
+                                  <div
+                                    onClick={async () => {
+                                      const response = await updateDoc(
+                                        doc(updateRef, id),
+                                        {
+                                          isReceivedFromCustomer: true,
+                                        }
+                                      );
+                                      emailjs
+                                        .send(
+                                          "service_gyzz5nb",
+                                          "template_z48cde4",
+                                          comformEmail,
+                                          "CyPHO2_SKVKTmOJ7P"
+                                        )
+                                        .then(
+                                          (result) => {
+                                            console.log(result.text);
+                                          },
+                                          (error) => {
+                                            console.log(error.text);
+                                          }
+                                        );
+                                      refreshPage();
+                                    }}
+                                    className=" w-fit mr-1 text-white text-center bg-primary p-2  rounded-xl cursor-pointer  hover:cursor-pointer"
+                                  >
+                                    Confirm Receiving The order
+                                  </div>
+                                )}
                               </div>
                             </div>
                             <div className="w-full flex flex-row justify-start items-center">
@@ -756,7 +778,7 @@ const Orders = () => {
               if (isCanceled === true && isShipped === true) {
                 return (
                   <>
-                    <div className="p-4 mx-4 my-2 flex border border-gray-400 rounded-xl ">
+                    <div className="p-4 mx-4 my-2 flex w-fit border border-gray-400 rounded-xl ">
                       <div className="w-full flex flex-col justify-between items-center">
                         <div className="w-full flex justify-between items-center mb-4">
                           <div className="w-full flex justify-start items-center">

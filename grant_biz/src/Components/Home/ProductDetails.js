@@ -190,6 +190,7 @@ function ProductDetails() {
             console.log(result.text);
           },
           (error) => {
+            // console,log()
             console.log(error.text);
           }
         );
