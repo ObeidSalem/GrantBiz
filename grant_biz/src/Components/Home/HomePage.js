@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import NavBar from "../Navigation/NavBar";
 import { v4 as uuidv4 } from "uuid";
-
+import GrantBizAD from "../../img/GrantBiz_Logo_AD.svg";
 import db from "../../firebase"
 import { onSnapshot, collection, doc, setDoc, getDocs } from "firebase/firestore"
 import { useDispatch, useSelector } from "react-redux";
@@ -62,7 +62,7 @@ function HomePage() {
           </div>
           <img
             className="rounded-xl object-cover image fit h-56 w-full 2xl:h-96 border-gray-600"
-            src={"https://images.pexels.com/photos/8250738/pexels-photo-8250738.jpeg?auto=compress&cs=tinysrgb&w=600"}
+            src={GrantBizAD}
             alt={"title"}
           />
         </div>
