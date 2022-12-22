@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { IoArrowBackOutline, IoTrashOutline } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate , Link, } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import BottomBar from "../Navigation/BottomBar";
 import db from "../../firebase";
 import {
@@ -19,16 +19,17 @@ import {
 import { setStoreProducts } from "../../redux/actions";
 import CurrencyFormat from "react-currency-format";
 import { UserAuth } from "../../context/AuthContext";
-import { async } from './../sendEmail';
+import { async } from "./../sendEmail";
+import { Dialog } from "primereact/dialog";
 
-const MenageProduct = () => {
+const PostFeed = () => {
   const { user } = UserAuth();
 
   const [products, setProducts] = useState([]);
   const [enabled, setEnabled] = useState(true);
   const [QuantityCheck, setQuantityCheck] = useState("");
   const navigate = useNavigate("");
-
+  const [postFeedPopUp, setPostFeedPopUp] = useState(false);
 
   // const dispatch = useDispatch();
 
@@ -62,13 +63,12 @@ const MenageProduct = () => {
     setProducts(data);
     // dispatch(setStoreProducts(data))
   };
-  async function  updateQuantity (id){
-
-    await updateDoc(doc(db, "Products",id), {
-      quantity:QuantityCheck,
+  async function updateQuantity(id) {
+    await updateDoc(doc(db, "Products", id), {
+      quantity: QuantityCheck,
     });
     // refreshPage()
-    navigate('/MyShop/${email}');
+    navigate("/MyShop/${email}");
   }
 
   function refreshPage() {
@@ -95,45 +95,12 @@ const MenageProduct = () => {
               src={image}
               alt={StoreName}
               className="text-black h-20 w-20 rounded active:text-primary"
-              />
+            />
             <div className="w-full flex flex-col">
               <p className="text-lg ml-4">{title}</p>
               <p className="text-md ml-4">
                 {type} {type_parameters}
               </p>
-            </div>
-            <IoTrashOutline
-              onClick={async () => {
-                await deleteDoc(doc(db, "Products", id));
-              }}
-              className="text-black h-8 w-10 mr-1 md:mr-2 active:text-primary"
-              />
-            <div>
-              <div className="flex">
-                <label className="inline-flex relative items-center cursor-pointer">
-                  <input
-                    type="checkbox"
-                    className="sr-only peer"
-                    checked={!enabled}
-                    readOnly
-                    />
-                  <div
-                    onClick={async () => {
-                      setEnabled(!enabled);
-                      await updateDoc(doc(db, "Products", id),
-                      {
-                        isHide:enabled
-                      });
-                      
-                      console.log(enabled);
-                    }}
-                    className="w-11 h-6 bg-gray-200 rounded-full peer  peer-focus:ring-green-300  peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-600"
-                    ></div>
-                  <span className="ml-2 text-sm font-medium text-gray-900">
-                    Hide
-                  </span>
-                </label>
-              </div>
             </div>
           </div>
           <p className="text-sm w-full ">{description}</p>
@@ -144,37 +111,41 @@ const MenageProduct = () => {
               displayType={"text"}
               thousandSeparator={true}
               prefix={"RM "}
-              />
+            />
             {/* <p className="text-md ">Available Stocks</p> */}
           </div>
-          <div className="mt-4 flex">
-              <label
-                htmlFor=""
-                className="block text-sm md:text-lg font-medium text-gray-700 mt-1 mr-1 undefined"
-                >
-               edit quantity
-              </label>
-              <div className="flex items-start">
-                <input
-                  type="number"
-                  name="price"
-                  // value={QuantityCheck}
-                  onChange={(e) => setQuantityCheck(e.target.value)}
-                  className="block w-full  p-2  border border-gray-400 rounded-md shadow-sm outline-none"
-                  />
-                <div
-                onClick={() => updateQuantity(id)}
-                className="flex justify-end items-center cursor-pointer ml-2 px-4 py-2 w-fit max-w-xs text-xs font-semibold tracking-widest text-white uppercase transition duration-150 ease-in-out bg-gray-900 border border-transparent rounded-md active:bg-gray-900 false"
-                >
-                Add
+          <div>
+            <button
+              type="button"
+              value="Purchase Now"
+              onClick={() => setPostFeedPopUp(true)}
+              className="bg-primary border-2 rounded-full px-4 py-2 md:px-16  text-white font-bold text-sm"
+            >
+              Post new Feed
+            </button>
+            <Dialog
+              className="absolute h-full w-full top-0 left-0 p-6 bg-gradient-to-b from-primary to-transparent from-slate-200"
+              visible={postFeedPopUp}
+              onHide={() => setPostFeedPopUp(false)}
+            >
+              <div className="flex flex-row justify-center ">
+                <div className="flex flex-col w-fit justify-center m-36 p-6  border-2 rounded-xl shadow-lg  bg-white ">
+                  <p className="flex justify-center mb-2 font-bold">
+                    Choose a payment option
+                  </p>
+                  <p className=" font-bold">Your Location:</p>
+                  <p className=" font-bold mb-4">
+                    Your Phone No.:
+                  </p>
+                </div>
               </div>
-              </div>
-            </div>
+            </Dialog>
+          </div>
         </div>
       </div>
     );
   });
-  
+
   useEffect(() => {
     try {
       fetchProducts();
@@ -182,15 +153,14 @@ const MenageProduct = () => {
       console.log(error);
     }
   }, [products]);
-  
-  
+
   return (
     <div className="md:px-36 lg:px-96 bg-white">
       <div className="py-4 flex justify-start align-center">
         <Link to={`/MyShop/${email}`}>
           <IoArrowBackOutline className="text-black h-8 w-10 mr-2 active:text-primary" />
         </Link>
-        <p className="text-2xl font-semibold w-full"> manage Products</p>
+        <p className="text-2xl font-semibold w-full">Post New Feed</p>
       </div>
 
       <div className="h-full flex justify-start align-center ">
@@ -204,12 +174,6 @@ const MenageProduct = () => {
               />
               <p className="text-lg ml-4">{StoreName}</p>
             </div>
-            <Link
-              to={`/AddProduct/${email}`}
-              className="w-40 text-white text-center bg-red-600 p-2 rounded-full"
-            >
-              Add Product
-            </Link>
           </div>
         </div>
       </div>
@@ -223,4 +187,4 @@ const MenageProduct = () => {
   );
 };
 
-export default MenageProduct;
+export default PostFeed;

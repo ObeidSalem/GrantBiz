@@ -35,6 +35,7 @@ import StorePage from "./Components/Home/StorePage"
 import ReceivedOrders from "./Components/Shop/ReceivedOrders";
 import FutureUpdate from "./Components/FutureUpdate";
 import PageNotFound from "./Components/PageNotFound";
+import PostFeed from "./Components/Shop/PostFeed";
 
 
 
@@ -113,6 +114,7 @@ function App() {
               <Route path="/FutureUpdate" element={<FutureUpdate />} />
               <Route path="/ReceivedOrders/:email" element={<ReceivedOrders />} />
               <Route path="/MenageProduct/:email" element={<MenageProduct />} />
+              <Route path="/PostFeed/:email" element={<PostFeed />} />
               <Route path="/AddProduct/:email" element={<AddProduct />} />
               <Route path="/SaleAnalysis/:email" element={<SaleAnalysis />} />
               <Route path="/product/:productId" element={<ProductDetails />} />

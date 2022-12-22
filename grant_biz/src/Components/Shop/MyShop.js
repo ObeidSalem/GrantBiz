@@ -394,7 +394,7 @@ function MyShop() {
                 </div>
                 <IoArrowForwardOutline className="text-gray-500 h-8 w-10 mr-2 active:text-primary" />
               </Link>
-              <Link className="py-6 flex flex-row justify-between"  to={`/FutureUpdate`}>
+              <Link className="py-6 flex flex-row justify-between"  to={`/PostFeed/${email}`}>
                 <div className="flex flex-row justify-start">
                   <IoBagAddOutline
                     className="text-gray-500 h-8 w-10 mr-2 active:text-primary" />
