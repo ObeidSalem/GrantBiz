@@ -259,7 +259,7 @@ function ProductDetails() {
                   <img
                     src={ProofOfImage}
                     alt="QR Code"
-                    className="border-stone-400 border w-56 mt-4 rounded-2  w-full active:text-primary "
+                    className="border-stone-400 border mt-4 rounded-2  w-full active:text-primary "
                   />
                 )}
               </div>

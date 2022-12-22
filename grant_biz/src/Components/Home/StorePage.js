@@ -98,9 +98,9 @@ const StorePage = () => {
     }
     return docSnap.data();
   };
-  const procutStore = useSelector((state) => state.productStore);
-  console.log("prodductstore",procutStore )
-   const { StoreLocation, store_avatar, StoreName } = procutStore;
+  const productStore = useSelector((state) => state.productStore);
+  console.log("productStore",productStore )
+   const { StoreLocation, store_avatar, StoreName } = productStore;
 
 
   useEffect(() => {
@@ -112,12 +112,12 @@ const StorePage = () => {
   return (
     
     <>
-      <div className=" bg-white-50 pb-48">
         <div className="hidden md:block">
           <NavBar />
         </div>
-            <div className=" border shadow-sm h-24 w-full rounded-xl p-3 px-2 ">
-              <div className="flex justify-start mx-20 ">
+      <div className=" bg-white pb-48 md:px-36 lg:px-96">
+            <div className=" h-24 w-full rounded-xl p-3 my-4 px-2 ">
+              <div className="flex justify-start ">
                 <img
                   className="ml-1 w-20 h-20 rounded-full"
                   src={store_avatar}
@@ -141,7 +141,7 @@ const StorePage = () => {
               </div>
             </div>
             {/* main Components */}
-            <div className="grid grid-cols-2 gap-2 xl:grid-cols-3 2xl:grid-cols-4 bg-white mx-8">
+            <div className="grid grid-cols-2 gap-2 xl:grid-cols-3 2xl:grid-cols-4 bg-white mx-2">
                 {renderStoreProductsList}
 
             </div>
