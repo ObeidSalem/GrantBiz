@@ -9,6 +9,7 @@ import {
   IoChatbubblesOutline,
   IoCloseCircleOutline,
   IoCloseCircleSharp,
+  IoPersonOutline,
 } from "react-icons/io5";
 import { BsBoxSeam, BsTruck } from "react-icons/bs";
 
@@ -272,9 +273,11 @@ const Orders = () => {
                 store_avatar,
                 storePhoneNumber,
                 orderDate,
+                userName,
+                isCanceled,
               } = product;
               //   console.log("product", product);
-              if (isConfirmed == false) {
+              if (isConfirmed == false && isCanceled== false) {
                 return (
                   <>
                     <div className="p-4 mx-4 my-2 flex justify-end w-fit md:w-3/5  border border-gray-400 rounded-xl ">
@@ -347,6 +350,15 @@ const Orders = () => {
                         <div className="flex flex-col justify-start items-start">
                           <div className=" flex-row">
                             <div className="float-left">
+                              <IoPersonOutline className="w-8 h-8" />
+                              Name:
+                            </div>
+                            <div className="float-right mt-8 ml-2 text-gray-500">
+                              {userName}
+                            </div>
+                          </div>
+                          <div className=" flex-row">
+                            <div className="float-left">
                               <IoLocationOutline className="w-8 h-8" />
                               Address :
                             </div>
@@ -397,6 +409,7 @@ const Orders = () => {
                 storePhoneNumber,
                 store_avatar,
                 orderDate,
+                userName,
               } = product;
               if (isConfirmed === true && isShipped === false) {
                 return (
@@ -435,6 +448,15 @@ const Orders = () => {
                           </div>
                         </div>
                         <div className="flex flex-col justify-start items-start">
+                          <div className=" flex-row">
+                            <div className="float-left">
+                              <IoPersonOutline className="w-8 h-8" />
+                              Name:
+                            </div>
+                            <div className="float-right mt-8 ml-2 text-gray-500">
+                              {userName}
+                            </div>
+                          </div>
                           <div className=" flex-row">
                             <div className="float-left">
                               <IoLocationOutline className="w-8 h-8" />
@@ -488,6 +510,7 @@ const Orders = () => {
                 storePhoneNumber,
                 store_avatar,
                 orderDate,
+                userName,
                 QRPayment,
               } = product;
               if (isShipped === true && isReceivedFromSeller === false) {
@@ -533,8 +556,17 @@ const Orders = () => {
                             <div className="flex flex-col justify-start items-start">
                               <div className=" flex-row">
                                 <div className="float-left">
+                                  <IoPersonOutline className="w-8 h-8" />
+                                  your Name:
+                                </div>
+                                <div className="float-right mt-8 ml-2 text-gray-500">
+                                  {userName}
+                                </div>
+                              </div>
+                              <div className=" flex-row">
+                                <div className="float-left">
                                   <IoLocationOutline className="w-8 h-8" />
-                                  Address :
+                                  your Address :
                                 </div>
                                 <div className="float-right mt-8 ml-2 text-gray-500">
                                   {location}
@@ -603,7 +635,7 @@ const Orders = () => {
                                             console.log(error.text);
                                           }
                                         );
-                                       refreshPage();
+                                      refreshPage();
                                     }}
                                     className=" w-fit mr-1 text-white text-center bg-primary p-2  rounded-xl cursor-pointer  hover:cursor-pointer"
                                   >
@@ -637,6 +669,15 @@ const Orders = () => {
                               </div>
                             </div>
                             <div className="flex flex-col justify-start items-start">
+                              <div className=" flex-row">
+                                <div className="float-left">
+                                  <IoPersonOutline className="w-8 h-8" />
+                                  Your Name:
+                                </div>
+                                <div className="float-right mt-8 ml-2 text-gray-500">
+                                  {userName}
+                                </div>
+                              </div>
                               <div className=" flex-row">
                                 <div className="float-left">
                                   <IoLocationOutline className="w-8 h-8" />
@@ -689,6 +730,7 @@ const Orders = () => {
                 store_avatar,
                 isCanceled,
                 orderDate,
+                userName,
               } = product;
               if (
                 isShipped === true &&
@@ -721,6 +763,15 @@ const Orders = () => {
                           </div>
                         </div>
                         <div className="flex flex-col justify-start items-start">
+                          <div className=" flex-row">
+                            <div className="float-left">
+                              <IoPersonOutline className="w-8 h-8" />
+                              Name:
+                            </div>
+                            <div className="float-right mt-8 ml-2 text-gray-500">
+                              {userName}
+                            </div>
+                          </div>
                           <div className=" flex-row">
                             <div className="float-left">
                               <IoLocationOutline className="w-8 h-8" />
@@ -774,6 +825,7 @@ const Orders = () => {
                 store_avatar,
                 isCanceled,
                 orderDate,
+                userName,
               } = product;
               if (isCanceled === true && isShipped === true) {
                 return (
@@ -812,6 +864,24 @@ const Orders = () => {
                           </div>
                         </div>
                         <div className="flex flex-col justify-start items-start">
+                          <div className=" flex-row">
+                            <div className="float-left">
+                              <IoPersonOutline className="w-8 h-8" />
+                              Name:
+                            </div>
+                            <div className="float-right mt-8 ml-2 text-gray-500">
+                              {userName}
+                            </div>
+                          </div>
+                          <div className=" flex-row">
+                            <div className="float-left">
+                              <IoPersonOutline className="w-8 h-8" />
+                              Name:
+                            </div>
+                            <div className="float-right mt-8 ml-2 text-gray-500">
+                              {userName}
+                            </div>
+                          </div>
                           <div className=" flex-row">
                             <div className="float-left">
                               <IoLocationOutline className="w-8 h-8" />

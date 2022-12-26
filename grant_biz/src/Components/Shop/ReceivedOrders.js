@@ -8,6 +8,7 @@ import {
   IoTrashOutline,
   IoChatbubblesOutline,
   IoCloseCircleSharp,
+  IoPersonOutline,
 } from "react-icons/io5";
 import { BsBoxSeam, BsTruck } from "react-icons/bs";
 
@@ -281,6 +282,7 @@ const ReceivedOrders = () => {
                 orderDate,
                 userPhoneNumber,
                 address,
+                userName,
               } = product;
               // console.log("product", product);
               if (isConfirmed == false) {
@@ -314,6 +316,15 @@ const ReceivedOrders = () => {
                       <div className="flex flex-col justify-start items-start">
                         <div className=" flex-row">
                           <div className="float-left">
+                            <IoPersonOutline className="w-8 h-8" />
+                            Customer Name:
+                          </div>
+                          <div className="float-right mt-8 ml-2 text-gray-500">
+                            {userName}
+                          </div>
+                        </div>
+                        <div className=" flex-row">
+                          <div className="float-left">
                             <IoLocationOutline className="w-8 h-8" />
                             Customer Address :
                           </div>
@@ -340,7 +351,8 @@ const ReceivedOrders = () => {
                                   isConfirmed: true,
                                 }
                               );
-                              emailjs.send(
+                              emailjs
+                                .send(
                                   "service_gyzz5nb",
                                   "template_z48cde4",
                                   comformEmail,
@@ -419,6 +431,7 @@ const ReceivedOrders = () => {
                 orderDate,
                 userPhoneNumber,
                 address,
+                userName,
               } = product;
               if (isConfirmed === true && isShipped === false) {
                 return (
@@ -480,6 +493,15 @@ const ReceivedOrders = () => {
                         </div>
                       </div>
                       <div className="flex flex-col justify-start items-start mt-1">
+                        <div className=" flex-row">
+                          <div className="float-left">
+                            <IoPersonOutline className="w-8 h-8" />
+                            Customer Name:
+                          </div>
+                          <div className="float-right mt-8 ml-2 text-gray-500">
+                            {userName}
+                          </div>
+                        </div>
                         <div className=" flex-row">
                           <div className="float-left">
                             <IoLocationOutline className="w-8 h-8" />
@@ -562,6 +584,7 @@ const ReceivedOrders = () => {
                 ProofOfImage,
                 QRPayment,
                 ProductId,
+                userName,
               } = product;
 
               // const Index = Income?.findIndex(item => item.ProductID === ProductId)
@@ -609,6 +632,15 @@ const ReceivedOrders = () => {
                           <div className="flex flex-col justify-start items-start">
                             <div className=" flex-row">
                               <div className="float-left">
+                                <IoPersonOutline className="w-8 h-8" />
+                                Customer Name:
+                              </div>
+                              <div className="float-right mt-8 ml-2 text-gray-500">
+                                {userName}
+                              </div>
+                            </div>
+                            <div className=" flex-row">
+                              <div className="float-left">
                                 <IoLocationOutline className="w-8 h-8" />
                                 Customer Address :
                               </div>
@@ -639,8 +671,13 @@ const ReceivedOrders = () => {
                                 let UserIncomeData;
                                 let ProductIncomeData;
                                 const docUserRef = doc(db, "Users", user.email);
-                                const docProductRef = doc(db, "Products", ProductId );
-                                const responseUserGet = await getDoc(  docUserRef
+                                const docProductRef = doc(
+                                  db,
+                                  "Products",
+                                  ProductId
+                                );
+                                const responseUserGet = await getDoc(
+                                  docUserRef
                                 );
                                 const responseProduct = await getDoc(
                                   docProductRef
@@ -669,7 +706,12 @@ const ReceivedOrders = () => {
                                   }
                                 });
 
-                                console.log("UserIncomeData",UserIncomeData,"ProductIncomeData",ProductIncomeData)
+                                console.log(
+                                  "UserIncomeData",
+                                  UserIncomeData,
+                                  "ProductIncomeData",
+                                  ProductIncomeData
+                                );
 
                                 const responseUserUpdate = await updateDoc(
                                   doc(usersRef, user.email),
@@ -714,7 +756,7 @@ const ReceivedOrders = () => {
                               }}
                               className="w-fit text-white text-center bg-primary p-2  rounded-xl cursor-pointer"
                             >
-                              Confirm Money Receiving  
+                              Confirm Money Receiving
                             </div>
                           </div>
                         </div>
@@ -778,6 +820,15 @@ const ReceivedOrders = () => {
                           <div className="flex flex-col justify-start items-start">
                             <div className=" flex-row">
                               <div className="float-left">
+                                <IoPersonOutline className="w-8 h-8" />
+                                Customer Name:
+                              </div>
+                              <div className="float-right mt-8 ml-2 text-gray-500">
+                                {userName}
+                              </div>
+                            </div>
+                            <div className=" flex-row">
+                              <div className="float-left">
                                 <IoLocationOutline className="w-8 h-8" />
                                 Customer Address :
                               </div>
@@ -830,6 +881,7 @@ const ReceivedOrders = () => {
                 address,
                 ProofOfImage,
                 QRPayment,
+                userName,
               } = product;
               if (
                 isShipped === true &&
@@ -866,6 +918,15 @@ const ReceivedOrders = () => {
                         <div className="flex flex-col justify-start items-start">
                           <div className=" flex-row">
                             <div className="float-left">
+                              <IoPersonOutline className="w-8 h-8" />
+                              Customer Name:
+                            </div>
+                            <div className="float-right mt-8 ml-2 text-gray-500">
+                              {userName}
+                            </div>
+                          </div>
+                          <div className=" flex-row">
+                            <div className="float-left">
                               <IoLocationOutline className="w-8 h-8" />
                               Address :
                             </div>
@@ -883,15 +944,15 @@ const ReceivedOrders = () => {
                             </div>
                           </div>
                           {QRPayment && (
-                              <div className=" flex-row">
-                                <div>Proof Of Online Payment:-</div>
-                                <img
-                                  className="my-4"
-                                  src={ProofOfImage}
-                                  alt="Proof of Payment"
-                                />
-                              </div>
-                            )}
+                            <div className=" flex-row">
+                              <div>Proof Of Online Payment:-</div>
+                              <img
+                                className="my-4"
+                                src={ProofOfImage}
+                                alt="Proof of Payment"
+                              />
+                            </div>
+                          )}
                           <div className=" flex-row">
                             <div className="float-left mr-1 font-bold text-green-800">
                               The Order Has Been Completed
@@ -929,6 +990,7 @@ const ReceivedOrders = () => {
                 orderDate,
                 address,
                 userPhoneNumber,
+                userName,
               } = product;
               if (isCanceled === true && isShipped === true) {
                 return (
@@ -958,6 +1020,15 @@ const ReceivedOrders = () => {
                           </div>
                         </div>
                         <div className="flex flex-col justify-start items-start">
+                          <div className=" flex-row">
+                            <div className="float-left">
+                              <IoPersonOutline className="w-8 h-8" />
+                              Customer Name:
+                            </div>
+                            <div className="float-right mt-8 ml-2 text-gray-500">
+                              {userName}
+                            </div>
+                          </div>
                           <div className=" flex-row">
                             <div className="float-left">
                               <IoLocationOutline className="w-8 h-8" />
