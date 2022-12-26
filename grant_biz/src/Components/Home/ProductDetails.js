@@ -35,6 +35,7 @@ import emailjs from "@emailjs/browser";
 import qs from "qs";
 import { Linking } from "react";
 import CurrencyFormat from "react-currency-format";
+import SignIn from './../Auth/SignIn';
 
 const cash = true;
 const online_pay = true;
@@ -133,7 +134,7 @@ function ProductDetails() {
     return docSnap.data();
   };
   const currentUser = useSelector((state) => state.currentUser);
-  const { phone_number, location,Name } = currentUser;
+  const { phone_number, location, Name } = currentUser;
 
   useEffect(() => {
     try {
@@ -183,7 +184,7 @@ function ProductDetails() {
         .send(
           "service_gyzz5nb",
           "template_z48cde4",
-           newOrderEmail,
+          newOrderEmail,
           "CyPHO2_SKVKTmOJ7P"
         )
         .then(
@@ -197,7 +198,7 @@ function ProductDetails() {
       const response = await setDoc(
         doc(
           orderRef,
-          `${showDate.getDate()}-${showDate.getMonth()+1}-${showDate.getFullYear()}-${showDate.getHours()}-${orderData.id
+          `${showDate.getDate()}-${showDate.getMonth() + 1}-${showDate.getFullYear()}-${showDate.getHours()}-${orderData.id
           }`
         ),
         {
@@ -206,7 +207,7 @@ function ProductDetails() {
           price: price,
           image: image,
           title: title,
-          id: `${showDate.getDate()}-${showDate.getMonth()+1}-${showDate.getFullYear()}-${showDate.getHours()}-${orderData.id}`,
+          id: `${showDate.getDate()}-${showDate.getMonth() + 1}-${showDate.getFullYear()}-${showDate.getHours()}-${orderData.id}`,
           userPhoneNumber: phone_number,
           storePhoneNumber: store_phone_number,
           sellerEmail: email,
@@ -224,8 +225,8 @@ function ProductDetails() {
           CustomerDisputed: false,
           SellerDisputed: false,
           QRPayment: QRPayment,
-          userName:Name,
-          orderDate: showDate.getDate() + "/" + (showDate.getMonth()+1) + "/" + showDate.getFullYear() + " " + showDate.getHours() + ":" + showDate.getMinutes()
+          userName: Name,
+          orderDate: showDate.getDate() + "/" + (showDate.getMonth() + 1) + "/" + showDate.getFullYear() + " " + showDate.getHours() + ":" + showDate.getMinutes()
         }
       );
       setMassege("your order has been completed");
@@ -315,86 +316,99 @@ function ProductDetails() {
             </Link>
 
             <div className="flex justify-center mt-5">
-              <div className="mx-1">
-                <div
-                  onClick={() => handleSubmit({ image, title, id: uuidv4() })}
-                  className="bg-white border-2 rounded-xl px-4 py-2 md:px-3 cursor-pointer text-primary font-bold text-sm border-primary"
-                >
-                  <input className="cursor-pointer" type="button" value="Add to Cart"></input>
-                </div>
-              </div>
-              <div className="mx-1">
-                {/* desktop version */}
-                {/* {if (quantity>0)} */}
-                <div>{quantityCheck()}</div>
-                <div>
-                  <Dialog
-                    className="absolute h-full w-full top-0 left-0 p-6 bg-gradient-to-b from-primary to-transparent from-slate-200"
-                    visible={paymentOptionBtnPopUp}
-                    onHide={() => setpaymentOptionBtnPopUp(false)}
-                  >
-                    <div className="flex flex-row justify-center ">
-                      <div className="flex flex-col w-fit justify-center p-6  border-2 rounded-xl shadow-lg  bg-white ">
-                        <p className="flex justify-center mb-2 font-bold">
-                          Choose a payment option
-                        </p>
-                        <p className=" font-bold">Your Location: {location}</p>
-                        <p className=" font-bold mb-4">
-                          Your Phone No.: {phone_number}
-                        </p>
+              {user?.email ?
+                <>
+                  <div className="mx-1">
+                    <div
+                      onClick={() => handleSubmit({ image, title, id: uuidv4() })}
+                      className="bg-white border-2 rounded-xl px-4 py-2 md:px-3 cursor-pointer text-primary font-bold text-sm border-primary"
+                    >
+                      <input className="cursor-pointer" type="button" value="Add to Cart"></input>
+                    </div>
+                  </div>
+                  <div className="mx-1">
+                    <div>{quantityCheck()}</div>
+                    <div>
+                      <Dialog
+                        className="absolute h-full w-full top-0 left-0 p-6 bg-gradient-to-b from-primary to-transparent from-slate-200"
+                        visible={paymentOptionBtnPopUp}
+                        onHide={() => setpaymentOptionBtnPopUp(false)}>
+                        <div className="flex flex-row justify-center ">
+                          <div className="flex flex-col w-fit justify-center p-6  border-2 rounded-xl shadow-lg  bg-white ">
+                            <p className="flex justify-center mb-2 font-bold">
+                              Choose a payment option
+                            </p>
+                            <p className=" font-bold">Your Location: {location}</p>
+                            <p className=" font-bold mb-4">
+                              Your Phone No.: {phone_number}
+                            </p>
 
-                        <div className="flex justify-start w-full">
-                          {QR_code &&
-                            <button
-                              onClick={() => {
-                                QRPayment = true
-                                createOrder({ id: uuidv4() })
-                              }}
-                              className="bg-primary border-2 w-fit rounded-md px-4 py-1 md:px-16  text-white font-bold text-sm">
-                              QR Code
-                            </button>
-                          }
+                            <div className="flex justify-start w-full">
+                              {QR_code &&
+                                <button
+                                  onClick={() => {
+                                    QRPayment = true
+                                    createOrder({ id: uuidv4() })
+                                  }}
+                                  className="bg-primary border-2 w-fit rounded-md px-4 py-1 md:px-16  text-white font-bold text-sm">
+                                  QR Code
+                                </button>
+                              }
 
-                          {COD &&
-                            <button
-                              className="bg-primary ml-2 border-2 w-fit rounded-md px-4 py-1 md:px-16  text-white font-bold text-sm"
-                              onClick={() => createOrder({ id: uuidv4() })}
-                            >
-                              Cash On Delivery
-                            </button>
-                          }
-                        </div>
-
-                        <div className="flex flex-col align-items mt-5 w-full">
-                          <div className="flex justify-between w-full">
-                            <div
-                              onClick={() => setpaymentOptionBtnPopUp(false)}
-                              className="bg-red-500 border-2 rounded-xl px-4 py-2 md:px-3  text-white font-bold text-sm border-red-600"
-                            >
-                              Cancel
+                              {COD &&
+                                <button
+                                  className="bg-primary ml-2 border-2 w-fit rounded-md px-4 py-1 md:px-16  text-white font-bold text-sm"
+                                  onClick={() => createOrder({ id: uuidv4() })}
+                                >
+                                  Cash On Delivery
+                                </button>
+                              }
                             </div>
-                            <div
-                              // onClick={saveCropImage}
-                              className="bg-white border-2 rounded-xl px-4 py-2 md:px-3  text-primary font-bold text-sm border-primary"
-                            >
-                              Edit Info
+
+                            <div className="flex flex-col align-items mt-5 w-full">
+                              <div className="flex justify-between w-full">
+                                <div
+                                  onClick={() => setpaymentOptionBtnPopUp(false)}
+                                  className="bg-red-500 border-2 rounded-xl px-4 py-2 md:px-3  text-white font-bold text-sm border-red-600"
+                                >
+                                  Cancel
+                                </div>
+                                <div
+                                  // onClick={saveCropImage}
+                                  className="bg-white border-2 rounded-xl px-4 py-2 md:px-3  text-primary font-bold text-sm border-primary"
+                                >
+                                  Edit Info
+                                </div>
+                              </div>
+                              {massege && (
+                                <Alert
+                                  className="bg-green-600 w-full px-3 mt-5 rounded-xl flex flex-row"
+                                  variant="gradient"
+                                  color="green"
+                                >
+                                  {massege}
+                                </Alert>
+                              )}
                             </div>
                           </div>
-                          {massege && (
-                            <Alert
-                              className="bg-green-600 w-full px-3 mt-5 rounded-xl flex flex-row"
-                              variant="gradient"
-                              color="green"
-                            >
-                              {massege}
-                            </Alert>
-                          )}
                         </div>
-                      </div>
+                      </Dialog>
                     </div>
-                  </Dialog>
+                  </div>
+                </>
+                :
+                <div className="">
+                  <p className="flex justify-center mb-2 font-semibold">
+                    SignIn to Purchase
+                  </p>
+                  <Link className='md: btn rounded-full py-2 px-4 md:border-2 border border-primary' to='/SignIn'>
+                    <input type="button" value="SING IN"></input>
+                  </Link>
+                  <Link className='md: btn rounded-full py-2 px-4 ml-2  md:border-2 text-white bg-primary' to='/SignUp'>
+                    <input type="button" value="SING UP"></input>
+                  </Link>
                 </div>
-              </div>
+              }
             </div>
             {cartMassege && (
               <Alert

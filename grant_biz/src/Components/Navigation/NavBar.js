@@ -41,10 +41,10 @@ function NavBar() {
                 </Link>
 
                 <div className="flex w-full items-center justify-end">
-                  <Link className='btn rounded-full py-10 px-16 mx-2 border-stone-500 border-2 ' to='/SignIn'>
+                <Link className='md: btn rounded-full py-2 px-4 md:border-2 border border-primary' to='/SignIn'>
                     <input type="button" value="SING IN"></input>
                   </Link>
-                  <Link className='btn rounded-full py-10 px-16 mx-2 border-2 bg-gray-300' to='/SignUp'>
+                  <Link className='md: btn rounded-full py-2 px-4 ml-2  md:border-2 text-white bg-primary' to='/SignUp'>
                     <input type="button" value="SING UP"></input>
                   </Link>
                 </div>
@@ -101,10 +101,10 @@ function NavBar() {
             :
             // {/* Not Logged version */}
             <div className="">
-              <Link className='md: btn rounded-full py-2 px-4 md:border-2' to='/SignIn'>
+              <Link className='md: btn rounded-full py-2 px-4 md:border-2 border border-primary' to='/SignIn'>
                 <input type="button" value="SING IN"></input>
               </Link>
-              <Link className='md: btn rounded-full py-2 px-4 ml-2  md:border-2 bg-gray-300' to='/SignUp'>
+              <Link className='md: btn rounded-full py-2 px-4 ml-2  md:border-2 text-white bg-primary' to='/SignUp'>
                 <input type="button" value="SING UP"></input>
               </Link>
             </div>
