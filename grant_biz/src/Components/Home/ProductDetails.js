@@ -221,6 +221,8 @@ function ProductDetails() {
           idProduct: id,
           isReceivedFromCustomer: false,
           isReceivedFromSeller: false,
+          CustomerDisputed: false,
+          SellerDisputed: false,
           QRPayment: QRPayment,
           orderDate: showDate.getDate() + "/" + showDate.getMonth() + "/" + showDate.getFullYear() + " " + showDate.getHours() + ":" + showDate.getMinutes()
         }
@@ -245,9 +247,9 @@ function ProductDetails() {
             type="button"
             value="Purchase Now"
             onClick={() => setpaymentOptionBtnPopUp(true)}
-            className="bg-primary border-2 rounded-full px-4 py-2 md:px-16  text-white font-bold text-sm"
+            className="bg-primary border-2 rounded-xl px-4 py-2 md:px-16  text-white font-bold text-sm"
           >
-            buy now
+            Purchase Now
           </button>
         </>
       );
@@ -315,7 +317,7 @@ function ProductDetails() {
               <div className="mx-1">
                 <div
                   onClick={() => handleSubmit({ image, title, id: uuidv4() })}
-                  className="bg-white border-2 rounded-full px-4 py-2 md:px-3 cursor-pointer text-primary font-bold text-sm border-primary"
+                  className="bg-white border-2 rounded-xl px-4 py-2 md:px-3 cursor-pointer text-primary font-bold text-sm border-primary"
                 >
                   <input className="cursor-pointer" type="button" value="Add to Cart"></input>
                 </div>
@@ -331,7 +333,7 @@ function ProductDetails() {
                     onHide={() => setpaymentOptionBtnPopUp(false)}
                   >
                     <div className="flex flex-row justify-center ">
-                      <div className="flex flex-col w-fit justify-center m-36 p-6  border-2 rounded-xl shadow-lg  bg-white ">
+                      <div className="flex flex-col w-fit justify-center p-6  border-2 rounded-xl shadow-lg  bg-white ">
                         <p className="flex justify-center mb-2 font-bold">
                           Choose a payment option
                         </p>
@@ -362,24 +364,24 @@ function ProductDetails() {
                           }
                         </div>
 
-                        <div className="flex flex-col align-items mt-5 w-12">
-                          <div className="flex justify-between  content-around w-72">
+                        <div className="flex flex-col align-items mt-5 w-full">
+                          <div className="flex justify-between w-full">
                             <div
                               onClick={() => setpaymentOptionBtnPopUp(false)}
-                              className="bg-red-500 border-2 rounded-full px-4 py-2 md:px-3  text-white font-bold text-sm border-red-600"
+                              className="bg-red-500 border-2 rounded-xl px-4 py-2 md:px-3  text-white font-bold text-sm border-red-600"
                             >
                               Cancel
                             </div>
                             <div
                               // onClick={saveCropImage}
-                              className="bg-white border-2 rounded-full px-4 py-2 md:px-3  text-primary font-bold text-sm border-primary"
+                              className="bg-white border-2 rounded-xl px-4 py-2 md:px-3  text-primary font-bold text-sm border-primary"
                             >
-                              Change your information
+                              Edit Info
                             </div>
                           </div>
                           {massege && (
                             <Alert
-                              className="bg-green-600 w-max px-3 mt-5 rounded-full flex flex-row"
+                              className="bg-green-600 w-full px-3 mt-5 rounded-xl flex flex-row"
                               variant="gradient"
                               color="green"
                             >

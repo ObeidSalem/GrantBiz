@@ -36,7 +36,8 @@ import ReceivedOrders from "./Components/Shop/ReceivedOrders";
 import FutureUpdate from "./Components/FutureUpdate";
 import PageNotFound from "./Components/PageNotFound";
 import PostFeed from "./Components/Shop/PostFeed";
-
+import SellerDispute from "./Components/Shop/SellerDispute";
+import CustomerDispute from "./Components/Order/CustomerDispute";
 
 
 function App() {
@@ -118,7 +119,9 @@ function App() {
               <Route path="/AddProduct/:email" element={<AddProduct />} />
               <Route path="/SaleAnalysis/:email" element={<SaleAnalysis />} />
               <Route path="/product/:productId" element={<ProductDetails />} />
-              <Route path="/QRCheckout/:productId" element={<QRCheckout />} />
+              <Route path="/QRCheckout/:orderId" element={<QRCheckout />} />
+              <Route path="/SellerDispute/:orderId" element={<SellerDispute />} />
+              <Route path="/CustomerDispute/:orderId" element={<CustomerDispute />} />
               <Route path="/StorePage/:email" element={<StorePage />} />
               <Route path="/MyShop/:email" element={<MyShop />} />
               <Route path="/MyShop/:email/Create" element={<CreateMyShop />} />

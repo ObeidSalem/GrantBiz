@@ -8,6 +8,7 @@ import {
   IoTrashOutline,
   IoChatbubblesOutline,
   IoCloseCircleSharp,
+  IoCodeWorkingOutline,
 } from "react-icons/io5";
 import { BsBoxSeam, BsTruck } from "react-icons/bs";
 
@@ -32,6 +33,7 @@ import CurrencyFormat from "react-currency-format";
 import { UserAuth } from "../../context/AuthContext";
 import emailjs from "@emailjs/browser";
 import { connectStorageEmulator } from "firebase/storage";
+import { Dialog } from "@material-tailwind/react";
 
 const ReceivedOrders = () => {
   const { user } = UserAuth();
@@ -129,6 +131,9 @@ const ReceivedOrders = () => {
     email: user.email,
     message: "You have confirm that you received the money for the order",
   });
+  const [disputeSellerBtnPopUp, setDisputeSellerBtnPopUp] = useState(false)
+  const [disputeCustomerBtnPopUp, setDisputeCustomerBtnPopUp] = useState()
+
 
   //////////////////////////////////////////////////////////////////////////////////////////
 
@@ -143,7 +148,7 @@ const ReceivedOrders = () => {
         <p className="text-2xl font-semibold w-full">Received Orders</p>
       </div>
 
-      <div className="h-full w-full flex justify-start align-center overflow">
+      <div className="h-full w-full flex justify-start align-center overflow ">
         <div className=" w-full p-4 ">
           <div className="w-full flex justify-between items-center">
             <div className="w-full flex justify-start items-center">
@@ -156,7 +161,7 @@ const ReceivedOrders = () => {
             </div>
           </div>
           <div className="h-full w-full flex justify-center align-center ">
-            <div className="flex w-full items-center justify-between space-x-0 ">
+            <div className="flex w-full items-center justify-between space-x-1 ">
               <div
                 className={`text-black py-3 text-sm text-center w-20 ${Primary1}`}
                 to="/"
@@ -263,7 +268,7 @@ const ReceivedOrders = () => {
         </div>
       </div>
 
-      <div className="h-full flex flex-col justify-start align-center ">
+      <div className="h-full flex flex-col justify-start align-center mb-20">
         {Category1 ? (
           <>
             {products?.map((product) => {
@@ -341,11 +346,11 @@ const ReceivedOrders = () => {
                                 }
                               );
                               emailjs.send(
-                                  "service_gyzz5nb",
-                                  "template_z48cde4",
-                                  comformEmail,
-                                  "CyPHO2_SKVKTmOJ7P"
-                                )
+                                "service_gyzz5nb",
+                                "template_z48cde4",
+                                comformEmail,
+                                "CyPHO2_SKVKTmOJ7P"
+                              )
                                 .then(
                                   (result) => {
                                     console.log(result.text);
@@ -354,7 +359,7 @@ const ReceivedOrders = () => {
                                     console.log(error.text);
                                   }
                                 );
-                              // refreshPage();
+                              refreshPage();
                             }}
                             className="w-36 mr-1 text-white text-center bg-primary p-2  rounded-xl cursor-pointer  hover:cursor-pointer"
                           >
@@ -448,7 +453,7 @@ const ReceivedOrders = () => {
                             Order Date: {orderDate}
                           </div>
                         </div>
-                        <div
+                        {/* <div
                           onClick={async () => {
                             const response = await updateDoc(
                               doc(ordersRef, id),
@@ -477,7 +482,7 @@ const ReceivedOrders = () => {
                           className="w-40 text-white text-center bg-red-600 p-2  rounded-xl cursor-pointer hover:cursor-pointer"
                         >
                           Cancel
-                        </div>
+                        </div> */}
                       </div>
                       <div className="flex flex-col justify-start items-start mt-1">
                         <div className=" flex-row">
@@ -498,34 +503,66 @@ const ReceivedOrders = () => {
                             {userPhoneNumber}
                           </div>
                         </div>
-                        <div
-                          onClick={async () => {
-                            const response = await updateDoc(
-                              doc(ordersRef, id),
-                              {
-                                isShipped: true,
-                              }
-                            );
-                            emailjs
-                              .send(
-                                "service_gyzz5nb",
-                                "template_z48cde4",
-                                ConfirmShipments,
-                                "CyPHO2_SKVKTmOJ7P"
-                              )
-                              .then(
-                                (result) => {
-                                  console.log(result.text);
-                                },
-                                (error) => {
-                                  console.log(error.text);
+                        <div className="flex flex-row mt-2">
+                          <div
+                            onClick={async () => {
+                              const response = await updateDoc(
+                                doc(ordersRef, id),
+                                {
+                                  isShipped: true,
                                 }
                               );
-                            refreshPage();
-                          }}
-                          className="w-40 text-white text-center bg-red-600 p-2  rounded-xl cursor-pointer  active:bg-primary hover:cursor-pointer"
-                        >
-                          Confirm Shipments
+                              emailjs
+                                .send(
+                                  "service_gyzz5nb",
+                                  "template_z48cde4",
+                                  ConfirmShipments,
+                                  "CyPHO2_SKVKTmOJ7P"
+                                )
+                                .then(
+                                  (result) => {
+                                    console.log(result.text);
+                                  },
+                                  (error) => {
+                                    console.log(error.text);
+                                  }
+                                );
+                              refreshPage();
+                            }}
+                            className="w-36 mr-1 text-white text-center bg-primary p-2  rounded-xl cursor-pointer  hover:cursor-pointers"
+                          >
+                            Shipped
+                          </div>
+                          <div
+                            onClick={async () => {
+                              const response = await updateDoc(
+                                doc(ordersRef, id),
+                                {
+                                  isCanceled: true,
+                                  isShipped: true,
+                                }
+                              );
+                              emailjs
+                                .send(
+                                  "service_gyzz5nb",
+                                  "template_z48cde4",
+                                  emailCancel,
+                                  "CyPHO2_SKVKTmOJ7P"
+                                )
+                                .then(
+                                  (result) => {
+                                    console.log(result.text);
+                                  },
+                                  (error) => {
+                                    console.log(error.text);
+                                  }
+                                );
+                              refreshPage();
+                            }}
+                            className="w-36 ml-1 text-center bg-white p-2  rounded-xl border-2 border-red-600 cursor-pointer  hover:cursor-pointer"
+                          >
+                            Cancel Order
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -562,15 +599,9 @@ const ReceivedOrders = () => {
                 ProofOfImage,
                 QRPayment,
                 ProductId,
+                CustomerDisputed,
+                SellerDisputed,
               } = product;
-
-              // const Index = Income?.findIndex(item => item.ProductID === ProductId)
-              // console.log("index",Income?.findIndex(item => item.ProductID === ProductId))
-              // const incomeCurrentMonth = Income?.find(item => item.ProductID === ProductId).ProductMonthlyIncome[showDate.getMonth()]
-              // console.log("incomeCurrentMonth", incomeCurrentMonth)
-              // const value = incomeCurrentMonth+Number(price)
-              // setTargetProductIncome()
-              // console.log("incrementedIncome",targetProductIncome)
 
               if (
                 isShipped === true &&
@@ -581,17 +612,17 @@ const ReceivedOrders = () => {
                   <>
                     {isReceivedFromCustomer ? (
                       <div
-                        className="p-4 mx-4 my-2 w-fit md:w-3/5 flex border border-gray-400 rounded-xl "
+                        className="p-4 mx-4 my-2 w-fit flex border border-gray-400 rounded-xl "
                         key={id}
                       >
                         <div className="w-full flex flex-col justify-between items-center ">
-                          <div className="w-full flex flex-row justify-start items-center">
+                          <div className="w-full flex flex-row justify-start items-start">
                             <img
                               src={image}
                               alt={StoreName}
                               className="text-black h-20 w-20 rounded active:text-primary"
                             />
-                            <div className="w-full flex flex-col ml-12 items-start">
+                            <div className="w-full flex flex-col mr-2 items-start">
                               <p className="text-lg ml-4">{title}</p>
                               <div className="w-full flex flex-row justify-between ml-4">
                                 <CurrencyFormat
@@ -605,8 +636,24 @@ const ReceivedOrders = () => {
                                 Order Date: {orderDate}
                               </div>
                             </div>
+                            {!SellerDisputed &&
+                              <Link
+                                to={`/SellerDispute/${id}`}
+                                className="w-40 text-white text-center bg-red-600 p-2  rounded-xl cursor-pointer  hover:bg-red-700"
+                              >
+                                Dispute
+                              </Link>
+                            }
                           </div>
                           <div className="flex flex-col justify-start items-start">
+                            {SellerDisputed &&
+                              <div className=" flex-row">
+                                <div className="float-left border-2 border-red-600 rounded-md p-2 my-2 text-red-600">
+                                  <IoCodeWorkingOutline className="w-8 h-8" />
+                                  Your Dispute Application is Under Processing, Do not Confirm Receiving Money Unless if The Issue Has Been Resolved.
+                                </div>
+                              </div>
+                            }
                             <div className=" flex-row">
                               <div className="float-left">
                                 <IoLocationOutline className="w-8 h-8" />
@@ -638,9 +685,10 @@ const ReceivedOrders = () => {
                               onClick={async (event) => {
                                 let UserIncomeData;
                                 let ProductIncomeData;
+                                let currentMonth = showDate.getMonth()
                                 const docUserRef = doc(db, "Users", user.email);
-                                const docProductRef = doc(db, "Products", ProductId );
-                                const responseUserGet = await getDoc(  docUserRef
+                                const docProductRef = doc(db, "Products", ProductId);
+                                const responseUserGet = await getDoc(docUserRef
                                 );
                                 const responseProduct = await getDoc(
                                   docProductRef
@@ -659,17 +707,13 @@ const ReceivedOrders = () => {
                                 } else {
                                   console.log("Document does not exist");
                                 }
+                                
+                                console.log("price", price);
+                                
+                                UserIncomeData[currentMonth] += Number(price);
+                                ProductIncomeData[currentMonth] += Number(price);
 
-                                UserIncomeData.forEach((a, i) => {
-                                  if (i == showDate.getMonth()) {
-                                    UserIncomeData[i] += Number(price);
-                                    ProductIncomeData[i] += Number(price);
-                                  } else {
-                                    // console.log('nOT cORRECT iNDEX')
-                                  }
-                                });
-
-                                console.log("UserIncomeData",UserIncomeData,"ProductIncomeData",ProductIncomeData)
+                                console.log("UserIncomeData", UserIncomeData, "ProductIncomeData", ProductIncomeData)
 
                                 const responseUserUpdate = await updateDoc(
                                   doc(usersRef, user.email),
@@ -712,28 +756,28 @@ const ReceivedOrders = () => {
                                   );
                                 refreshPage();
                               }}
-                              className="w-fit text-white text-center bg-primary p-2  rounded-xl cursor-pointer"
+                              className="w-fit text-white text-center bg-primary p-2 mt-2 rounded-xl cursor-pointer"
                             >
-                              Confirm Money Receiving  
+                              Confirm Money Receiving
                             </div>
                           </div>
                         </div>
                       </div>
                     ) : (
                       <div
-                        className="p-4 mx-4 my-2 w-full md:w-3/5 flex border border-gray-400 rounded-xl "
+                        className="p-4 mx-4 my-2 w-fit flex border border-gray-400 rounded-xl "
                         key={id}
                       >
                         <div className="w-full flex flex-col justify-between items-center ">
-                          <div className="w-full flex flex-row justify-start items-center">
+                          <div className="w-full flex flex-row justify-start items-start">
                             <img
                               src={image}
                               alt={StoreName}
                               className="text-black h-20 w-20 rounded active:text-primary"
                             />
-                            <div className="w-full flex flex-col ml-12 items-start">
-                              <p className="text-lg ml-4">{title}</p>
-                              <div className="w-full flex flex-row justify-between ml-4">
+                            <div className="w-full flex flex-col items-start mx-4">
+                              <p className="text-lg ">{title}</p>
+                              <div className="w-full flex flex-row justify-between ">
                                 <CurrencyFormat
                                   value={price}
                                   displayType={"text"}
@@ -741,41 +785,31 @@ const ReceivedOrders = () => {
                                   prefix={"RM "}
                                 />
                               </div>
-                              <div className="w-full flex flex-row justify-between ml-4 text-sm font-medium text-gray-400">
+                              <div className="w-full flex flex-row justify-between text-sm font-medium text-gray-400">
                                 Order Date: {orderDate}
                               </div>
                             </div>
-                            <div
-                              onClick={async () => {
-                                const response = await updateDoc(
-                                  doc(ordersRef, id),
-                                  {
-                                    isCanceled: true,
-                                  }
-                                );
-                                emailjs
-                                  .send(
-                                    "service_gyzz5nb",
-                                    "template_z48cde4",
-                                    emailCancel,
-                                    "CyPHO2_SKVKTmOJ7P"
-                                  )
-                                  .then(
-                                    (result) => {
-                                      console.log(result.text);
-                                    },
-                                    (error) => {
-                                      console.log(error.text);
-                                    }
-                                  );
-                                refreshPage();
-                              }}
-                              className="w-40 text-white text-center bg-red-600 p-2  rounded-xl cursor-pointer  hover:cursor-pointer"
-                            >
-                              Cancel
-                            </div>
+                            {!SellerDisputed &&
+                              <Link
+                                to={`/SellerDispute/${id}`}
+                                className="w-40 text-white text-center bg-red-600 p-2  rounded-xl cursor-pointer  hover:bg-red-700"
+                              >
+                                Dispute
+                              </Link>
+                            }
                           </div>
                           <div className="flex flex-col justify-start items-start">
+                            {SellerDisputed &&
+                              <div className=" flex-row">
+                                <div className="float-left border-2 border-red-600 rounded-md p-2 my-2 text-red-600">
+                                  <IoCodeWorkingOutline className="w-8 h-8" />
+                                  Your Dispute Application is Under Processing
+                                </div>
+                                {/* <div className="float-right mt-8 ml-2 text-gray-500">
+                                
+                              </div> */}
+                              </div>
+                            }
                             <div className=" flex-row">
                               <div className="float-left">
                                 <IoLocationOutline className="w-8 h-8" />
@@ -883,15 +917,15 @@ const ReceivedOrders = () => {
                             </div>
                           </div>
                           {QRPayment && (
-                              <div className=" flex-row">
-                                <div>Proof Of Online Payment:-</div>
-                                <img
-                                  className="my-4"
-                                  src={ProofOfImage}
-                                  alt="Proof of Payment"
-                                />
-                              </div>
-                            )}
+                            <div className=" flex-row">
+                              <div>Proof Of Online Payment:-</div>
+                              <img
+                                className="my-4"
+                                src={ProofOfImage}
+                                alt="Proof of Payment"
+                              />
+                            </div>
+                          )}
                           <div className=" flex-row">
                             <div className="float-left mr-1 font-bold text-green-800">
                               The Order Has Been Completed

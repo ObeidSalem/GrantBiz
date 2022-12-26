@@ -97,6 +97,10 @@ function SaleAnalysis() {
     },
   };
 
+  const tempraryData = [12,50,47,26,71,78,100,110,120,125,90,136]
+  const tempraryData2 = [12,13,37,16,41,48,60,70,20,15,90,56]
+
+
   const TotalMonthlyIncome = {
     labels: [
       "Jan",
@@ -115,6 +119,7 @@ function SaleAnalysis() {
     datasets: [
       {
         data: Income,
+        // data: tempraryData,
         borderColor: "#41BDA7",
         backgroundColor: "transparent",
         pointBorderColor: "transparent",
@@ -122,6 +127,7 @@ function SaleAnalysis() {
       },
     ],
   };
+
 
   const products = useSelector((state) => state.allProducts.products);
 
@@ -146,6 +152,7 @@ function SaleAnalysis() {
       datasets: [
         {
           data: productIncome,
+          // data: tempraryData2,
           borderColor: "#41BDA7",
           backgroundColor: "transparent",
           pointBorderColor: "transparent",

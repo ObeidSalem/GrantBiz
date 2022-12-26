@@ -9,6 +9,7 @@ import {
   IoChatbubblesOutline,
   IoCloseCircleOutline,
   IoCloseCircleSharp,
+  IoCodeWorkingOutline,
 } from "react-icons/io5";
 import { BsBoxSeam, BsTruck } from "react-icons/bs";
 
@@ -45,6 +46,7 @@ const Orders = () => {
   const {
     email,
     Name,
+    profile_avatar,
     own_store,
     store_avatar,
     StoreName,
@@ -103,12 +105,12 @@ const Orders = () => {
   const [emailCancel, setEmailCancel] = useState({
     fullName: "GrandBiz",
     email: user.email,
-    message: "your order has been cancelled",
+    message: "Your order has been cancelled",
   });
   const [comformEmail, setcomformEmail] = useState({
     fullName: "GrandBiz",
     email: user.email,
-    message: "you have conform that you had received your order",
+    message: "You have conform that you had received your order",
   });
 
   //////////////////////////////////////////////////////////////////
@@ -138,16 +140,16 @@ const Orders = () => {
 
       <div className="h-full w-full flex justify-center align-center overflow">
         <div className=" w-full p-4 ">
-          {/* <div className="w-full flex justify-between items-center">
-                        <div className="w-full flex justify-start items-center">
-                            <img src={store_avatar} alt={StoreName}
-                                className="text-black h-10 w-10 rounded-full active:text-primary" />
-                            <p className="text-lg ml-4">{StoreName}</p>
-                        </div>
+          <div className="w-full flex justify-between items-center">
+            <div className="w-full flex justify-start items-center">
+              <img src={profile_avatar} alt={Name}
+                className="text-black h-10 w-10 rounded-full active:text-primary" />
+              <p className="text-lg ml-4">{Name}</p>
+            </div>
 
-                    </div> */}
+          </div>
           <div className="h-full w-full flex justify-center align-center ">
-            <div className="flex w-full items-center justify-between space-x-0 ">
+            <div className="flex w-full items-center justify-between space-x-1 ">
               <div
                 className={`text-black py-3 text-sm text-center w-20 ${Primary1}`}
                 to="/"
@@ -254,7 +256,7 @@ const Orders = () => {
         </div>
       </div>
 
-      <div className="h-full flex flex-col w-full justify-center align-center ">
+      <div className="h-full flex flex-col w-full justify-center align-center mb-20">
         {Category1 ? (
           <>
             {products?.map((product) => {
@@ -272,107 +274,107 @@ const Orders = () => {
                 store_avatar,
                 storePhoneNumber,
                 orderDate,
+                isCanceled,
               } = product;
               //   console.log("product", product);
-              if (isConfirmed == false) {
+              if (isConfirmed == false && isCanceled == false ) {
                 return (
-                  <>
-                    <div className="p-4 mx-4 my-2 flex justify-end w-fit md:w-3/5  border border-gray-400 rounded-xl ">
-                      <div className="w-full flex flex-col justify-between items-center">
-                        <div className="w-full flex justify-between items-center mb-4">
-                          <div className="w-full flex justify-start items-center">
-                            <img
-                              src={store_avatar}
-                              alt={StoreName}
-                              className="text-black h-10 w-10 rounded-full active:text-primary"
-                            />
-                            <p className="text-lg ml-4">{StoreName}</p>
-                          </div>
-                          <div
-                            onClick={async () => {
-                              const response = await updateDoc(
-                                doc(updateRef, id),
-                                {
-                                  isCanceled: true,
-                                  isShipped: true,
-                                }
-                              );
-                              emailjs
-                                .send(
-                                  "service_gyzz5nb",
-                                  "template_z48cde4",
-                                  emailCancel,
-                                  "CyPHO2_SKVKTmOJ7P"
-                                )
-                                .then(
-                                  (result) => {
-                                    console.log(result.text);
-                                  },
-                                  (error) => {
-                                    console.log(error.text);
-                                  }
-                                );
-                              refreshPage();
-                            }}
-                            className="w-36 ml-1 text-center bg-white p-2  rounded-xl border-2 border-red-600 cursor-pointer  hover:cursor-pointer "
-                          >
-                            Cancel order
-                          </div>
-                        </div>
-                        {/*  */}
-                        <div></div>
+            <>
+              <div className="p-4 mx-4 my-2 flex justify-end w-fit md:w-3/5  border border-gray-400 rounded-xl ">
+                <div className="w-full flex flex-col justify-between items-center">
+                  <div className="w-full flex justify-between items-center mb-4">
+                    <div className="w-full flex justify-start items-center">
+                      <img
+                        src={store_avatar}
+                        alt={StoreName}
+                        className="text-black h-10 w-10 rounded-full active:text-primary"
+                      />
+                      <p className="text-lg ml-4">{StoreName}</p>
+                    </div>
+                    <div
+                      onClick={async () => {
+                        const response = await updateDoc(
+                          doc(updateRef, id),
+                          {
+                            isCanceled: true,
+                          }
+                        );
+                        emailjs
+                          .send(
+                            "service_gyzz5nb",
+                            "template_z48cde4",
+                            emailCancel,
+                            "CyPHO2_SKVKTmOJ7P"
+                          )
+                          .then(
+                            (result) => {
+                              console.log(result.text);
+                            },
+                            (error) => {
+                              console.log(error.text);
+                            }
+                          );
+                        refreshPage();
+                      }}
+                      className="w-36 ml-1 text-center bg-white p-2  rounded-xl border-2 border-red-600 cursor-pointer  hover:cursor-pointer "
+                    >
+                      Cancel Order
+                    </div>
+                  </div>
+                  {/*  */}
+                  <div></div>
 
-                        {/*  */}
-                        <div className="w-full flex flex-row justify-start items-center">
-                          <img
-                            src={image}
-                            alt={StoreName}
-                            className="text-black h-24 md:h-40 w-24  md:w-40 rounded active:text-primary"
-                          />
-                          <div className="w-full flex flex-col ml-12 items-start">
-                            <p className="text-xl font-medium ml-4">{title}</p>
-                            <div className="w-full flex flex-row justify-between ml-4 text-xl font-medium">
-                              <CurrencyFormat
-                                value={price}
-                                displayType={"text"}
-                                thousandSeparator={true}
-                                prefix={"RM "}
-                              />
-                            </div>
-                            <div className="w-full flex flex-row justify-between ml-4 text-sm font-medium text-gray-400">
-                              Order Date: {orderDate}
-                            </div>
-                          </div>
-                        </div>
-                        <div className="flex flex-col justify-start items-start">
-                          <div className=" flex-row">
-                            <div className="float-left">
-                              <IoLocationOutline className="w-8 h-8" />
-                              Address :
-                            </div>
-                            <div className="float-right mt-8 ml-2 text-gray-500">
-                              {location}
-                            </div>
-                          </div>
-                          <div className=" flex-row">
-                            <div className="float-left mr-1">
-                              <IoChatbubblesOutline className="w-8 h-8" />
-                              Seller phone number:
-                            </div>
-                            <div className="float-right mt-8 ml-2 text-gray-500">
-                              {storePhoneNumber}
-                            </div>
-                          </div>
-                          <div className=" flex-row">
-                            <div className="float-left mr-1 font-bold">
-                              Pending conformation from seller
-                            </div>
-                          </div>
-                        </div>
+                  {/*  */}
+                  <div className="w-full flex flex-row justify-start items-center">
+                    <img
+                      src={image}
+                      alt={StoreName}
+                      className="text-black h-24 md:h-40 w-24  md:w-40 rounded active:text-primary"
+                    />
+                    <div className="w-full flex flex-col ml-12 items-start">
+                      <p className="text-xl font-medium ml-4">{title}</p>
+                      <div className="w-full flex flex-row justify-between ml-4 text-xl font-medium">
+                        <CurrencyFormat
+                          value={price}
+                          displayType={"text"}
+                          thousandSeparator={true}
+                          prefix={"RM "}
+                        />
+                      </div>
+                      <div className="w-full flex flex-row justify-between ml-4 text-sm font-medium text-gray-400">
+                        Order Date: {orderDate}
                       </div>
                     </div>
-                  </>
-                );
+                  </div>
+                  <div className="flex flex-col justify-start items-start">
+                    <div className=" flex-row">
+                      <div className="float-left">
+                        <IoLocationOutline className="w-8 h-8" />
+                        Address :
+                      </div>
+                      <div className="float-right mt-8 ml-2 text-gray-500">
+                        {location}
+                      </div>
+                    </div>
+                    <div className=" flex-row">
+                      <div className="float-left mr-1">
+                        <IoChatbubblesOutline className="w-8 h-8" />
+                        Seller phone number:
+                      </div>
+                      <div className="float-right mt-8 ml-2 text-gray-500">
+                        {storePhoneNumber}
+                      </div>
+                    </div>
+                    <div className=" flex-row">
+                      <div className="float-left mr-1 font-bold">
+                        Pending Conformation from Seller
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </>
+            );
               }
             })}
           </>
@@ -397,8 +399,9 @@ const Orders = () => {
                 storePhoneNumber,
                 store_avatar,
                 orderDate,
+                isCanceled,
               } = product;
-              if (isConfirmed === true && isShipped === false) {
+              if (isConfirmed === true && isShipped === false && isCanceled == false) {
                 return (
                   <>
                     <div className="p-4 mx-4 my-2 flex border w-fit border-gray-400 rounded-xl ">
@@ -489,6 +492,8 @@ const Orders = () => {
                 store_avatar,
                 orderDate,
                 QRPayment,
+                CustomerDisputed,
+                SellerDisputed,
               } = product;
               if (isShipped === true && isReceivedFromSeller === false) {
                 return (
@@ -507,13 +512,13 @@ const Orders = () => {
                                 <p className="text-lg ml-4">{StoreName}</p>
                               </div>
                             </div>
-                            <div className="w-full flex flex-row justify-start items-center">
+                            <div className="w-full flex flex-row justify-start items-start">
                               <img
                                 src={image}
                                 alt={StoreName}
                                 className="text-black h-24 md:h-40 w-24  md:w-40 rounded active:text-primary"
                               />
-                              <div className="w-full flex flex-col ml-12 items-start">
+                              <div className="w-full flex flex-col mr-2 items-start">
                                 <p className="text-xl font-medium ml-4">
                                   {title}
                                 </p>
@@ -529,8 +534,24 @@ const Orders = () => {
                                   Order Date: {orderDate}
                                 </div>
                               </div>
+                              {!CustomerDisputed &&
+                                <Link
+                                  to={`/CustomerDispute/${id}`}
+                                  className="w-40 text-white text-center bg-red-600 p-2  rounded-xl cursor-pointer  hover:bg-red-700"
+                                >
+                                  Dispute
+                                </Link>
+                              }
                             </div>
                             <div className="flex flex-col justify-start items-start">
+                              {CustomerDisputed &&
+                                <div className=" flex-row">
+                                  <div className="float-left border-2 border-red-600 rounded-md p-2 my-2 text-red-600">
+                                    <IoCodeWorkingOutline className="w-8 h-8" />
+                                    Your Dispute Application is Under Processing. It will be resolved in Three Working Days
+                                  </div>
+                                </div>
+                              }
                               <div className=" flex-row">
                                 <div className="float-left">
                                   <IoLocationOutline className="w-8 h-8" />
@@ -551,7 +572,7 @@ const Orders = () => {
                               </div>
                               <div className=" flex-row">
                                 <div className="float-left mr-1 font-bold">
-                                  Pending conformation from seller
+                                  Pending Conformation from Seller
                                 </div>
                               </div>
                             </div>
@@ -572,53 +593,16 @@ const Orders = () => {
                                   />
                                   <p className="text-lg ml-4">{StoreName}</p>
                                 </div>
-                                {QRPayment ? (
-                                  <Link
-                                    to={`/QRCheckout/${id}`}
-                                    className=" w-70 text-black text-center border-2 border-orange-600 p-2 ml-40 rounded-xl cursor-pointer"
-                                  >
-                                    Complete Payment
-                                  </Link>
-                                ) : (
-                                  <div
-                                    onClick={async () => {
-                                      const response = await updateDoc(
-                                        doc(updateRef, id),
-                                        {
-                                          isReceivedFromCustomer: true,
-                                        }
-                                      );
-                                      emailjs
-                                        .send(
-                                          "service_gyzz5nb",
-                                          "template_z48cde4",
-                                          comformEmail,
-                                          "CyPHO2_SKVKTmOJ7P"
-                                        )
-                                        .then(
-                                          (result) => {
-                                            console.log(result.text);
-                                          },
-                                          (error) => {
-                                            console.log(error.text);
-                                          }
-                                        );
-                                       refreshPage();
-                                    }}
-                                    className=" w-fit mr-1 text-white text-center bg-primary p-2  rounded-xl cursor-pointer  hover:cursor-pointer"
-                                  >
-                                    Confirm Receiving The order
-                                  </div>
-                                )}
+
                               </div>
                             </div>
-                            <div className="w-full flex flex-row justify-start items-center">
+                            <div className="w-full flex flex-row justify-start items-start">
                               <img
                                 src={image}
                                 alt={StoreName}
                                 className="text-black h-24 md:h-40 w-24  md:w-40 rounded active:text-primary"
                               />
-                              <div className="w-full flex flex-col ml-12 items-start">
+                              <div className="w-full flex flex-col mr-2 items-start">
                                 <p className="text-xl font-medium ml-4">
                                   {title}
                                 </p>
@@ -635,8 +619,24 @@ const Orders = () => {
                                   Order Date: {orderDate}
                                 </div>
                               </div>
+                              {!CustomerDisputed &&
+                                <Link
+                                  to={`/CustomerDispute/${id}`}
+                                  className="w-40 text-white text-center bg-red-600 p-2  rounded-xl cursor-pointer  hover:bg-red-700"
+                                >
+                                  Dispute
+                                </Link>
+                              }
                             </div>
                             <div className="flex flex-col justify-start items-start">
+                              {CustomerDisputed &&
+                                <div className=" flex-row">
+                                  <div className="float-left border-2 border-red-600 rounded-md p-2 my-2 text-red-600">
+                                    <IoCodeWorkingOutline className="w-8 h-8" />
+                                    Your Dispute Application is Under Processing. It will be resolved in Three Working Days
+                                  </div>
+                                </div>
+                              }
                               <div className=" flex-row">
                                 <div className="float-left">
                                   <IoLocationOutline className="w-8 h-8" />
@@ -657,6 +657,51 @@ const Orders = () => {
                               </div>
                               <div className=" flex-row"></div>
                             </div>
+                            {QRPayment ? (
+                              <div className="flex flex-row mt-2">
+
+                                <Link
+                                  to={`/QRCheckout/${id}`}
+                                  className=" w-fit text-black text-center border-2 border-orange-600 p-2 ml-40 rounded-xl cursor-pointer"
+                                >
+                                  Complete Payment
+                                </Link>
+                              </div>
+
+                            ) : (
+                              <div className="flex flex-row mt-2">
+
+                                <div
+                                  onClick={async () => {
+                                    const response = await updateDoc(
+                                      doc(updateRef, id),
+                                      {
+                                        isReceivedFromCustomer: true,
+                                      }
+                                    );
+                                    emailjs
+                                      .send(
+                                        "service_gyzz5nb",
+                                        "template_z48cde4",
+                                        comformEmail,
+                                        "CyPHO2_SKVKTmOJ7P"
+                                      )
+                                      .then(
+                                        (result) => {
+                                          console.log(result.text);
+                                        },
+                                        (error) => {
+                                          console.log(error.text);
+                                        }
+                                      );
+                                    refreshPage();
+                                  }}
+                                  className=" w-full mr-1 text-white text-center bg-primary p-2  rounded-xl cursor-pointer  hover:cursor-pointer"
+                                >
+                                  Confirm Receiving The Order
+                                </div>
+                              </div>
+                            )}
                           </div>
                         </div>
                       </>

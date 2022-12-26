@@ -34,10 +34,10 @@ import { Alert, Button } from "@material-tailwind/react";
 import CurrencyFormat from "react-currency-format";
 
 function ProductDetails() {
-  const { productId } = useParams();
+  const { orderId } = useParams();
 
   const dispatch = useDispatch();
-  const docRef = doc(db, "Orders", productId);
+  const docRef = doc(db, "Orders", orderId);
   const fetchProductDetail = async (id) => {
     const response = await getDoc(docRef);
     if (response.exists()) {
@@ -76,7 +76,7 @@ function ProductDetails() {
   const [paymentOptionBtnPopUp, setpaymentOptionBtnPopUp] = useState(false);
 
   useEffect(() => {
-    if (productId && productId !== "") fetchProductDetail(productId);
+    if (orderId && orderId !== "") fetchProductDetail(orderId);
     return () => {
       dispatch(removeSelectedProduct());
     };
@@ -119,7 +119,7 @@ function ProductDetails() {
   async function handleSubmit() {
     try {
       setError("");
-      const response = await updateDoc(doc(orderRef, productId), {
+      const response = await updateDoc(doc(orderRef, orderId), {
         isReceivedFromCustomer: true,
         ProofOfImage: ProofOfImage,
       });

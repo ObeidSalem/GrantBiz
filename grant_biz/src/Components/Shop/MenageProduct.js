@@ -190,7 +190,7 @@ const MenageProduct = () => {
         <Link to={`/MyShop/${email}`}>
           <IoArrowBackOutline className="text-black h-8 w-10 mr-2 active:text-primary" />
         </Link>
-        <p className="text-2xl font-semibold w-full"> manage Products</p>
+        <p className="text-2xl font-semibold w-full"> Manage Products</p>
       </div>
 
       <div className="h-full flex justify-start align-center ">
