@@ -9,6 +9,7 @@ import {
   IoChatbubblesOutline,
   IoCloseCircleSharp,
   IoCodeWorkingOutline,
+  IoPersonOutline,
 } from "react-icons/io5";
 import { BsBoxSeam, BsTruck } from "react-icons/bs";
 
@@ -286,6 +287,7 @@ const ReceivedOrders = () => {
                 orderDate,
                 userPhoneNumber,
                 address,
+                userName,
               } = product;
               // console.log("product", product);
               if (isConfirmed == false) {
@@ -317,6 +319,15 @@ const ReceivedOrders = () => {
                         </div>
                       </div>
                       <div className="flex flex-col justify-start items-start">
+                        <div className=" flex-row">
+                          <div className="float-left">
+                            <IoPersonOutline className="w-8 h-8" />
+                            Customer Name:
+                          </div>
+                          <div className="float-right mt-8 ml-2 text-gray-500">
+                            {userName}
+                          </div>
+                        </div>
                         <div className=" flex-row">
                           <div className="float-left">
                             <IoLocationOutline className="w-8 h-8" />
@@ -424,6 +435,7 @@ const ReceivedOrders = () => {
                 orderDate,
                 userPhoneNumber,
                 address,
+                userName,
               } = product;
               if (isConfirmed === true && isShipped === false) {
                 return (
@@ -485,6 +497,15 @@ const ReceivedOrders = () => {
                         </div> */}
                       </div>
                       <div className="flex flex-col justify-start items-start mt-1">
+                        <div className=" flex-row">
+                          <div className="float-left">
+                            <IoPersonOutline className="w-8 h-8" />
+                            Customer Name:
+                          </div>
+                          <div className="float-right mt-8 ml-2 text-gray-500">
+                            {userName}
+                          </div>
+                        </div>
                         <div className=" flex-row">
                           <div className="float-left">
                             <IoLocationOutline className="w-8 h-8" />
@@ -601,6 +622,7 @@ const ReceivedOrders = () => {
                 ProductId,
                 CustomerDisputed,
                 SellerDisputed,
+                userName,
               } = product;
 
               if (
@@ -654,6 +676,15 @@ const ReceivedOrders = () => {
                                 </div>
                               </div>
                             }
+                            <div className=" flex-row">
+                              <div className="float-left">
+                                <IoPersonOutline className="w-8 h-8" />
+                                Customer Name:
+                              </div>
+                              <div className="float-right mt-8 ml-2 text-gray-500">
+                                {userName}
+                              </div>
+                            </div>
                             <div className=" flex-row">
                               <div className="float-left">
                                 <IoLocationOutline className="w-8 h-8" />
@@ -812,6 +843,15 @@ const ReceivedOrders = () => {
                             }
                             <div className=" flex-row">
                               <div className="float-left">
+                                <IoPersonOutline className="w-8 h-8" />
+                                Customer Name:
+                              </div>
+                              <div className="float-right mt-8 ml-2 text-gray-500">
+                                {userName}
+                              </div>
+                            </div>
+                            <div className=" flex-row">
+                              <div className="float-left">
                                 <IoLocationOutline className="w-8 h-8" />
                                 Customer Address :
                               </div>
@@ -864,6 +904,7 @@ const ReceivedOrders = () => {
                 address,
                 ProofOfImage,
                 QRPayment,
+                userName,
               } = product;
               if (
                 isShipped === true &&
@@ -898,6 +939,15 @@ const ReceivedOrders = () => {
                           </div>
                         </div>
                         <div className="flex flex-col justify-start items-start">
+                          <div className=" flex-row">
+                            <div className="float-left">
+                              <IoPersonOutline className="w-8 h-8" />
+                              Customer Name:
+                            </div>
+                            <div className="float-right mt-8 ml-2 text-gray-500">
+                              {userName}
+                            </div>
+                          </div>
                           <div className=" flex-row">
                             <div className="float-left">
                               <IoLocationOutline className="w-8 h-8" />
@@ -963,6 +1013,7 @@ const ReceivedOrders = () => {
                 orderDate,
                 address,
                 userPhoneNumber,
+                userName,
               } = product;
               if (isCanceled === true && isShipped === true) {
                 return (
@@ -992,6 +1043,15 @@ const ReceivedOrders = () => {
                           </div>
                         </div>
                         <div className="flex flex-col justify-start items-start">
+                          <div className=" flex-row">
+                            <div className="float-left">
+                              <IoPersonOutline className="w-8 h-8" />
+                              Customer Name:
+                            </div>
+                            <div className="float-right mt-8 ml-2 text-gray-500">
+                              {userName}
+                            </div>
+                          </div>
                           <div className=" flex-row">
                             <div className="float-left">
                               <IoLocationOutline className="w-8 h-8" />

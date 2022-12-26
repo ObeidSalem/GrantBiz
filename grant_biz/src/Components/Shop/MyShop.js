@@ -387,18 +387,18 @@ function MyShop() {
                 </div>
                 <IoArrowForwardOutline className="text-black h-8 w-10 mr-2 active:text-primary" />
               </Link>
+              <Link className="py-6 flex flex-row justify-between"  to={`/PostFeed/${email}`}>
+                <div className="flex flex-row justify-start">
+                  <IoBagAddOutline
+                    className="text-black h-8 w-10 mr-2 active:text-primary" />
+                  <p className="text-xl font-semibold text-black">Post Feed</p>
+                </div>
+                <IoArrowForwardOutline className="text-black h-8 w-10 mr-2 active:text-primary" />
+              </Link>
               <Link className="py-6 flex flex-row justify-between" to={`/FutureUpdate`}>
                 <div className="flex flex-row justify-start">
                   <IoCalculatorOutline className="text-gray-500 h-8 w-10 mr-2 active:text-primary" />
                   <p className="text-xl font-semibold text-gray-500">Cashier Mood</p>
-                </div>
-                <IoArrowForwardOutline className="text-gray-500 h-8 w-10 mr-2 active:text-primary" />
-              </Link>
-              <Link className="py-6 flex flex-row justify-between"  to={`/PostFeed/${email}`}>
-                <div className="flex flex-row justify-start">
-                  <IoBagAddOutline
-                    className="text-gray-500 h-8 w-10 mr-2 active:text-primary" />
-                  <p className="text-xl font-semibold text-gray-500">Post Feed</p>
                 </div>
                 <IoArrowForwardOutline className="text-gray-500 h-8 w-10 mr-2 active:text-primary" />
               </Link>

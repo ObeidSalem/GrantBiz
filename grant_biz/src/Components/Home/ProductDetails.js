@@ -133,7 +133,7 @@ function ProductDetails() {
     return docSnap.data();
   };
   const currentUser = useSelector((state) => state.currentUser);
-  const { phone_number, location } = currentUser;
+  const { phone_number, location,Name } = currentUser;
 
   useEffect(() => {
     try {
@@ -197,7 +197,7 @@ function ProductDetails() {
       const response = await setDoc(
         doc(
           orderRef,
-          `${showDate.getDate()}-${showDate.getMonth()}-${showDate.getFullYear()}-${showDate.getHours()}-${orderData.id
+          `${showDate.getDate()}-${showDate.getMonth()+1}-${showDate.getFullYear()}-${showDate.getHours()}-${orderData.id
           }`
         ),
         {
@@ -206,7 +206,7 @@ function ProductDetails() {
           price: price,
           image: image,
           title: title,
-          id: `${showDate.getDate()}-${showDate.getMonth()}-${showDate.getFullYear()}-${showDate.getHours()}-${orderData.id}`,
+          id: `${showDate.getDate()}-${showDate.getMonth()+1}-${showDate.getFullYear()}-${showDate.getHours()}-${orderData.id}`,
           userPhoneNumber: phone_number,
           storePhoneNumber: store_phone_number,
           sellerEmail: email,
@@ -224,7 +224,8 @@ function ProductDetails() {
           CustomerDisputed: false,
           SellerDisputed: false,
           QRPayment: QRPayment,
-          orderDate: showDate.getDate() + "/" + showDate.getMonth() + "/" + showDate.getFullYear() + " " + showDate.getHours() + ":" + showDate.getMinutes()
+          userName:Name,
+          orderDate: showDate.getDate() + "/" + (showDate.getMonth()+1) + "/" + showDate.getFullYear() + " " + showDate.getHours() + ":" + showDate.getMinutes()
         }
       );
       setMassege("your order has been completed");

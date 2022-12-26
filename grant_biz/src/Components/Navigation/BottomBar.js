@@ -19,7 +19,7 @@ const BottomBar = () => {
           <IoHomeOutline className="text-black h-6 w-full active:text-primary" />
           Home
         </NavLink>
-        <NavLink className="text-black py-3 text-sm text-center active:text-primary w-20" to={`/FutureUpdate`} onClick={handleClick}>
+        <NavLink className="text-black py-3 text-sm text-center active:text-primary w-20" to={`/Feed`} onClick={handleClick}>
           <IoPlayCircleOutline className="text-black h-6 w-full active:text-primary" /> 
           Feed
         </NavLink>

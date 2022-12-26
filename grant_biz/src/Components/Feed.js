@@ -2,74 +2,101 @@ import React, { useEffect, useState } from "react";
 import NavBar from "./Navigation/NavBar";
 import { v4 as uuidv4 } from "uuid";
 
-import db from "../firebase"
-import { onSnapshot, collection, doc, setDoc, getDocs,getDoc } from "firebase/firestore"
+import db from "../firebase";
+import {
+  onSnapshot,
+  collection,
+  doc,
+  setDoc,
+  getDocs,
+  getDoc,
+} from "firebase/firestore";
 import { useDispatch, useSelector } from "react-redux";
 import { setProducts } from "../redux/actions";
 import { Link } from "react-router-dom";
-import ProductDetails from "./Home/ProductDetails"
+import ProductDetails from "./Home/ProductDetails";
 import { IoArrowBack, IoStarOutline } from "react-icons/io5";
 import { useAuth, UserAuth } from "../context/AuthContext";
 import { setCurrentUser } from "../redux/actions/index";
-
-
+import CurrencyFormat from "react-currency-format";
 
 function Feed() {
-
   const products = useSelector((state) => state.allProducts.products);
   const dispatch = useDispatch();
 
   const fetchProducts = () => {
-    return onSnapshot(collection(db, "Products"), (snapshot) => {
-      const data = snapshot.docs.map(doc => doc.data())
-      dispatch(setProducts(data))
-    })
-
-  }
+    return onSnapshot(collection(db, "Feed"), (snapshot) => {
+      const data = snapshot.docs.map((doc) => doc.data());
+      dispatch(setProducts(data));
+    });
+  };
 
   useEffect(() => {
-
     try {
-      fetchProducts()
+      fetchProducts();
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
+  }, []);
 
+  const renderFeedProductsList = products.map((FeedProduct, index) => {
+    const {
+      StoreName,
+      feedDescription,
+      id,
+      // price,
+      productId,
+      store_avatar,
+      baseFeedImage,
+      title,
+      store_email,
+    } = FeedProduct;
 
-  }, [])
- 
-  const renderProductsList = products.map((product, index) => {
-    const { title, store_name, description, price, image, type, rate,id,email,store_avatar,StoreName, store_id  } =product;
-    
     return (
       <div className="bg-white" key={index}>
-         <Link to={`/product/${id}`}> 
+        <Link to={`/product/${productId}`}>
           <div className="">
-            <div className="bg-white hover:bg-secondary rounded-2xl p-2 m-0">
+            <div className="bg-white border-2 shadow-sl h-fit align-between hover:shadow-md rounded-2xl p-2 m-0">
               <div className="">
-                <img className="rounded-lg object-cover h-56 w-full" src={image} alt={title} />
+                <img
+                  className="rounded-lg object-cover h-56 w-full"
+                  src={baseFeedImage}
+                  alt={title}
+                />
               </div>
               <div className="">
-                <div className="font-sans	">{title}</div>
-                <div className="flex justify-between">
-                <div className=" inline-flex items-start">
-                <img className="inline-block ml-1 w-10 h-10 rounded-full"
-                  src={store_avatar}
-                  alt="Rounded avatar"
-                ></img>
-                <div className="inline-block mt-2">{StoreName}</div>
+                <div className="font-sans	text-xl">{title}</div>
+                <div>{feedDescription}</div>
+                <div className="my-2 h-fit">
+                  {/* <CurrencyFormat
+                    className="font-sans text-md"
+                    value={price}
+                    displayType={"text"}
+                    thousandSeparator={true}
+                    prefix={"RM "}
+                  /> */}
+                  <Link
+                    to={`/StorePage/${store_email}`}
+                    className=""
+                  >
+                    <div className="flex flex-row justify-start h-fit w-full mt-4">
+                      <img
+                        className="ml-1 w-10 h-10 rounded-full"
+                        src={store_avatar}
+                        alt="Rounded avatar"
+                      ></img>
+                      <div className="ml-3 my-1">
+                        <div className="text-black font-semibold text-lg">
+                          {StoreName}
+                        </div>
+                      </div>
+                    </div>
+                  </Link>
                 </div>
-
-                <div className=" flow-root mt-2">
-                <div className="font-sans	float-left ">{rate}</div>
-                <IoStarOutline className="float-right w-5 h-5" />
-                </div>
-                </div>
-                
               </div>
             </div>
           </div>
-        </Link> 
+        </Link>
       </div>
     );
   });
@@ -84,10 +111,10 @@ function Feed() {
       <h1 className="ml-1 text-2xl font-mono font-bold ">Feed</h1>
 
       </div> */}
-      
+
       <div className="px-6 pb-20 bg-white md:px-16 lg:px-56">
         <div className="my-4 grid grid-cols-2 gap-6 xl:grid-cols-3 2xl:grid-cols-4 bg-white">
-          {renderProductsList}
+          {renderFeedProductsList}
         </div>
       </div>
     </div>

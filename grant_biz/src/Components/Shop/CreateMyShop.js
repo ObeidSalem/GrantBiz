@@ -115,7 +115,7 @@ function CreateMyShop() {
                 own_store: true, 
                 store_avatar: image, 
                 QR_code_image: QRCodeImage,
-                Income: [0,0,0,0,0,0,0,0,0,0,0]
+                Income: [0,0,0,0,0,0,0,0,0,0,0,0]
             });
             if (response.hasOwnProperty('message')) {
                 setError(response.message);

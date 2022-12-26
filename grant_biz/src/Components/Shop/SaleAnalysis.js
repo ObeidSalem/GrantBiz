@@ -97,9 +97,8 @@ function SaleAnalysis() {
     },
   };
 
-  const tempraryData = [12,50,47,26,71,78,100,110,120,125,90,136]
-  const tempraryData2 = [12,13,37,16,41,48,60,70,20,15,90,56]
-
+  const tempraryData = [12, 50, 47, 26, 71, 78, 100, 110, 120, 125, 90, 136];
+  const tempraryData2 = [12, 13, 37, 16, 41, 48, 60, 70, 20, 15, 90, 56];
 
   const TotalMonthlyIncome = {
     labels: [
@@ -127,7 +126,6 @@ function SaleAnalysis() {
       },
     ],
   };
-
 
   const products = useSelector((state) => state.allProducts.products);
 
@@ -199,17 +197,19 @@ function SaleAnalysis() {
   }
 
   const renderShare = saleAnalysisEmails?.map((saleAnalysisEmails) => {
-    return (
-      <>
-        <div className="w-full flex justify-between border-b-2">
-          <li className=" ml-5 font-sans list-none">{saleAnalysisEmails}</li>
-          <IoTrashBinSharp
-            className="mt-1 mr-7 ml-1 text-red-800"
-            onClick={() => unshareEmail(saleAnalysisEmails)}
-          />
-        </div>
-      </>
-    );
+    if (saleAnalysisEmails != user.email) {
+      return (
+        <>
+          <div className="w-full flex justify-between border-b-2">
+            <li className=" ml-5 font-sans list-none">{saleAnalysisEmails}</li>
+            <IoTrashBinSharp
+              className="mt-1 mr-7 ml-1 text-red-800"
+              onClick={() => unshareEmail(saleAnalysisEmails)}
+            />
+          </div>
+        </>
+      );
+    }
   });
 
   return (
