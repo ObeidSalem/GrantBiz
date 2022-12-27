@@ -158,6 +158,7 @@ function ProductDetails() {
         userPhoneNumber: phone_number,
         email: user.email,
         id: cartData.id,
+        productId : id,
       });
       setcartMassege("has been added to cart");
       setLoading(false);

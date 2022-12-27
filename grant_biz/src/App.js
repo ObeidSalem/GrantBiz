@@ -17,7 +17,7 @@ import Product from "./Components/Home/Product";
 import Feed from "./Components/Feed";
 import Order from "./Components/Order/Orders";
 import SaleAnalysis from "./Components/Shop/SaleAnalysis";
-import Cart from "./Components/Cart";
+import Cart from "./Components/Cart/Cart";
 import ProductDetails from "./Components/Home/ProductDetails";
 import ForgotPassword from "./Components/Auth/ForgotPassword";
 import CreateMyShop from "./Components/Shop/CreateMyShop";
@@ -38,7 +38,7 @@ import PageNotFound from "./Components/PageNotFound";
 import PostFeed from "./Components/Shop/PostFeed";
 import SellerDispute from "./Components/Shop/SellerDispute";
 import CustomerDispute from "./Components/Order/CustomerDispute";
-
+import CartCheckout from "./Components/Cart/CartCheckout";
 
 function App() {
 
@@ -126,6 +126,7 @@ function App() {
               <Route path="/MyShop/:email" element={<MyShop />} />
               <Route path="/MyShop/:email/Create" element={<CreateMyShop />} />
               <Route path="/ForgotPassword" element={<ForgotPassword />} />
+              <Route path="/CartCheckout/:productId" element={<CartCheckout />} />
               <Route path="/Product/:id" element={<Product />} />    
               <Route path="*" element={<PageNotFound />} />    
             </Routes>
