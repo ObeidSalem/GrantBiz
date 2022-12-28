@@ -17,7 +17,7 @@ import MyShop from "./Components/Shop/MyShop";
 import Feed from "./Components/Feed";
 import Order from "./Components/Order/Orders";
 import SaleAnalysis from "./Components/Shop/SaleAnalysis";
-import Cart from "./Components/Cart";
+import Cart from "./Components/Cart/Cart";
 import ProductDetails from "./Components/Home/ProductDetails";
 import ForgotPassword from "./Components/Auth/ForgotPassword";
 import CreateMyShop from "./Components/Shop/CreateMyShop";
@@ -40,6 +40,7 @@ import SellerDispute from "./Components/Shop/SellerDispute";
 import CustomerDispute from "./Components/Order/CustomerDispute";
 import PrivateRoutes from "./utils/PrivateRoutes";
 
+import CartCheckout from "./Components/Cart/CartCheckout";
 
 function App() {
 
@@ -129,6 +130,8 @@ function App() {
               <Route path="/StorePage/:email" element={<StorePage />} />
               <Route path="/MyShop/:email" element={<MyShop />} />
               <Route path="/ForgotPassword" element={<ForgotPassword />} />
+              <Route path="/CartCheckout/:productId" element={<CartCheckout />} />
+              {/* <Route path="/Product/:id" element={<Product />} />     */}
               <Route path="*" element={<PageNotFound />} />    
             </Routes>
           </div>
