@@ -3,38 +3,29 @@ import {
   IoArrowBackOutline,
   IoCheckmarkCircleOutline,
   IoCheckmarkCircleSharp,
-  IoDownloadOutline,
   IoLocationOutline,
-  IoTrashOutline,
   IoChatbubblesOutline,
-  IoCloseCircleOutline,
   IoCloseCircleSharp,
   IoCodeWorkingOutline,
   IoPersonOutline,
 } from "react-icons/io5";
 import { BsBoxSeam, BsTruck } from "react-icons/bs";
 
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import BottomBar from "../Navigation/BottomBar";
 import db from "../../firebase";
 import {
-  onSnapshot,
   collection,
   doc,
-  setDoc,
   getDocs,
-  getDoc,
   query,
   where,
-  deleteDoc,
   updateDoc,
 } from "firebase/firestore";
-import { setStoreProducts } from "../../redux/actions";
 import CurrencyFormat from "react-currency-format";
 import { UserAuth } from "../../context/AuthContext";
 import emailjs from "@emailjs/browser";
-import { async } from "@firebase/util";
 
 const Orders = () => {
   const { user } = UserAuth();
@@ -45,14 +36,8 @@ const Orders = () => {
 
   const currentUser = useSelector((state) => state.currentUser);
   const {
-    email,
     Name,
     profile_avatar,
-    own_store,
-    store_avatar,
-    StoreName,
-    store_location,
-    store_type,
     location,
   } = currentUser;
   // const products = useSelector((state) => state.storeProducts.products);
@@ -265,13 +250,9 @@ const Orders = () => {
             {products?.map((product) => {
               const {
                 StoreName,
-                description,
                 image,
                 price,
-                rate,
                 title,
-                type,
-                type_parameters,
                 id,
                 isConfirmed,
                 store_avatar,
@@ -399,14 +380,9 @@ const Orders = () => {
             {products?.map((product, index) => {
               const {
                 StoreName,
-                description,
                 image,
                 price,
-                rate,
                 title,
-                type,
-                type_parameters,
-                id,
                 isConfirmed,
                 isShipped,
                 storePhoneNumber,
@@ -504,13 +480,9 @@ const Orders = () => {
             {products?.map((product, index) => {
               const {
                 StoreName,
-                description,
                 image,
                 price,
-                rate,
                 title,
-                type,
-                type_parameters,
                 id,
                 isShipped,
                 isReceivedFromSeller,
@@ -521,7 +493,7 @@ const Orders = () => {
                 userName,
                 QRPayment,
                 CustomerDisputed,
-                SellerDisputed,
+                // SellerDisputed,
               } = product;
               if (isShipped === true && isReceivedFromSeller === false) {
                 return (
@@ -765,20 +737,13 @@ const Orders = () => {
             {products?.map((product, index) => {
               const {
                 StoreName,
-                description,
                 image,
                 price,
-                rate,
                 title,
-                type,
-                type_parameters,
-                id,
                 isShipped,
                 isReceivedFromSeller,
                 isReceivedFromCustomer,
                 storePhoneNumber,
-                store_avatar,
-                isCanceled,
                 orderDate,
                 userName,
               } = product;
@@ -861,15 +826,9 @@ const Orders = () => {
             {products?.map((product, index) => {
               const {
                 StoreName,
-                description,
                 image,
                 price,
-                rate,
                 title,
-                type,
-                type_parameters,
-                id,
-                isConfirmed,
                 isShipped,
                 storePhoneNumber,
                 store_avatar,

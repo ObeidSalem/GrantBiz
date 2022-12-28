@@ -3,9 +3,7 @@ import {
   IoArrowBackOutline,
   IoCheckmarkCircleOutline,
   IoCheckmarkCircleSharp,
-  IoDownloadOutline,
   IoLocationOutline,
-  IoTrashOutline,
   IoChatbubblesOutline,
   IoCloseCircleSharp,
   IoCodeWorkingOutline,
@@ -13,28 +11,22 @@ import {
 } from "react-icons/io5";
 import { BsBoxSeam, BsTruck } from "react-icons/bs";
 
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import BottomBar from "../Navigation/BottomBar";
 import db from "../../firebase";
 import {
-  onSnapshot,
   collection,
   doc,
-  setDoc,
   getDocs,
   getDoc,
   query,
   where,
-  deleteDoc,
   updateDoc,
 } from "firebase/firestore";
-import { setStoreProducts } from "../../redux/actions";
 import CurrencyFormat from "react-currency-format";
 import { UserAuth } from "../../context/AuthContext";
 import emailjs from "@emailjs/browser";
-import { connectStorageEmulator } from "firebase/storage";
-import { Dialog } from "@material-tailwind/react";
 
 const ReceivedOrders = () => {
   const { user } = UserAuth();
@@ -49,12 +41,8 @@ const ReceivedOrders = () => {
   const currentUser = useSelector((state) => state.currentUser);
   const {
     email,
-    Name,
-    own_store,
     store_avatar,
     StoreName,
-    store_location,
-    store_type,
     Income,
   } = currentUser;
 
@@ -132,11 +120,6 @@ const ReceivedOrders = () => {
     email: user.email,
     message: "You have confirm that you received the money for the order",
   });
-  const [disputeSellerBtnPopUp, setDisputeSellerBtnPopUp] = useState(false)
-  const [disputeCustomerBtnPopUp, setDisputeCustomerBtnPopUp] = useState()
-
-
-  //////////////////////////////////////////////////////////////////////////////////////////
 
   //////////////////////////////////////////////////////////////////////////////////////////
 
@@ -275,13 +258,9 @@ const ReceivedOrders = () => {
             {products?.map((product) => {
               const {
                 StoreName,
-                description,
                 image,
                 price,
-                rate,
                 title,
-                type,
-                type_parameters,
                 id,
                 isConfirmed,
                 orderDate,
@@ -422,13 +401,9 @@ const ReceivedOrders = () => {
             {products?.map((product, index) => {
               const {
                 StoreName,
-                description,
                 image,
                 price,
-                rate,
                 title,
-                type,
-                type_parameters,
                 id,
                 isConfirmed,
                 isShipped,
@@ -600,13 +575,9 @@ const ReceivedOrders = () => {
             {products?.map((product, index) => {
               const {
                 StoreName,
-                description,
                 image,
                 price,
-                rate,
                 title,
-                type,
-                type_parameters,
                 id,
                 isShipped,
                 isReceivedFromSeller,
@@ -620,7 +591,6 @@ const ReceivedOrders = () => {
                 ProofOfImage,
                 QRPayment,
                 ProductId,
-                CustomerDisputed,
                 SellerDisputed,
                 userName,
               } = product;
@@ -888,14 +858,9 @@ const ReceivedOrders = () => {
             {products?.map((product, index) => {
               const {
                 StoreName,
-                description,
                 image,
                 price,
-                rate,
                 title,
-                type,
-                type_parameters,
-                id,
                 isShipped,
                 isReceivedFromSeller,
                 isReceivedFromCustomer,
@@ -978,7 +943,7 @@ const ReceivedOrders = () => {
                           )}
                           <div className=" flex-row">
                             <div className="float-left mr-1 font-bold text-green-800">
-                              The Order Has Been Completed
+                              The order has been completed
                             </div>
                           </div>
                         </div>
@@ -997,18 +962,10 @@ const ReceivedOrders = () => {
             {products?.map((product, index) => {
               const {
                 StoreName,
-                description,
                 image,
                 price,
-                rate,
                 title,
-                type,
-                type_parameters,
-                id,
-                isConfirmed,
                 isShipped,
-                storePhoneNumber,
-                store_avatar,
                 isCanceled,
                 orderDate,
                 address,

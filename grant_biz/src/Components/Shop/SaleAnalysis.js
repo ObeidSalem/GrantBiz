@@ -11,25 +11,16 @@ import {
 } from "chart.js";
 import React, { useState, useEffect } from "react";
 import {
-  onSnapshot,
   collection,
   doc,
-  setDoc,
-  getDocs,
   getDoc,
-  query,
-  where,
-  deleteDoc,
   updateDoc,
   arrayRemove,
-  arrayUnion,
 } from "firebase/firestore";
 import db from "../../firebase";
-import { useDispatch, useSelector } from "react-redux";
-import { setCurrentUser } from "../../redux/actions/index";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { Link, useParams } from "react-router-dom";
 import { IoTrashBinSharp } from "react-icons/io5";
-import { async } from "@firebase/util";
 
 ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement);
 
@@ -43,7 +34,6 @@ function SaleAnalysis() {
   const { saleAnalysisEmails } = currentUser;
   const [Email, setEmail] = useState("");
   const [Income, setIncome] = useState("");
-  const navigate = useNavigate("");
 
   console.log(".Income", Income);
 
@@ -97,8 +87,8 @@ function SaleAnalysis() {
     },
   };
 
-  const tempraryData = [12, 50, 47, 26, 71, 78, 100, 110, 120, 125, 90, 136];
-  const tempraryData2 = [12, 13, 37, 16, 41, 48, 60, 70, 20, 15, 90, 56];
+  // const tempraryData = [12, 50, 47, 26, 71, 78, 100, 110, 120, 125, 90, 136];
+  // const tempraryData2 = [12, 13, 37, 16, 41, 48, 60, 70, 20, 15, 90, 56];
 
   const TotalMonthlyIncome = {
     labels: [

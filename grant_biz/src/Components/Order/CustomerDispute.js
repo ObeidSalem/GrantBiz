@@ -1,37 +1,18 @@
 import React, { useEffect, useState } from "react";
 import BottomBar from "../Navigation/BottomBar";
 import {
-  IoStorefrontOutline,
-  IoChatbubbleEllipsesOutline,
   IoArrowBackOutline,
-  IoCreateOutline,
 } from "react-icons/io5";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import {
-  selectedProduct,
-  removeSelectedProduct,
-  setProductStore,
-} from "../../redux/actions";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  onSnapshot,
   collection,
   doc,
   setDoc,
-  getDocs,
-  getDoc,
   updateDoc,
 } from "firebase/firestore";
 import db from "../../firebase";
-import NavBar from "../Navigation/NavBar";
-import { v4 as uuidv4 } from "uuid";
-import { useAuth, UserAuth } from "../../context/AuthContext";
-import { async } from "@firebase/util";
-import { setCurrentUser } from "../../redux/actions/index";
-import { Dialog } from "primereact/dialog";
-import { InputText } from "primereact/inputtext";
-import { Alert, Button } from "@material-tailwind/react";
-import CurrencyFormat from "react-currency-format";
+import { useAuth } from "../../context/AuthContext";
+import { Alert } from "@material-tailwind/react";
 
 function CustomerDispute() {
   const { orderId } = useParams();

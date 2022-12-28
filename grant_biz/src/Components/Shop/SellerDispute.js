@@ -23,15 +23,8 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import db from "../../firebase";
-import NavBar from "../Navigation/NavBar";
-import { v4 as uuidv4 } from "uuid";
-import { useAuth, UserAuth } from "../../context/AuthContext";
-import { async } from "@firebase/util";
-import { setCurrentUser } from "../../redux/actions/index";
-import { Dialog } from "primereact/dialog";
-import { InputText } from "primereact/inputtext";
-import { Alert, Button } from "@material-tailwind/react";
-import CurrencyFormat from "react-currency-format";
+import { useAuth } from "../../context/AuthContext";
+import { Alert } from "@material-tailwind/react";
 
 function SellerDispute() {
   const { orderId } = useParams();

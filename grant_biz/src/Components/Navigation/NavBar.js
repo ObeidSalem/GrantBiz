@@ -1,12 +1,10 @@
 import React from "react";
 import GrantBizLogo from "../../img/GrantBiz_Logo.png";
-import Search from "../Home/Search";
+// import Search from "../Home/Search";
 import BottomBar from "./BottomBar";
 import { Link } from "react-router-dom";
 import { IoPersonCircleOutline, IoHeartOutline, IoHeartSharp, IoNotificationsOutline, IoNotificationsSharp, IoExitOutline } from "react-icons/io5";
 import { useAuth } from "../../context/AuthContext"
-import db from "../../firebase"
-import { onSnapshot, collection, doc, setDoc, getDocs, getDoc } from "firebase/firestore"
 import { useSelector } from 'react-redux';
 
 function NavBar() {
@@ -51,14 +49,14 @@ function NavBar() {
               </div>
             }
           </div>
-          {user ?
+          {/* {user ?
             <div className='flex justify-center m-only'>
               <IoHeartOutline className="text-stone-400 h-full w-16 px-4 active:text-primary" />
-              {/* <IoHeartSharp className="text-stone-400 h-full w-16 px-4 active:text-primary"/> */}
+              <IoHeartSharp className="text-stone-400 h-full w-16 px-4 active:text-primary"/>
               <IoNotificationsOutline className="text-stone-400 h-full w-16 px-4 active:text-primary" />
-              {/* <IoNotificationsSharp className="text-stone-400 h-full w-16 px-4 active:text-primary"/> */}
+              <IoNotificationsSharp className="text-stone-400 h-full w-16 px-4 active:text-primary"/>
             </div>
-            : ""}
+            : ""} */}
         </div>
         {/* logo only shows on PC */}
         <img src={GrantBizLogo} alt="Logo" className="pc-only md:w-24 md:h-24 ml-0 " />

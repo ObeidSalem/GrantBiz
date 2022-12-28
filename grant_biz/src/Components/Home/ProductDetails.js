@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
 import BottomBar from "../Navigation/BottomBar";
-import Search from "./Search";
+// import Search from "./Search";
 import {
-  IoStorefrontOutline,
-  IoChatbubbleEllipsesOutline,
   IoArrowBackOutline,
 } from "react-icons/io5";
 import { Link, useNavigate, useParams } from "react-router-dom";
@@ -14,11 +12,9 @@ import {
 } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  onSnapshot,
   collection,
   doc,
   setDoc,
-  getDocs,
   getDoc,
 } from "firebase/firestore";
 import db from "../../firebase";
@@ -165,7 +161,7 @@ function ProductDetails() {
         navigate("../Cart"); //this.props.navigation.navigate('')
       }, 1500);
     } catch (err) {
-      // navigate("/");
+      // navigate(-1);
       console.error(err);
     }
   }
@@ -232,11 +228,11 @@ function ProductDetails() {
       setMassege("your order has been completed");
       setLoading(false);
       setTimeout(() => {
-        navigate("/"); //this.props.navigation.navigate('Login')
+        navigate(-1); //this.props.navigation.navigate('Login')
       }, 1500);
-      // navigate("/")
+      // navigate(-1)
     } catch (err) {
-      // navigate("/");
+      // navigate(-1);
       console.error(err);
     }
   }
@@ -259,6 +255,8 @@ function ProductDetails() {
   //////////////////////////////////////////////////////////////////
 
   return (
+    <>
+    <NavBar/>
     <div className=" pb-20 bg-white md:px-16 lg:px-56">
       <div className="pb-48">
         <div className="my-4 flex justify-start align-center">
@@ -422,8 +420,8 @@ function ProductDetails() {
           </div>
         </div>
       </div>
-      <BottomBar />
     </div>
+    </>
   );
 }
 

@@ -6,6 +6,7 @@ import {
   Routes,
   useParams,
 } from "react-router-dom";
+// import { Redirect } from 'react-router';
 import "./App.css";
 import "./styles.css";
 import HomePage from "./Components/Home/HomePage";
@@ -13,7 +14,6 @@ import SignIn from "./Components/Auth/SignIn";
 import SignUp from "./Components/Auth/SignUp";
 import Profile from "./Components/Profile/Profile";
 import MyShop from "./Components/Shop/MyShop";
-import Product from "./Components/Home/Product";
 import Feed from "./Components/Feed";
 import Order from "./Components/Order/Orders";
 import SaleAnalysis from "./Components/Shop/SaleAnalysis";
@@ -38,6 +38,7 @@ import PageNotFound from "./Components/PageNotFound";
 import PostFeed from "./Components/Shop/PostFeed";
 import SellerDispute from "./Components/Shop/SellerDispute";
 import CustomerDispute from "./Components/Order/CustomerDispute";
+import PrivateRoutes from "./utils/PrivateRoutes";
 
 
 function App() {
@@ -105,28 +106,29 @@ function App() {
         <Router>
           <div className="content-center bg-white min-h-screen overflow-auto">
             <Routes>
-              <Route exact path="/" element={<HomePage />} />
-              <Route path="/SignIn" element={<SignIn />} />
+              <Route exact path="" element={<HomePage />}/>
+              <Route path="/SignIn" element={<SignIn />} /> 
               <Route path="/SignUp" element={<SignUp />} />
-              <Route path="/Profile" element={<Profile />} />
               <Route path="/Feed" element={<Feed />} />
-              <Route path="/Order" element={<Order />} />
-              <Route path="/Cart" element={<Cart />} />
               <Route path="/FutureUpdate" element={<FutureUpdate />} />
-              <Route path="/ReceivedOrders/:email" element={<ReceivedOrders />} />
-              <Route path="/MenageProduct/:email" element={<MenageProduct />} />
-              <Route path="/PostFeed/:email" element={<PostFeed />} />
-              <Route path="/AddProduct/:email" element={<AddProduct />} />
-              <Route path="/SaleAnalysis/:email" element={<SaleAnalysis />} />
+              <Route element={<PrivateRoutes />}>
+                  <Route path="/Profile" element={<Profile />} />               {/* Has to be logged */}
+                  <Route path="/Order" element={<Order />} />               {/* Has to be logged */}
+                  <Route path="/Cart" element={<Cart />} />               {/* Has to be logged */}
+                  <Route path="/ReceivedOrders/:email" element={<ReceivedOrders />} />                {/* Has to be logged */}
+                  <Route path="/MenageProduct/:email" element={<MenageProduct />} />               {/* Has to be logged */}
+                  <Route path="/PostFeed/:email" element={<PostFeed />} />               {/* Has to be logged */}
+                  <Route path="/AddProduct/:email" element={<AddProduct />} />               {/* Has to be logged */}
+                  <Route path="/SaleAnalysis/:email" element={<SaleAnalysis />} />               {/* Has to be logged */}
+                  <Route path="/QRCheckout/:orderId" element={<QRCheckout />} />               {/* Has to be logged */}
+                  <Route path="/SellerDispute/:orderId" element={<SellerDispute />} />               {/* Has to be logged */}
+                  <Route path="/CustomerDispute/:orderId" element={<CustomerDispute />} />               {/* Has to be logged */}
+                  <Route path="/MyShop/:email/Create" element={<CreateMyShop />} />               {/* Has to be logged */} 
+              </Route>
               <Route path="/product/:productId" element={<ProductDetails />} />
-              <Route path="/QRCheckout/:orderId" element={<QRCheckout />} />
-              <Route path="/SellerDispute/:orderId" element={<SellerDispute />} />
-              <Route path="/CustomerDispute/:orderId" element={<CustomerDispute />} />
               <Route path="/StorePage/:email" element={<StorePage />} />
               <Route path="/MyShop/:email" element={<MyShop />} />
-              <Route path="/MyShop/:email/Create" element={<CreateMyShop />} />
               <Route path="/ForgotPassword" element={<ForgotPassword />} />
-              <Route path="/Product/:id" element={<Product />} />    
               <Route path="*" element={<PageNotFound />} />    
             </Routes>
           </div>
