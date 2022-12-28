@@ -61,15 +61,16 @@ const Cart = () => {
                 <div className="mt-10 ">
                   <div className="flex justify-start">
                     <div>
-                      <Link to={`/CartCheckout/${productId}`}>
+                    <Link to={`/CartCheckout/${productId}`}>
+                    {/* <Link to={`/CartCheckout/${productId}-${}}> */}
 
                       <button
                         type="button"
                         value="buy now"
                         // onClick={() => setpaymentOptionBtnPopUp(true)}
-                        onClick={async () => {
-                          await deleteDoc(doc(db, "Cart", id));
-                        }}
+                        // onClick={async () => {
+                        //   await deleteDoc(doc(db, "Cart", id));
+                        // }}
                         className="bg-primary border-2 rounded-full px-4 py-2 md:px-16  text-white font-bold text-sm justify-between"
                         >
                         Checkout
