@@ -32,7 +32,7 @@ function CustomerDispute() {
     event.preventDefault();
     try {
       setError("");
-      const responseDispute = await setDoc(doc(DisputesRef, orderId), {
+     await setDoc(doc(DisputesRef, orderId), {
         user:user.email,
         orderId:orderId,
         disputeDescription:disputeDescription,
@@ -40,7 +40,7 @@ function CustomerDispute() {
         ProofOfImage: ProofOfImage,
         disputeDate1:`${showDate.getDate()}-${showDate.getMonth()}-${showDate.getFullYear()}-${showDate.getHours()}`,
       });
-      const responseOrder = await updateDoc(doc(OrdersRef, orderId), {
+      await updateDoc(doc(OrdersRef, orderId), {
         CustomerDisputed:true,
       });
       navigate(-1);

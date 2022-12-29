@@ -6,47 +6,34 @@ import BottomBar from "../Navigation/BottomBar";
 import db from "../../firebase";
 import { v4 as uuidv4 } from "uuid";
 import {
-  onSnapshot,
   collection,
   doc,
   setDoc,
   getDocs,
-  getDoc,
   query,
   where,
-  deleteDoc,
   updateDoc,
 } from "firebase/firestore";
-import { setStoreProducts } from "../../redux/actions";
 import CurrencyFormat from "react-currency-format";
 import { UserAuth } from "../../context/AuthContext";
-import { async } from "./../sendEmail";
-import { Dialog } from "primereact/dialog";
-
 const PostFeed = () => {
   const { user } = UserAuth();
 
   const [products, setProducts] = useState([]);
-  const [enabled, setEnabled] = useState(true);
   const [QuantityCheck, setQuantityCheck] = useState("");
   const navigate = useNavigate("");
   const [postFeedPopUp, setPostFeedPopUp] = useState(false);
   const [baseFeedImage, setBaseFeedImage] = useState("");
   const [feedDescription, setFeedDescription] = useState("");
-  const [Error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
+
 
   // const dispatch = useDispatch();
 
   const currentUser = useSelector((state) => state.currentUser);
   const {
     email,
-    Name,
-    own_store,
     store_avatar,
     StoreName,
-    store_location,
-    store_type,
   } = currentUser;
   // const products = useSelector((state) => state.storeProducts.products);
   // console.log("products", products)
@@ -130,7 +117,6 @@ const PostFeed = () => {
       description,
       image,
       price,
-      rate,
       title,
       type,
       type_parameters,

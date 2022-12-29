@@ -1,28 +1,21 @@
 import React, { useEffect, useState } from "react";
 import BottomBar from "../Navigation/BottomBar";
-import NavBar from "../Navigation/NavBar";
 import db from "../../firebase";
 import {
   onSnapshot,
   collection,
   doc,
   deleteDoc,
-  setDoc,
-  getDocs,
 } from "firebase/firestore";
 import { useDispatch, useSelector } from "react-redux";
 import { setProducts } from "../../redux/actions";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
-import { async } from "@firebase/util";
-import { Dialog } from "primereact/dialog";
 import { IoArrowBackOutline } from "react-icons/io5";
 
 const Cart = () => {
   const { user } = useAuth();
-  const [paymentOptionBtnPopUp, setpaymentOptionBtnPopUp] = useState(false);
   const currentUser = useSelector((state) => state.currentUser);
-  const { phone_number, location } = currentUser;
 
   const cart_products = useSelector((state) => state.allProducts.products);
   const dispatch = useDispatch();

@@ -5,17 +5,11 @@ import { Link, useParams, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useAuth } from "../../context/AuthContext"
 import {
-  IoStorefrontOutline,
   IoArrowBackOutline,
   IoExtensionPuzzleOutline,
   IoArrowForwardOutline,
-  IoCalculatorOutline,
   IoSettingsOutline,
-  IoBriefcaseOutline,
-  IoBagAddOutline,
-  IoAnalyticsOutline,
   IoExitOutline,
-  IoClipboardOutline,
   IoFileTrayOutline,
   IoCreateOutline,
   IoPersonOutline,
@@ -27,7 +21,6 @@ import { Dialog } from 'primereact/dialog';
 import Avatar from 'react-avatar-edit';
 import { collection, doc, updateDoc, } from "firebase/firestore";
 import db from "../../firebase";
-import storage from "../../firebase";
 import { getStorage, ref, uploadBytes, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 
 // import { useDispatch } from 'react-redux';
@@ -36,11 +29,10 @@ import { getStorage, ref, uploadBytes, uploadBytesResumable, getDownloadURL } fr
 function Profile() {
   const { user, logOut } = useAuth()
 
-  const { userId } = useParams();
 
   const currentUser = useSelector((state) => state.currentUser);
   console.log("currentUser", currentUser)
-  const { email, Name, own_store, profile_avatar, location, store_type } = currentUser
+  const { email, Name,  profile_avatar, location } = currentUser
 
   const [customerName, setCustomerName] = useState(Name);
   const [customerLocation, setCustomerLocation] = useState(location);

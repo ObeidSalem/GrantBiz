@@ -120,7 +120,7 @@ function SaleAnalysis() {
   const products = useSelector((state) => state.allProducts.products);
 
   const renderProductsList = products.map((product, index) => {
-    const { title, productIncome, id, email, price } = product;
+    const { title, productIncome, id, email } = product;
 
     const ProductIncome = {
       labels: [
@@ -149,7 +149,7 @@ function SaleAnalysis() {
       ],
     };
 
-    if (usePramsId == email) {
+    if (usePramsId === email) {
       return (
         <div key={id}>
           <div className="my-0 w-full flex flex-col justify-center">
@@ -187,7 +187,7 @@ function SaleAnalysis() {
   }
 
   const renderShare = saleAnalysisEmails?.map((saleAnalysisEmails) => {
-    if (saleAnalysisEmails != user.email) {
+    if (saleAnalysisEmails !== user.email) {
       return (
         <>
           <div className="w-full flex justify-between border-b-2">

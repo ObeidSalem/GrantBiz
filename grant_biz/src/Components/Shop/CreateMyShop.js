@@ -1,6 +1,5 @@
-import React, { useRef, useState } from 'react'
+import React, { useState } from 'react'
 import BottomBar from "../Navigation/BottomBar";
-import NavBar from '../Navigation/NavBar';
 import {
     IoArrowBackOutline,
     IoCreateOutline,
@@ -13,21 +12,19 @@ import { Dialog } from 'primereact/dialog';
 import Avatar from 'react-avatar-edit';
 import { collection, doc, updateDoc, } from "firebase/firestore";
 import db from "../../firebase";
-import storage from "../../firebase";
 import { getStorage, ref, uploadBytes, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 
 
 function CreateMyShop() {
 
     const currentUser = useSelector((state) => state.currentUser);
-    const { email, store_avatar, store_name, store_location, store_type } = currentUser
+    const { email,  store_name, store_location, store_type } = currentUser
 
     const navigate = useNavigate("");
     const [Error, setError] = useState("");
     const [loading, setLoading] = useState(false);
     const [StoreName, setStoreName] = useState(store_name);
     const [StoreLocation, setStoreLocation] = useState(store_location);
-    const [StoreType, setStoreType] = useState(store_type);
 
     const [image, setImage] = useState("");
     const [imageCrop, setImageCrop] = useState(false);

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
-import { useAuth, UserAuth } from "../../context/AuthContext";
-import { Alert, Button } from "@material-tailwind/react";
+import { useAuth } from "../../context/AuthContext";
+import { Alert } from "@material-tailwind/react";
 
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   selectedProduct,
   removeSelectedProduct,
@@ -11,11 +11,9 @@ import {
 } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  onSnapshot,
   collection,
   doc,
   setDoc,
-  getDocs,
   getDoc,
 } from "firebase/firestore";
 import db from "../../firebase";
@@ -42,12 +40,8 @@ function CartCheckout() {
     image,
     title,
     price,
-    type,
-    description,
     type_parameters,
-    // store_name,
     id,
-    rate,
     COD,
     QR_code,
     email,
@@ -59,11 +53,8 @@ function CartCheckout() {
   // const [Image, setImage]= useState(image);
   const [Error, setError] = useState("");
   const [massege, setMassege] = useState("");
-  const [cartMassege, setcartMassege] = useState("");
   const [loading, setLoading] = useState(false);
-  const [Type_parameters, setType_parameters] = useState(type_parameters);
-  const [paymentOptionBtnPopUp, setpaymentOptionBtnPopUp] = useState(false);
-  const [newOrderEmail, setNewOrderEmail] = useState({
+  const [newOrderEmail] = useState({
     fullName: "GrandBiz",
     email: userEmail,
     message: "new order has been placed,please check your shop",

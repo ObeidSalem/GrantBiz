@@ -16,10 +16,8 @@ import {
   deleteDoc,
   updateDoc,
 } from "firebase/firestore";
-import { setStoreProducts } from "../../redux/actions";
 import CurrencyFormat from "react-currency-format";
 import { UserAuth } from "../../context/AuthContext";
-import { async } from './../sendEmail';
 
 const MenageProduct = () => {
   const { user } = UserAuth();
@@ -30,20 +28,14 @@ const MenageProduct = () => {
   const navigate = useNavigate("");
 
 
-  // const dispatch = useDispatch();
 
   const currentUser = useSelector((state) => state.currentUser);
   const {
     email,
-    Name,
-    own_store,
     store_avatar,
     StoreName,
-    store_location,
-    store_type,
   } = currentUser;
-  // const products = useSelector((state) => state.storeProducts.products);
-  // console.log("products", products)
+
 
   const fetchProducts = async () => {
     const q = query(
@@ -54,8 +46,7 @@ const MenageProduct = () => {
     const querySnapshot = await getDocs(q);
     const data = [];
     querySnapshot.forEach((doc) => {
-      // doc.data() is never undefined for query doc snapshots
-      // console.log(doc.id, " => ", doc.data());
+    
       data.push(doc.data());
     });
     // console.log("data", data);
@@ -81,7 +72,6 @@ const MenageProduct = () => {
       description,
       image,
       price,
-      rate,
       title,
       type,
       type_parameters,

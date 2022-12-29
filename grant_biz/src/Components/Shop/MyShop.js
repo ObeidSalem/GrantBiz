@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import BottomBar from "../Navigation/BottomBar";
-import NavBar from "../Navigation/NavBar";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useAuth } from "../../context/AuthContext";
@@ -15,7 +14,6 @@ import {
   IoBagAddOutline,
   IoAnalyticsOutline,
   IoExitOutline,
-  IoClipboardOutline,
   IoFileTrayOutline,
   IoCreateOutline,
 } from "react-icons/io5";
@@ -25,13 +23,9 @@ import { Dialog } from "primereact/dialog";
 import Avatar from "react-avatar-edit";
 import { collection, doc, updateDoc } from "firebase/firestore";
 import db from "../../firebase";
-import storage from "../../firebase";
 import {
   getStorage,
   ref,
-  uploadBytes,
-  uploadBytesResumable,
-  getDownloadURL,
 } from "firebase/storage";
 
 // import { useDispatch } from 'react-redux';
@@ -40,18 +34,15 @@ import {
 function MyShop() {
   const { user, logOut } = useAuth();
 
-  const { userId } = useParams();
 
   const currentUser = useSelector((state) => state.currentUser);
   console.log("currentUser", currentUser);
   const {
     email,
-    Name,
     own_store,
     store_avatar,
     StoreName,
     StoreLocation,
-    store_type,
     QR_code_image,
   } = currentUser;
 

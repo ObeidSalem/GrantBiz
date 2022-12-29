@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from "react";
-import BottomBar from "../Navigation/BottomBar";
-// import Search from "./Search";
 import {
   IoArrowBackOutline,
 } from "react-icons/io5";
@@ -20,21 +18,13 @@ import {
 import db from "../../firebase";
 import NavBar from "../Navigation/NavBar";
 import { v4 as uuidv4 } from "uuid";
-import { useAuth, UserAuth } from "../../context/AuthContext";
-import { async } from "@firebase/util";
+import { useAuth} from "../../context/AuthContext";
 import { setCurrentUser } from "../../redux/actions/index";
 import { Dialog } from "primereact/dialog";
-import { InputText } from "primereact/inputtext";
-import { Alert, Button } from "@material-tailwind/react";
+import { Alert } from "@material-tailwind/react";
 import emailjs from "@emailjs/browser";
-// import { sendEmail } from "./send-email";
-import qs from "qs";
-import { Linking } from "react";
 import CurrencyFormat from "react-currency-format";
-import SignIn from './../Auth/SignIn';
 
-const cash = true;
-const online_pay = true;
 
 function ProductDetails() {
   const { productId } = useParams();
@@ -56,12 +46,9 @@ function ProductDetails() {
     image,
     title,
     price,
-    type,
     description,
     type_parameters,
-    // store_name,
     id,
-    rate,
     COD,
     QR_code,
     email,
@@ -69,13 +56,11 @@ function ProductDetails() {
     quantity,
   } = product;
   let userEmail = email;
-  // const [Title, setTitle] = useState(title);
-  // const [Image, setImage]= useState(image);
+
   const [Error, setError] = useState("");
   const [massege, setMassege] = useState("");
   const [cartMassege, setcartMassege] = useState("");
   const [loading, setLoading] = useState(false);
-  const [Type_parameters, setType_parameters] = useState(type_parameters);
   const [paymentOptionBtnPopUp, setpaymentOptionBtnPopUp] = useState(false);
   const [newOrderEmail, setNewOrderEmail] = useState({
     fullName: "GrandBiz",

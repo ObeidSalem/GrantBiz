@@ -1,18 +1,16 @@
 import React from "react";
 import GrantBizLogo from "../../img/GrantBiz_Logo.png";
-// import Search from "../Home/Search";
 import BottomBar from "./BottomBar";
 import { Link } from "react-router-dom";
-import { IoPersonCircleOutline, IoHeartOutline, IoHeartSharp, IoNotificationsOutline, IoNotificationsSharp, IoExitOutline } from "react-icons/io5";
+import { IoPersonCircleOutline} from "react-icons/io5";
 import { useAuth } from "../../context/AuthContext"
 import { useSelector } from 'react-redux';
 
 function NavBar() {
-  const { user, logOut } = useAuth()
-  // console.log("user", user)
+  const { user } = useAuth()
 
   const currentUser = useSelector((state) => state.currentUser);
-  const { email, store_avatar, StoreName, Name, profile_avatar } = currentUser
+  const { email, Name, profile_avatar } = currentUser
   return (
     <>
       {/* Nav bar */}

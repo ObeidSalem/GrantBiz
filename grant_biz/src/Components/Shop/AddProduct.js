@@ -1,30 +1,15 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, {  useState } from "react";
+import {  useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import BottomBar from "../Navigation/BottomBar";
 import db from "../../firebase";
 import {
-  onSnapshot,
   collection,
   doc,
   setDoc,
-  getDocs,
-  getDoc,
-  query,
-  where,
   updateDoc,
 } from "firebase/firestore";
-import { setStoreProducts } from "../../redux/actions";
-import CurrencyFormat from "react-currency-format";
-import {
-  getStorage,
-  ref,
-  uploadBytesResumable,
-  getDownloadURL,
-} from "firebase/storage";
-import { InputText } from "primereact/inputtext";
 import { Dialog } from "primereact/dialog";
-import Avatar from "react-avatar-edit";
 import { UserAuth } from "../../context/AuthContext";
 import { uuidv4 } from "@firebase/util";
 import {
@@ -32,7 +17,6 @@ import {
   IoCreateOutline,
   IoStorefrontOutline,
 } from "react-icons/io5";
-import ReactCrop from "react-image-crop";
 import { Alert } from "@material-tailwind/react";
 
 const AddProduct = () => {
@@ -40,14 +24,10 @@ const AddProduct = () => {
 
   const currentUser = useSelector((state) => state.currentUser);
   const {
-    email,
     store_avatar,
     StoreName,
-    store_location,
-    store_type,
     phone_number,
     QR_code_image,
-    Income,
   } = currentUser;
 
   const navigate = useNavigate("");
@@ -59,8 +39,6 @@ const AddProduct = () => {
   const [COD, setCOD] = useState(false);
   const [QRCode, setQRCode] = useState(false);
   const [QRCodeImage, setQRCodeImage] = useState(QR_code_image);
-  const [type, setType] = useState("");
-  const [typeParameters, setTypeParameters] = useState([]);
   const [description, setDescription] = useState("");
 
   const [Error, setError] = useState("");

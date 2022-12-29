@@ -1,25 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, {useState } from "react";
 import BottomBar from "../Navigation/BottomBar";
 import {
-  IoStorefrontOutline,
-  IoChatbubbleEllipsesOutline,
   IoArrowBackOutline,
-  IoCreateOutline,
 } from "react-icons/io5";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import {
-  selectedProduct,
-  removeSelectedProduct,
-  setProductStore,
-} from "../../redux/actions";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  onSnapshot,
   collection,
   doc,
   setDoc,
-  getDocs,
-  getDoc,
   updateDoc,
 } from "firebase/firestore";
 import db from "../../firebase";
@@ -44,7 +32,7 @@ function SellerDispute() {
     event.preventDefault();
     try {
       setError("");
-      const responseDispute = await setDoc(doc(DisputesRef, orderId), {
+       await setDoc(doc(DisputesRef, orderId), {
         user:user.email,
         orderId:orderId,
         disputeDescription:disputeDescription,
@@ -52,7 +40,7 @@ function SellerDispute() {
         ProofOfImage: ProofOfImage,
         disputeDate1:`${showDate.getDate()}-${showDate.getMonth()}-${showDate.getFullYear()}-${showDate.getHours()}`,
       });
-      const responseOrder = await updateDoc(doc(OrdersRef, orderId), {
+       await updateDoc(doc(OrdersRef, orderId), {
         SellerDisputed:true,
       });
       navigate(-1);

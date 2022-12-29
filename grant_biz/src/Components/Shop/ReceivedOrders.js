@@ -99,23 +99,23 @@ const ReceivedOrders = () => {
   const [Primary3, setPrimary3] = useState("");
   const [Primary4, setPrimary4] = useState("");
   const [Primary5, setPrimary5] = useState("");
-  const [emailCancel, setEmailCancel] = useState({
+  const [emailCancel] = useState({
     fullName: "GrandBiz",
     email: user.email,
     message:
       "the order has been cancelled,please check your shop for more info",
   });
-  const [comformEmail, setcomformEmail] = useState({
+  const [comformEmail] = useState({
     fullName: "GrandBiz",
     email: user.email,
     message: "You have confirm that you had received the order",
   });
-  const [ConfirmShipments, setConfirmShipments] = useState({
+  const [ConfirmShipments] = useState({
     fullName: "GrandBiz",
     email: user.email,
     message: "You have confirm that you had shipped the order",
   });
-  const [ConfirmReceivingMoney, setConfirmReceivingMoney] = useState({
+  const [ConfirmReceivingMoney] = useState({
     fullName: "GrandBiz",
     email: user.email,
     message: "You have confirm that you received the money for the order",
@@ -269,7 +269,7 @@ const ReceivedOrders = () => {
                 userName,
               } = product;
               // console.log("product", product);
-              if (isConfirmed == false) {
+              if (isConfirmed === false) {
                 return (
                   <div
                     className="p-4 mx-4 my-2 w-fit flex border border-gray-400 rounded-xl "
@@ -329,7 +329,7 @@ const ReceivedOrders = () => {
                         <div className="flex flex-row mt-2">
                           <div
                             onClick={async () => {
-                              const response = await updateDoc(
+                               await updateDoc(
                                 doc(ordersRef, id),
                                 {
                                   isConfirmed: true,
@@ -357,7 +357,7 @@ const ReceivedOrders = () => {
                           </div>
                           <div
                             onClick={async () => {
-                              const response = await updateDoc(
+                               await updateDoc(
                                 doc(ordersRef, id),
                                 {
                                   isCanceled: true,
@@ -502,7 +502,7 @@ const ReceivedOrders = () => {
                         <div className="flex flex-row mt-2">
                           <div
                             onClick={async () => {
-                              const response = await updateDoc(
+                              await updateDoc(
                                 doc(ordersRef, id),
                                 {
                                   isShipped: true,
@@ -531,7 +531,7 @@ const ReceivedOrders = () => {
                           </div>
                           <div
                             onClick={async () => {
-                              const response = await updateDoc(
+                               await updateDoc(
                                 doc(ordersRef, id),
                                 {
                                   isCanceled: true,
@@ -716,13 +716,13 @@ const ReceivedOrders = () => {
 
                                 console.log("UserIncomeData", UserIncomeData, "ProductIncomeData", ProductIncomeData)
 
-                                const responseUserUpdate = await updateDoc(
+                                await updateDoc(
                                   doc(usersRef, user.email),
                                   {
                                     Income: UserIncomeData,
                                   }
                                 );
-                                const responseProductUpdate = await updateDoc(
+                                await updateDoc(
                                   doc(productsRef, ProductId),
                                   {
                                     productIncome: ProductIncomeData,

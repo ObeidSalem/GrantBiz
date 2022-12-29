@@ -1,13 +1,11 @@
 import firebase from "../../firebase";
 // import firebase from "firebase/app"
 import "firebase/auth";
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { useAuth } from "../../context/AuthContext";
-import { v4 as uuidv4 } from "uuid";
 import { UserAuth } from "../../context/AuthContext";
 import { useNavigate, Link, useParams, useLocation } from "react-router-dom";
-import { GoogleButton } from "react-google-button";
-import { Alert, Button } from "@material-tailwind/react";
+import { Alert } from "@material-tailwind/react";
 import { collection, doc, setDoc } from "firebase/firestore";
 import db from "../../firebase";
 import GrantBizLogo from "../../img/GrantBiz_Logo.png";
@@ -24,13 +22,10 @@ export default function Signup() {
   const [eeror_matric_number, set_error_matric_number] = useState("");
   const [Error, setError] = useState("");
   const [phoneError, setPhoneError] = useState("");
-  const [isOK, setisOK] = useState(false);
   const navigate = useNavigate("");
-  const { createAccount } = useAuth();
 
-  const { googleSignIn, user } = UserAuth();
 
-  const { signup, login, logOut } = UserAuth();
+  const { signup} = UserAuth();
   const usersRef = collection(db, "Users");
 
   async function handleSubmit(newUser) {
@@ -50,11 +45,11 @@ export default function Signup() {
       // }
 
       if (
-        Name != '' &&
-        email !='' &&
-        location != '' &&
-        phone_number != '' &&
-        matric_number != ''
+        Name !== '' &&
+        email !=='' &&
+        location !== '' &&
+        phone_number !== '' &&
+        matric_number !== ''
       ) {
         const responseAuth = await signup(email, password);
 
@@ -79,9 +74,7 @@ export default function Signup() {
        navigate("/");
     }
   }
-  function refreshPage() {
-    window.location.reload(false);
-  }
+
 
   return (
     <>

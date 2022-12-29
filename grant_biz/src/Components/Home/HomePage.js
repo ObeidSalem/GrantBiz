@@ -1,14 +1,8 @@
 import React, { useEffect, useState } from "react";
 import NavBar from "../Navigation/NavBar";
-import { v4 as uuidv4 } from "uuid";
 import GrantBizAD from "../../img/GrantBiz_Logo_AD.svg";
-import db from "../../firebase"
-import { onSnapshot, collection, doc, setDoc, getDocs } from "firebase/firestore"
-import { useDispatch, useSelector } from "react-redux";
-import { setProducts } from "../../redux/actions";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import ProductDetails from "./ProductDetails"
-import { IoStarOutline } from "react-icons/io5";
 import CurrencyFormat from "react-currency-format";
 
 
@@ -21,7 +15,7 @@ function HomePage() {
 
   const products = useSelector((state) => state.allProducts.products);
   const renderProductsList = products.map((product, index) => {
-    const { title, store_name, description, price, store_avatar, image, type, rate, id, isHide } = product;
+    const { title, price, image, id, isHide } = product;
 
 
     if (!isHide)

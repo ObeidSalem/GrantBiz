@@ -1,16 +1,7 @@
 import firebase from "../../firebase";
 import "firebase/auth";
 import React, { useRef, useState } from "react";
-import { v4 as uuidv4 } from "uuid";
-import { UserAuth } from "../../context/AuthContext";
 import { useNavigate, Link, useLocation } from "react-router-dom";
-import {
-  onSnapshot,
-  collection,
-  doc,
-  setDoc,
-  getDocs,
-} from "firebase/firestore";
 import GrantBizLogo from "../../img/GrantBiz_Logo.png";
 import { useAuth } from "../../context/AuthContext";
 import { Alert } from "@material-tailwind/react";

@@ -88,31 +88,18 @@ const Orders = () => {
   const [Primary3, setPrimary3] = useState("");
   const [Primary4, setPrimary4] = useState("");
   const [Primary5, setPrimary5] = useState("");
-  const [emailCancel, setEmailCancel] = useState({
+  const [emailCancel] = useState({
     fullName: "GrandBiz",
     email: user.email,
     message: "Your order has been cancelled",
   });
-  const [comformEmail, setcomformEmail] = useState({
+  const [comformEmail] = useState({
     fullName: "GrandBiz",
     email: user.email,
     message: "You have conform that you had received your order",
   });
 
   //////////////////////////////////////////////////////////////////
-  // send email notifications
-
-  // function sendMassages(e) {
-  //   // e.preventDefault();
-
-  //   emailjs.send('service_gyzz5nb', 'template_z48cde4', emailCancel, 'CyPHO2_SKVKTmOJ7P')
-  //   .then((result) => {
-  //     console.log(result.text);
-  // }, (error) => {
-  //     console.log(error.text);
-  // });
-
-  // }
 
   ////////////////////////////////////////////////////////////////
   return (
@@ -262,7 +249,7 @@ const Orders = () => {
                 isCanceled,
               } = product;
               //   console.log("product", product);
-              if (isConfirmed == false && isCanceled == false) {
+              if (isConfirmed === false && isCanceled === false) {
                 return (
                   <>
                     <div className="p-4 mx-4 my-2 flex justify-end w-fit md:w-3/5  border border-gray-400 rounded-xl ">
@@ -278,7 +265,7 @@ const Orders = () => {
                           </div>
                           <div
                             onClick={async () => {
-                              const response = await updateDoc(
+                               await updateDoc(
                                 doc(updateRef, id),
                                 {
                                   isCanceled: true,
@@ -394,7 +381,7 @@ const Orders = () => {
               if (
                 isConfirmed === true &&
                 isShipped === false &&
-                isCanceled == false
+                isCanceled === false
               ) {
                 return (
                   <>
@@ -691,7 +678,7 @@ const Orders = () => {
                               <div className="flex flex-row mt-2">
                                 <div
                                   onClick={async () => {
-                                    const response = await updateDoc(
+                                    await updateDoc(
                                       doc(updateRef, id),
                                       {
                                         isReceivedFromCustomer: true,
