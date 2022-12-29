@@ -2,7 +2,7 @@
   "name": "grant-biz-tailwind",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://obeidsalem.github.io",
+  "homepage": "https://obeidsalem.github.io/GrantBiz",
   "dependencies": {
     "@emailjs/browser": "^3.10.0",
     "@material-tailwind/react": "^1.2.4",

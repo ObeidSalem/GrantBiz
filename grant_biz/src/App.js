@@ -107,7 +107,7 @@ function App() {
         <Router>
           <div className="content-center bg-white min-h-screen overflow-auto">
             <Routes>
-              <Route exact path="" element={<HomePage />}/>
+              <Route exact path="/GrantBiz/" element={<HomePage />}/>
               <Route path="/SignIn" element={<SignIn />} /> 
               <Route path="/SignUp" element={<SignUp />} />
               <Route path="/Feed" element={<Feed />} />

@@ -1,0 +1,36 @@
+[debug] [2022-12-29T07:17:56.855Z] ----------------------------------------------------------------------
+[debug] [2022-12-29T07:17:56.857Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\osale\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js serve
+[debug] [2022-12-29T07:17:56.857Z] CLI Version:   11.19.0
+[debug] [2022-12-29T07:17:56.857Z] Platform:      win32
+[debug] [2022-12-29T07:17:56.857Z] Node Version:  v16.4.2
+[debug] [2022-12-29T07:17:56.858Z] Time:          Thu Dec 29 2022 15:17:56 GMT+0800 (Singapore Standard Time)
+[debug] [2022-12-29T07:17:56.858Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2022-12-29T07:17:56.925Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2022-12-29T07:17:56.925Z] > authorizing via signed-in user (grantbiz.2022@gmail.com)
+[debug] [2022-12-29T07:17:56.925Z] [iam] checking project grantbiz-bf7fb for permissions ["firebase.projects.get"]
+[debug] [2022-12-29T07:17:56.927Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/grantbiz-bf7fb:testIamPermissions [none]
+[debug] [2022-12-29T07:17:56.927Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/grantbiz-bf7fb:testIamPermissions x-goog-quota-user=projects/grantbiz-bf7fb
+[debug] [2022-12-29T07:17:56.927Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/grantbiz-bf7fb:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2022-12-29T07:17:58.316Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/grantbiz-bf7fb:testIamPermissions 200
+[debug] [2022-12-29T07:17:58.317Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/grantbiz-bf7fb:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2022-12-29T07:17:58.318Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/grantbiz-bf7fb [none]
+[debug] [2022-12-29T07:17:58.694Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/grantbiz-bf7fb 200
+[debug] [2022-12-29T07:17:58.694Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/grantbiz-bf7fb {"projectId":"grantbiz-bf7fb","projectNumber":"361173622830","displayName":"GrantBiz","name":"projects/grantbiz-bf7fb","resources":{"hostingSite":"grantbiz-bf7fb","storageBucket":"grantbiz-bf7fb.appspot.com","locationId":"asia-southeast1"},"state":"ACTIVE","etag":"1_0360cdcf-2127-48fc-b01d-430383061f84"}
+[info] 
+[info] === Serving from 'G:\Desktop\Code-Projects\GrantBiz\grant_biz'...
+[info] 
+[info] +  functions: Using node@16 from host. {"metadata":{"emulator":{"name":"functions"},"message":"Using node@16 from host."}}
+[debug] [2022-12-29T07:17:58.715Z] defaultcredentials: writing to file C:\Users\osale\AppData\Roaming\firebase\grantbiz_2022_gmail.com_application_default_credentials.json
+[debug] [2022-12-29T07:17:58.716Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/grantbiz-bf7fb/sites 
+[debug] [2022-12-29T07:17:58.718Z] Setting GAC to C:\Users\osale\AppData\Roaming\firebase\grantbiz_2022_gmail.com_application_default_credentials.json {"metadata":{"emulator":{"name":"functions"},"message":"Setting GAC to C:\\Users\\osale\\AppData\\Roaming\\firebase\\grantbiz_2022_gmail.com_application_default_credentials.json"}}
+[debug] [2022-12-29T07:17:58.719Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/grantbiz-bf7fb/adminSdkConfig [none]
+[debug] [2022-12-29T07:17:59.113Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/grantbiz-bf7fb/adminSdkConfig 200
+[debug] [2022-12-29T07:17:59.113Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/grantbiz-bf7fb/adminSdkConfig {"projectId":"grantbiz-bf7fb","storageBucket":"grantbiz-bf7fb.appspot.com","locationId":"asia-southeast1"}
+[debug] [2022-12-29T07:17:59.137Z] Error: listen EADDRINUSE: address already in use 127.0.0.1:5001
+    at Server.setupListenHandle [as _listen2] (node:net:1305:16)
+    at listenInCluster (node:net:1353:12)
+    at GetAddrInfoReqWrap.doListen [as callback] (node:net:1491:7)
+    at GetAddrInfoReqWrap.onlookup [as oncomplete] (node:dns:73:8)
+[error] 
+[error] Error: An unexpected error has occurred.
