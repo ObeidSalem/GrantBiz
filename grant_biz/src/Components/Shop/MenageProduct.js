@@ -177,7 +177,7 @@ const MenageProduct = () => {
   return (
     <div className="md:px-36 lg:px-96 bg-white">
       <div className="py-4 flex justify-start align-center">
-        <Link to={`/MyShop/${email}`}>
+        <Link to={`/GrantBiz/MyShop/${email}`}>
           <IoArrowBackOutline className="text-black h-8 w-10 mr-2 active:text-primary" />
         </Link>
         <p className="text-2xl font-semibold w-full"> Manage Products</p>
@@ -195,7 +195,7 @@ const MenageProduct = () => {
               <p className="text-lg ml-4">{StoreName}</p>
             </div>
             <Link
-              to={`/AddProduct/${email}`}
+              to={`/GrantBiz/AddProduct/${email}`}
               className="w-40 text-white text-center bg-red-600 p-2 rounded-full"
             >
               Add Product

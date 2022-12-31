@@ -21,7 +21,7 @@ function HomePage() {
     if (!isHide)
       return (
         <div className="bg-white" key={index}>
-          <Link to={`/product/${id}`}>
+          <Link to={`/GrantBiz/product/${id}`}>
             <div className="">
               <div className="bg-white border-2 shadow-sl h-80 align-between hover:shadow-md rounded-2xl p-2 m-0">
                 <div className="">

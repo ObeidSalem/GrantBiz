@@ -7,7 +7,7 @@ function PrivateRoutes() {
     const { user } = UserAuth();
 
     return (
-        user ? <Outlet/> : <Navigate to="SignIn" />
+        user ? <Outlet/> : <Navigate to="/GrantBiz/SignIn" />
 );
 }
 

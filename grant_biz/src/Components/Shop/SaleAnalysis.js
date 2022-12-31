@@ -207,7 +207,7 @@ function SaleAnalysis() {
       {checkEmail || user.email ? (
         <div className="px-6 bg-white pb-16 md:px-36 lg:px-96">
           <div className="my-4 flex justify-start align-center">
-            <Link to={`/MyShop/${user.email}`}>
+            <Link to={`/GrantBiz/MyShop/${user.email}`}>
               <IoArrowBackOutline className="text-black h-8 w-10 mr-2 active:text-primary" />
             </Link>
             <p className="text-2xl font-semibold w-full">Sales Analysis</p>

@@ -246,7 +246,7 @@ const PostFeed = () => {
   return (
     <div className="md:px-36 lg:px-96 bg-white">
       <div className="py-4 flex justify-start align-center">
-        <Link to={`/MyShop/${email}`}>
+        <Link to={`/GrantBiz/MyShop/${email}`}>
           <IoArrowBackOutline className="text-black h-8 w-10 mr-2 active:text-primary" />
         </Link>
         <p className="text-2xl font-semibold w-full">Post New Feed</p>

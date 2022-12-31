@@ -137,7 +137,7 @@ function MyShop() {
       {user ? (
         <div className="px-6 bg-white pb-16 md:px-36 lg:px-96">
           <div className="my-4 flex justify-start align-center">
-            <Link to={`/`}>
+            <Link to={`/GrantBiz/`}>
               <IoArrowBackOutline className="text-black h-8 w-10 mr-2 active:text-primary" />
             </Link>
             <p className="text-2xl font-semibold w-full">My Shop </p>
@@ -353,7 +353,7 @@ function MyShop() {
               </div>
               <Link
                 className="py-6 flex flex-row justify-between"
-                to={`/ReceivedOrders/${email}`}
+                to={`/GrantBiz/ReceivedOrders/${email}`}
               >
                 <div className="flex flex-row justify-start">
                   <IoFileTrayOutline className="text-black h-8 w-10 mr-2 active:text-primary" />
@@ -363,7 +363,7 @@ function MyShop() {
               </Link>
               <Link
                 className="py-6 flex flex-row justify-between"
-                to={`/SaleAnalysis/${email}`}
+                to={`/GrantBiz/SaleAnalysis/${email}`}
               >
                 <div className="flex flex-row justify-start">
                   <IoAnalyticsOutline className="text-black h-8 w-10 mr-2 active:text-primary" />
@@ -371,14 +371,14 @@ function MyShop() {
                 </div>
                 <IoArrowForwardOutline className="text-black h-8 w-10 mr-2 active:text-primary" />
               </Link>
-              <Link className="py-6 flex flex-row justify-between" to={`/MenageProduct/${email}`}>
+              <Link className="py-6 flex flex-row justify-between" to={`/GrantBiz/MenageProduct/${email}`}>
                 <div className="flex flex-row justify-start">
                   <IoBriefcaseOutline className="text-black h-8 w-10 mr-2 active:text-primary" />
                   <p className="text-xl font-semibold ">Products</p>
                 </div>
                 <IoArrowForwardOutline className="text-black h-8 w-10 mr-2 active:text-primary" />
               </Link>
-              <Link className="py-6 flex flex-row justify-between"  to={`/PostFeed/${email}`}>
+              <Link className="py-6 flex flex-row justify-between"  to={`/GrantBiz/PostFeed/${email}`}>
                 <div className="flex flex-row justify-start">
                   <IoBagAddOutline
                     className="text-black h-8 w-10 mr-2 active:text-primary" />
@@ -386,7 +386,7 @@ function MyShop() {
                 </div>
                 <IoArrowForwardOutline className="text-black h-8 w-10 mr-2 active:text-primary" />
               </Link>
-              <Link className="py-6 flex flex-row justify-between" to={`/FutureUpdate`}>
+              <Link className="py-6 flex flex-row justify-between" to={`/GrantBiz/FutureUpdate`}>
                 <div className="flex flex-row justify-start">
                   <IoCalculatorOutline className="text-gray-500 h-8 w-10 mr-2 active:text-primary" />
                   <p className="text-xl font-semibold text-gray-500">Cashier Mood</p>
@@ -395,7 +395,7 @@ function MyShop() {
               </Link>
               <Link
                 onClick={() => logOut()}
-                to="/"
+                to="/GrantBiz/"
                 className="py-6 flex flex-row justify-between"
               >
                 <div className="flex flex-row justify-start">
@@ -431,7 +431,7 @@ function MyShop() {
               <div className="my-10 flex justify-center">
                 <Link
                   className="flex justify-center items-center px-4 py-2 w-full max-w-xs text-xs font-semibold tracking-widest text-white uppercase transition duration-150 ease-in-out bg-gray-900 border border-transparent rounded-md active:bg-gray-900 false"
-                  to={`/MyShop/${email}/Create`}
+                  to={`/GrantBiz/MyShop/${email}/Create`}
                 >
                   Create Yor Shop NOW!
                 </Link>
@@ -442,7 +442,7 @@ function MyShop() {
       ) : (
         <div className=" bg-white ">
           <div className="my-4 flex justify-start align-center">
-            <Link to={`/`}>
+            <Link to={`/GrantBiz/`}>
               <IoArrowBackOutline className="text-black h-8 w-10 mr-2 active:text-primary" />
             </Link>
             <p className="text-2xl font-semibold w-full">My Shop </p>
@@ -461,13 +461,13 @@ function MyShop() {
           <div className="my-10 flex justify-center">
             <Link
               className="btn rounded-full py-10 px-16 mx-2 text-xl border-stone-500 border-2 "
-              to="/SignIn"
+              to="/GrantBiz/SignIn"
             >
               <input type="button" value="SING IN"></input>
             </Link>
             <Link
               className="btn rounded-full py-10 px-16 mx-2 text-xl border-2 bg-gray-300"
-              to="/SignUp"
+              to="/GrantBiz/SignUp"
             >
               <input type="button" value="SING UP"></input>
             </Link>

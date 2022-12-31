@@ -126,7 +126,7 @@ const ReceivedOrders = () => {
   return (
     <div className="w-screen md:px-36 lg:px-96 mb-20 bg-white overflow-none">
       <div className="py-4 flex w-full justify-start align-center">
-        <Link to={`/MyShop/${email}`}>
+        <Link to={`/GrantBiz/MyShop/${email}`}>
           <IoArrowBackOutline className="text-black h-8 w-10 mr-2 active:text-primary" />
         </Link>
         <p className="text-2xl font-semibold w-full">Received Orders</p>
@@ -630,7 +630,7 @@ const ReceivedOrders = () => {
                             </div>
                             {!SellerDisputed &&
                               <Link
-                                to={`/SellerDispute/${id}`}
+                                to={`/GrantBiz/SellerDispute/${id}`}
                                 className="w-40 text-white text-center bg-red-600 p-2  rounded-xl cursor-pointer  hover:bg-red-700"
                               >
                                 Dispute
@@ -792,7 +792,7 @@ const ReceivedOrders = () => {
                             </div>
                             {!SellerDisputed &&
                               <Link
-                                to={`/SellerDispute/${id}`}
+                                to={`/GrantBiz/SellerDispute/${id}`}
                                 className="w-40 text-white text-center bg-red-600 p-2  rounded-xl cursor-pointer  hover:bg-red-700"
                               >
                                 Dispute

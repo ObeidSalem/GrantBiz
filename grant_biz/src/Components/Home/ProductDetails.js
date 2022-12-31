@@ -246,7 +246,7 @@ function ProductDetails() {
     <div className=" pb-20 bg-white md:px-16 lg:px-56">
       <div className="pb-48">
         <div className="my-4 flex justify-start align-center">
-          <Link to={`/`}>
+          <Link to={`/GrantBiz/`}>
             <IoArrowBackOutline className="text-black h-8 w-10 mr-2 active:text-primary" />
           </Link>
           <p className="text-2xl font-semibold w-full">{title} </p>
@@ -278,7 +278,7 @@ function ProductDetails() {
               </div> */}
             </div>
             <Link
-              to={`/StorePage/${email}`}
+              to={`/GrantBiz/StorePage/${email}`}
               className="flex-auto border h-24 w-full rounded-xl p-3"
             >
               <div className="flex justify-start w-full ">
@@ -385,10 +385,10 @@ function ProductDetails() {
                   <p className="flex justify-center mb-2 font-semibold">
                     SignIn to Purchase
                   </p>
-                  <Link className='md: btn rounded-full py-2 px-4 md:border-2 border border-primary' to='/SignIn'>
+                  <Link className='md: btn rounded-full py-2 px-4 md:border-2 border border-primary' to='/GrantBiz/SignIn'>
                     <input type="button" value="SING IN"></input>
                   </Link>
-                  <Link className='md: btn rounded-full py-2 px-4 ml-2  md:border-2 text-white bg-primary' to='/SignUp'>
+                  <Link className='md: btn rounded-full py-2 px-4 ml-2  md:border-2 text-white bg-primary' to='/GrantBiz/SignUp'>
                     <input type="button" value="SING UP"></input>
                   </Link>
                 </div>

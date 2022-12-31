@@ -54,7 +54,7 @@ const Cart = () => {
                 <div className="mt-10 ">
                   <div className="flex justify-start">
                     <div>
-                    <Link to={`/CartCheckout/${productId}`}>
+                    <Link to={`/GrantBiz/CartCheckout/${productId}`}>
                     {/* <Link to={`/CartCheckout/${productId}-${}}> */}
 
                       <button

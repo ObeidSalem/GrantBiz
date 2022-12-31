@@ -108,29 +108,29 @@ function App() {
           <div className="content-center bg-white min-h-screen overflow-auto">
             <Routes>
               <Route exact path="/GrantBiz/" element={<HomePage />}/>
-              <Route path="/SignIn" element={<SignIn />} /> 
-              <Route path="/SignUp" element={<SignUp />} />
-              <Route path="/Feed" element={<Feed />} />
-              <Route path="/FutureUpdate" element={<FutureUpdate />} />
+              <Route path="/GrantBiz/SignIn" element={<SignIn />} /> 
+              <Route path="/GrantBiz/SignUp" element={<SignUp />} />
+              <Route path="/GrantBiz/Feed" element={<Feed />} />
+              <Route path="/GrantBiz/FutureUpdate" element={<FutureUpdate />} />
               <Route element={<PrivateRoutes />}>
-                  <Route path="/Profile" element={<Profile />} />               {/* Has to be logged */}
-                  <Route path="/Order" element={<Order />} />               {/* Has to be logged */}
-                  <Route path="/Cart" element={<Cart />} />               {/* Has to be logged */}
-                  <Route path="/ReceivedOrders/:email" element={<ReceivedOrders />} />                {/* Has to be logged */}
-                  <Route path="/MenageProduct/:email" element={<MenageProduct />} />               {/* Has to be logged */}
-                  <Route path="/PostFeed/:email" element={<PostFeed />} />               {/* Has to be logged */}
-                  <Route path="/AddProduct/:email" element={<AddProduct />} />               {/* Has to be logged */}
-                  <Route path="/SaleAnalysis/:email" element={<SaleAnalysis />} />               {/* Has to be logged */}
-                  <Route path="/QRCheckout/:orderId" element={<QRCheckout />} />               {/* Has to be logged */}
-                  <Route path="/SellerDispute/:orderId" element={<SellerDispute />} />               {/* Has to be logged */}
-                  <Route path="/CustomerDispute/:orderId" element={<CustomerDispute />} />               {/* Has to be logged */}
-                  <Route path="/MyShop/:email/Create" element={<CreateMyShop />} />               {/* Has to be logged */} 
+                  <Route path="/GrantBiz/Profile" element={<Profile />} />               {/* Has to be logged */}
+                  <Route path="/GrantBiz/Order" element={<Order />} />               {/* Has to be logged */}
+                  <Route path="/GrantBiz/Cart" element={<Cart />} />               {/* Has to be logged */}
+                  <Route path="/GrantBiz/ReceivedOrders/:email" element={<ReceivedOrders />} />                {/* Has to be logged */}
+                  <Route path="/GrantBiz/MenageProduct/:email" element={<MenageProduct />} />               {/* Has to be logged */}
+                  <Route path="/GrantBiz/PostFeed/:email" element={<PostFeed />} />               {/* Has to be logged */}
+                  <Route path="/GrantBiz/AddProduct/:email" element={<AddProduct />} />               {/* Has to be logged */}
+                  <Route path="/GrantBiz/SaleAnalysis/:email" element={<SaleAnalysis />} />               {/* Has to be logged */}
+                  <Route path="/GrantBiz/QRCheckout/:orderId" element={<QRCheckout />} />               {/* Has to be logged */}
+                  <Route path="/GrantBiz/SellerDispute/:orderId" element={<SellerDispute />} />               {/* Has to be logged */}
+                  <Route path="/GrantBiz/CustomerDispute/:orderId" element={<CustomerDispute />} />               {/* Has to be logged */}
+                  <Route path="/GrantBiz/MyShop/:email/Create" element={<CreateMyShop />} />               {/* Has to be logged */} 
               </Route>
-              <Route path="/product/:productId" element={<ProductDetails />} />
-              <Route path="/StorePage/:email" element={<StorePage />} />
-              <Route path="/MyShop/:email" element={<MyShop />} />
-              <Route path="/ForgotPassword" element={<ForgotPassword />} />
-              <Route path="/CartCheckout/:productId" element={<CartCheckout />} />
+              <Route path="/GrantBiz/product/:productId" element={<ProductDetails />} />
+              <Route path="/GrantBiz/StorePage/:email" element={<StorePage />} />
+              <Route path="/GrantBiz/MyShop/:email" element={<MyShop />} />
+              <Route path="/GrantBiz/ForgotPassword" element={<ForgotPassword />} />
+              <Route path="/GrantBiz/CartCheckout/:productId" element={<CartCheckout />} />
               {/* <Route path="/Product/:id" element={<Product />} />     */}
               <Route path="*" element={<PageNotFound />} />    
             </Routes>

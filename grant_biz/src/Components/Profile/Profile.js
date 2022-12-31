@@ -90,7 +90,7 @@ function Profile() {
       {user ?
         <div className="px-6 bg-white pb-16 md:px-36 lg:px-96">
           <div className="my-4 flex justify-start align-center">
-            <Link to={`/`}>
+            <Link to={`/GrantBiz/`}>
               <IoArrowBackOutline className="text-black h-8 w-10 mr-2 active:text-primary" />
             </Link>
             <p className="text-2xl font-semibold w-full">My Profile </p>
@@ -219,14 +219,14 @@ function Profile() {
               </div>
               <IoArrowForwardOutline className="text-black h-8 w-10 mr-2 active:text-primary" />
             </div>
-            <Link className="py-6 flex flex-row justify-between" to={`/Order`}>
+            <Link className="py-6 flex flex-row justify-between" to={`/GrantBiz/Order`}>
               <div className="flex flex-row justify-start">
                 <IoFileTrayOutline className="text-black h-8 w-10 mr-2 active:text-primary" />
                 <p className="text-xl font-semibold ">Track My Orders</p>
               </div>
               <IoArrowForwardOutline className="text-black h-8 w-10 mr-2 active:text-primary" />
             </Link>
-            <Link onClick={() => logOut()} to="/" className="py-6 flex flex-row justify-between">
+            <Link onClick={() => logOut()} to="/GrantBiz/" className="py-6 flex flex-row justify-between">
               <div className="flex flex-row justify-start">
                 <IoExitOutline
                   className="text-red-600 h-8 w-10 mr-2 active:text-primary" />
@@ -240,7 +240,7 @@ function Profile() {
         :
         <div className="px-6 bg-white h-screen  pb-16 md:px-36 lg:px-96">
           <div className="my-4 flex justify-start align-center">
-            <Link to={`/`}>
+            <Link to={`/GrantBiz/`}>
               <IoArrowBackOutline className="text-black h-8 w-10 mr-2 active:text-primary" />
             </Link>
             <p className="text-2xl font-semibold w-full">My Shop </p>
@@ -255,10 +255,10 @@ function Profile() {
             <p className="text-xl font-semibold ">You may login or signup from here</p>
           </div>
           <div className="my-10 flex justify-center">
-            <Link className='btn rounded-full py-10 px-16 mx-2 text-xl border-stone-500 border-2 ' to='/SignIn'>
+            <Link className='btn rounded-full py-10 px-16 mx-2 text-xl border-stone-500 border-2 ' to='/GrantBiz/SignIn'>
               <input type="button" value="SING IN"></input>
             </Link>
-            <Link className='btn rounded-full py-10 px-16 mx-2 text-xl border-2 bg-gray-300' to='/SignUp'>
+            <Link className='btn rounded-full py-10 px-16 mx-2 text-xl border-2 bg-gray-300' to='/GrantBiz/SignUp'>
               <input type="button" value="SING UP"></input>
             </Link>
           </div>

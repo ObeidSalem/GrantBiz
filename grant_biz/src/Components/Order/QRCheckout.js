@@ -159,7 +159,7 @@ function ProductDetails() {
       <div className="bg-white h-full mb-20 px-6 pb-16 md:px-36 lg:px-96">
         <div className="bg-white  ">
           <div className="my-10 flex justify-start align-center">
-            <Link to={`/`}>
+            <Link to={`/GrantBiz/`}>
               <IoArrowBackOutline className="text-black h-8 w-10 mr-2 active:text-primary" />
             </Link>
             <p className="text-2xl font-semibold w-full">Checkout </p>

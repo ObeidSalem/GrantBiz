@@ -21,7 +21,7 @@ function NavBar() {
           <div className='w-full flex justify-start align-middle  m-only'>
             {user ?
               <>
-                <Link to={`/Profile`}>
+                <Link to={`/GrantBiz/Profile`}>
                   {profile_avatar ?
                     <img src={profile_avatar} alt="Avatar" className="text-stone-400 h-16 w-16 active:text-primary" />
                     :
@@ -32,15 +32,15 @@ function NavBar() {
               </>
               :
               <div className="flex justify-between align-middle w-full ">
-                <Link className="flex justify-start align-middle w-full " to='/SignIn'>
+                <Link className="flex justify-start align-middle w-full " to='/GrantBiz/SignIn'>
                   <img src={GrantBizLogo} alt="Avatar" className='w-20 ' />
                 </Link>
 
                 <div className="flex w-full items-center justify-end">
-                <Link className='md: btn rounded-full py-2 px-4 md:border-2 border border-primary' to='/SignIn'>
+                <Link className='md: btn rounded-full py-2 px-4 md:border-2 border border-primary' to='/GrantBiz/SignIn'>
                     <input type="button" value="SING IN"></input>
                   </Link>
-                  <Link className='md: btn rounded-full py-2 px-4 ml-2  md:border-2 text-white bg-primary' to='/SignUp'>
+                  <Link className='md: btn rounded-full py-2 px-4 ml-2  md:border-2 text-white bg-primary' to='/GrantBiz/SignUp'>
                     <input type="button" value="SING UP"></input>
                   </Link>
                 </div>
@@ -62,12 +62,12 @@ function NavBar() {
 
           {/* nav items PC only */}
           <div className="flex items-center justify-center ">
-            <Link className="p-3 pc-only" to="/">Home</Link>
-            <Link className="p-3 pc-only" to={`/Feed`}>Feed</Link>
-            <Link className="p-3 pc-only" to="/Order">Order</Link>
-            <Link className="p-3 pc-only" to="/Cart">Cart</Link>
-            <Link className="p-3 pc-only" to={`/MyShop/${email}`}>My Shop</Link>
-            <Link className="p-3 pc-only" to={`/Profile`}>My Profile</Link>
+            <Link className="p-3 pc-only" to="/GrantBiz/">Home</Link>
+            <Link className="p-3 pc-only" to={`/GrantBiz/Feed`}>Feed</Link>
+            <Link className="p-3 pc-only" to="/GrantBiz/Order">Order</Link>
+            <Link className="p-3 pc-only" to="/GrantBiz/Cart">Cart</Link>
+            <Link className="p-3 pc-only" to={`/GrantBiz/MyShop/${email}`}>My Shop</Link>
+            <Link className="p-3 pc-only" to={`/GrantBiz/Profile`}>My Profile</Link>
           </div>
 
 

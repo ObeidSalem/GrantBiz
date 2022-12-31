@@ -105,7 +105,7 @@ const Orders = () => {
   return (
     <div className="w-screen md:px-36 lg:px-96  bg-white overflow-none">
       <div className="py-4 flex w-full justify-start align-center">
-        <Link to={`/`}>
+        <Link to={`/GrantBiz/`}>
           <IoArrowBackOutline className="text-black h-8 w-10 mr-2 active:text-primary" />
         </Link>
         <p className="text-2xl font-semibold w-full">My Orders</p>
@@ -523,7 +523,7 @@ const Orders = () => {
                               </div>
                               {!CustomerDisputed && (
                                 <Link
-                                  to={`/CustomerDispute/${id}`}
+                                  to={`/GrantBiz/CustomerDispute/${id}`}
                                   className="w-40 text-white text-center bg-red-600 p-2  rounded-xl cursor-pointer  hover:bg-red-700"
                                 >
                                   Dispute
@@ -618,7 +618,7 @@ const Orders = () => {
                               </div>
                               {!CustomerDisputed && (
                                 <Link
-                                  to={`/CustomerDispute/${id}`}
+                                  to={`/GrantBiz/CustomerDispute/${id}`}
                                   className="w-40 text-white text-center bg-red-600 p-2  rounded-xl cursor-pointer  hover:bg-red-700"
                                 >
                                   Dispute
@@ -668,7 +668,7 @@ const Orders = () => {
                             {QRPayment ? (
                               <div className="flex flex-row mt-2">
                                 <Link
-                                  to={`/QRCheckout/${id}`}
+                                  to={`/GrantBiz/QRCheckout/${id}`}
                                   className=" w-fit text-black text-center border-2 border-orange-600 p-2 ml-40 rounded-xl cursor-pointer"
                                 >
                                   Complete Payment

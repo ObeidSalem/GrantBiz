@@ -54,7 +54,7 @@ function Feed() {
 
     return (
       <div className="bg-white" key={index}>
-        <Link to={`/product/${productId}`}>
+        <Link to={`/GrantBiz/product/${productId}`}>
           <div className="">
             <div className="bg-white border-2 shadow-sl h-fit align-between hover:shadow-md rounded-2xl p-2 m-0">
               <div className="">
@@ -76,7 +76,7 @@ function Feed() {
                     prefix={"RM "}
                   /> */}
                   <Link
-                    to={`/StorePage/${store_email}`}
+                    to={`/GrantBiz/StorePage/${store_email}`}
                     className=""
                   >
                     <div className="flex flex-row justify-start h-fit w-full mt-4">

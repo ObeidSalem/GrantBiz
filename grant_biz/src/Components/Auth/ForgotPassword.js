@@ -38,7 +38,7 @@ const ForgotPassword = () => {
         <div className="flex flex-col items-center min-h-screen pt-6 mx-6 sm:justify-center sm:pt-0 bg-background">
           <div className="w-full px-6 py-4 mt-6 overflow-hidden bg-white shadow-md sm:max-w-md sm:rounded-lg">
             <div className="flex justify-center ">
-              <Link to ="/">
+              <Link to ="/GrantBiz/">
                 <div className=" w-56 ">
                   <img src={GrantBizLogo} alt="LOGO" />
                 </div>
@@ -79,7 +79,7 @@ const ForgotPassword = () => {
               </div>
               <div className="flex justify-between">
                 {message ? (
-                  <Link to="/"
+                  <Link to="/GrantBiz/"
                     className="inline-flex items-center px-4 py-2 text-xs font-semibold tracking-widest text-white uppercase transition duration-150 ease-in-out bg-gray-900 border border-transparent rounded-md active:bg-gray-900 false"
                   >
                     Go Back

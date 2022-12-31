@@ -82,7 +82,7 @@ export default function Signup() {
         <div className="flex justify-center  flex-col items-center min-h-screen pt-6 mx-6 sm:justify-center sm:pt-0 bg-background">
           <div className="w-80 px-6 py-4 overflow-hidden bg-white border border-primary  shadow-md sm:max-w-md rounded-lg">
             <div className="flex justify-center ">
-              <Link to="/">
+              <Link to="/GrantBiz/">
                 <div className=" w-56 ">
                   <img src={GrantBizLogo} alt="LOGO" />
                 </div>
@@ -264,7 +264,7 @@ export default function Signup() {
               <div className="flex items-center justify-end mt-4">
                 <Link
                   className="text-sm text-gray-600 underline hover:text-gray-900"
-                  to="/SignIn"
+                  to="/GrantBiz/SignIn"
                 >
                   <input type="button" value="Already registered?"></input>
                 </Link>

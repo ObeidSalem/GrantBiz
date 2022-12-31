@@ -139,7 +139,7 @@ const AddProduct = () => {
       <div className="bg-white h-screen static">
         <div className="px-6 bg-white pb-16">
           <div className="my-10 flex justify-start align-center">
-            <Link to={`/`}>
+            <Link to={`/GrantBiz/`}>
               <IoArrowBackOutline className="text-black h-8 w-10 mr-2 active:text-primary" />
             </Link>
             <h2 className="text-2xl font-semibold w-full">Add new Product</h2>
@@ -357,7 +357,7 @@ const AddProduct = () => {
                         className="border-stone-400 border border-black  rounded  w-full active:text-primary "
                       />
                       <Link
-                        to={`/MyShop/${user.email}`}
+                        to={`/GrantBiz/MyShop/${user.email}`}
                         className="flex justify-center items-center cursor-pointer mt-2 px-4 py-2 w-full max-w-xs text-xs font-semibold tracking-widest text-white uppercase transition duration-150 ease-in-out bg-red-900 border border-transparent rounded-md active:bg-gray-900 false"
                       >
                         Edit QR Code from my shop
@@ -382,7 +382,7 @@ const AddProduct = () => {
             )}
             <div className="my-10 flex justify-between ">
               <Link
-                to={`/`}
+                to={`/GrantBiz/`}
                 className="flex justify-center items-center cursor-pointer mr-2 px-4 py-2 w-full max-w-xs text-xs font-semibold tracking-widest text-white uppercase transition duration-150 ease-in-out bg-gray-900 border border-transparent rounded-md active:bg-gray-900 false"
               >
                 Cancel

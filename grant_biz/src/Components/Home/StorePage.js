@@ -57,7 +57,7 @@ const StorePage = () => {
     const { title, store_name, description, price, store_avatar, image, type, rate,id ,email } =product;
     if (email === StoreEmail)
     return (      
-      <Link to={`/product/${id}`} className="bg-white" key={index}>
+      <Link to={`/GrantBiz/product/${id}`} className="bg-white" key={index}>
           <div className="">
             <div className="bg-white border-2 shadow-sl  hover:shadow-md rounded-2xl p-2 m-0" >
               <div className="">

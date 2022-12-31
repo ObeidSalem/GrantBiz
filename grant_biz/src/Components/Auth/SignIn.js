@@ -40,7 +40,7 @@ export default function SignIn() {
         <div className="flex flex-col items-center min-h-screen pt-6 sm:justify-center sm:pt-0 bg-background">
           <div className="w-80 px-6 py-4 mt-6 overflow-hidden bg-white border border-primary  shadow-md sm:max-w-md rounded-lg">
             <div className="flex justify-center ">
-              <Link to="/">
+              <Link to="/GrantBiz/">
                 <div className=" w-56 ">
                   <img src={GrantBizLogo} alt="LOGO" />
                 </div>
@@ -97,14 +97,14 @@ export default function SignIn() {
               </div>
               <Link
                 className="text-sm text-gray-600 underline hover:text-gray-900"
-                to="/forgotPassword"
+                to="/GrantBiz/forgotPassword"
               >
                 <input type="button" value="forgot password?"></input>
               </Link>
               <div className="flex items-center justify-end mt-4">
                 <Link
                   className="text-sm text-gray-600 underline hover:text-gray-900"
-                  to="/SignUp"
+                  to="/GrantBiz/SignUp"
                 >
                   <input type="button" value="Create new account"></input>
                 </Link>
