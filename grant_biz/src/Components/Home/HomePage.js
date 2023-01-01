@@ -1,22 +1,43 @@
 import React, { useEffect, useState } from "react";
 import NavBar from "../Navigation/NavBar";
 import GrantBizAD from "../../img/GrantBiz_Logo_AD.svg";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import CurrencyFormat from "react-currency-format";
-
-
+import { setProducts } from "../../redux/actions";
+import {
+  onSnapshot,
+  collection,
+  doc,
+  setDoc,
+  getDocs,
+  getDoc,
+} from "firebase/firestore";
+import db from "../../firebase";
 
 function HomePage() {
-  
-  // const dispatch = useDispatch();
-
- 
+  const dispatch = useDispatch();
+  function refreshPage() {
+    window.location.reload(false);
+  }
 
   const products = useSelector((state) => state.allProducts.products);
+  const fetchProducts = () => {
+    return onSnapshot(collection(db, "Products"), (snapshot) => {
+      const data = snapshot.docs.map((doc) => doc.data());
+      dispatch(setProducts(data));
+    });
+  };
+
+  useEffect(() => {
+    try {
+      fetchProducts();
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
   const renderProductsList = products.map((product, index) => {
     const { title, price, image, id, isHide } = product;
-
 
     if (!isHide)
       return (
@@ -25,18 +46,27 @@ function HomePage() {
             <div className="">
               <div className="bg-white border-2 shadow-sl h-80 align-between hover:shadow-md rounded-2xl p-2 m-0">
                 <div className="">
-                  <img className="rounded-lg object-cover h-56 w-full" src={image} alt={title} />
+                  <img
+                    className="rounded-lg object-cover h-56 w-full"
+                    src={image}
+                    alt={title}
+                  />
                 </div>
                 <div className="">
                   <div className="font-sans	text-xl">{title}</div>
                   <div className="flex justify-between">
-                    <CurrencyFormat className="font-sans	text-md" value={price} displayType={'text'} thousandSeparator={true} prefix={'RM '} />
+                    <CurrencyFormat
+                      className="font-sans	text-md"
+                      value={price}
+                      displayType={"text"}
+                      thousandSeparator={true}
+                      prefix={"RM "}
+                    />
                     <div className=" flow-root">
                       {/* <div className="font-sans	float-left ">{rate}</div> */}
                       {/* <IoStarOutline className="float-right w-5 h-5" /> */}
                     </div>
                   </div>
-
                 </div>
               </div>
             </div>
@@ -45,6 +75,12 @@ function HomePage() {
       );
   });
 
+  // useEffect(
+  //   )
+  //   useEffect(() => {
+  //    refreshPage()
+  //   // Run! Like go get some data from an API.
+  // }, []);
   return (
     <div className="bg-white">
       <NavBar />
@@ -60,9 +96,7 @@ function HomePage() {
             alt={"title"}
           />
         </div>
-        <div className="my-4">
-          {/* {renderCategoryList} */}
-        </div>
+        <div className="my-4">{/* {renderCategoryList} */}</div>
         <div className="grid grid-cols-2 gap-2 xl:grid-cols-3 2xl:grid-cols-4 bg-white">
           {renderProductsList}
         </div>

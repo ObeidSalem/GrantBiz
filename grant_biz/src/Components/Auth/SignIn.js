@@ -28,7 +28,7 @@ export default function SignIn() {
       }
     } catch {
       // setError("Failed to log in");
-      navigate("/");
+      navigate("/GrantBiz/");
 
     }
 

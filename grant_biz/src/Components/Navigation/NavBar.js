@@ -85,7 +85,7 @@ function NavBar() {
                 <div className='flex flex-col justify-center'>
                   <span className="flex items-center justify-center text-stone-500 px-2">{Name}</span>
                 </div>
-                <Link to='/Profile'>
+                <Link to='/GrantBiz/Profile'>
                   {profile_avatar ?
                     <img src={profile_avatar} alt="Avatar" className="text-stone-400 h-16 w-16 active:text-primary" />
                     :
