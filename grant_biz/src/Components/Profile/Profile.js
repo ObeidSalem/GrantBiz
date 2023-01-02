@@ -230,7 +230,7 @@ function Profile() {
               <div className="flex flex-row justify-start">
                 <IoExitOutline
                   className="text-red-600 h-8 w-10 mr-2 active:text-primary" />
-                <p className="text-xl text-red-600 font-semibold ">Log Out</p>
+                <p className="text-xl text-red-600 font-semibold ">SIGN OUT</p>
               </div>
               <IoArrowForwardOutline className="text-red-600 h-8 w-10 mr-2 active:text-primary" />
             </Link>
@@ -256,7 +256,7 @@ function Profile() {
           </div>
           <div className="my-10 flex justify-center">
             <Link className='btn rounded-full py-10 px-16 mx-2 text-xl border-stone-500 border-2 ' to='/GrantBiz/SignIn'>
-              <input type="button" value="SING IN"></input>
+              <input type="button" value="SIGN IN"></input>
             </Link>
             <Link className='btn rounded-full py-10 px-16 mx-2 text-xl border-2 bg-gray-300' to='/GrantBiz/SignUp'>
               <input type="button" value="SING UP"></input>

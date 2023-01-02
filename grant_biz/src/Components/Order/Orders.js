@@ -224,7 +224,7 @@ const Orders = () => {
                 <IoCloseCircleSharp
                   className={`text-black h-6 w-full ${Primary5}`}
                 />
-                Canceled
+                cancelled
               </div>
             </div>
           </div>
@@ -288,7 +288,7 @@ const Orders = () => {
                                 );
                               refreshPage();
                             }}
-                            className="w-36 ml-1 text-center bg-white p-2  rounded-xl border-2 border-red-600 cursor-pointer  hover:cursor-pointer "
+                            className="w-40 text-white text-center bg-red-600 p-2  rounded-xl cursor-pointer  hover:bg-red-700 "
                           >
                             Cancel Order
                           </div>
@@ -794,7 +794,7 @@ const Orders = () => {
                           </div>
                           <div className=" flex-row">
                             <div className="float-left mr-1 font-bold text-green-800">
-                              Your order has been Completed
+                            Your order is completed.
                             </div>
                           </div>
                         </div>

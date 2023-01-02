@@ -386,7 +386,7 @@ function ProductDetails() {
                     SignIn to Purchase
                   </p>
                   <Link className='md: btn rounded-full py-2 px-4 md:border-2 border border-primary' to='/GrantBiz/SignIn'>
-                    <input type="button" value="SING IN"></input>
+                    <input type="button" value="SIGN IN"></input>
                   </Link>
                   <Link className='md: btn rounded-full py-2 px-4 ml-2  md:border-2 text-white bg-primary' to='/GrantBiz/SignUp'>
                     <input type="button" value="SING UP"></input>

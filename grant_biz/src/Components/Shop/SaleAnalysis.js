@@ -21,6 +21,7 @@ import db from "../../firebase";
 import { useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { IoTrashBinSharp } from "react-icons/io5";
+import { Alert } from "@material-tailwind/react";
 
 ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement);
 
@@ -154,7 +155,7 @@ function SaleAnalysis() {
         <div key={id}>
           <div className="my-0 w-full flex flex-col justify-center">
             <h2 className="text-xl font-semibold w-full">
-              Monthly Income of {title}
+              Monthly Income from {title}
             </h2>
             <Line data={ProductIncome} options={options}></Line>
           </div>
@@ -201,7 +202,13 @@ function SaleAnalysis() {
       );
     }
   });
-
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(window.location.href).then(function() {
+      alert("copied successfully!")
+    }, function(err) {
+      alert('Failed to copy');
+    });
+  };
   return (
     <>
       {checkEmail || user.email ? (
@@ -217,7 +224,7 @@ function SaleAnalysis() {
           <div className="">
             <div className="my-0 w-full flex flex-col justify-center">
               <h2 className="text-xl font-semibold w-full">
-                Monthly Income Analysis
+                Monthly Income From All Products
               </h2>
               <Line data={TotalMonthlyIncome} options={options}></Line>
             </div>
@@ -226,7 +233,7 @@ function SaleAnalysis() {
           {usePramsId === user.email ? (
             <div className="mt-10 w-full ">
               <div className="flex md:justify-center font-bold">
-                Sale Analysis
+                Share Analysis
               </div>
               <div className="w-full mt-2">
                 <form
@@ -250,7 +257,10 @@ function SaleAnalysis() {
               <div className="font-bold flex md:justify-center">
                 Shared Emails
               </div>
-
+              <Alert variant="gradient" color="blue" onClick={copyToClipboard} className="hover:cursor-pointer	">
+                Please Click to Copy This Link To Share Your Analysis.{' '}
+                {window.location.href}
+              </Alert>
               <div className=" w-fit md:w-full">{renderShare}</div>
             </div>
           ) : (
