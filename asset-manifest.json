@@ -1,18 +1,18 @@
 {
   "files": {
     "main.css": "/GrantBiz/static/css/main.2258eb11.css",
-    "main.js": "/GrantBiz/static/js/main.56de33b0.js",
+    "main.js": "/GrantBiz/static/js/main.fdb992ac.js",
     "static/js/787.41859316.chunk.js": "/GrantBiz/static/js/787.41859316.chunk.js",
-    "static/media/GrantBiz_Logo.png": "/GrantBiz/static/media/GrantBiz_Logo.b3eba5592a5da3126e5d.png",
+    "static/media/GrantBiz_Logo_AD.png": "/GrantBiz/static/media/GrantBiz_Logo_AD.75e6239b7835ce6b7df2.png",
+    "static/media/GrantBiz_Logo.png": "/GrantBiz/static/media/GrantBiz_Logo.5abae8270622f541cdb0.png",
     "static/media/logo.svg": "/GrantBiz/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
-    "static/media/GrantBiz_Logo_AD.svg": "/GrantBiz/static/media/GrantBiz_Logo_AD.ab403cf1dba713e1cddbb32a51471874.svg",
     "index.html": "/GrantBiz/index.html",
     "main.2258eb11.css.map": "/GrantBiz/static/css/main.2258eb11.css.map",
-    "main.56de33b0.js.map": "/GrantBiz/static/js/main.56de33b0.js.map",
+    "main.fdb992ac.js.map": "/GrantBiz/static/js/main.fdb992ac.js.map",
     "787.41859316.chunk.js.map": "/GrantBiz/static/js/787.41859316.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.2258eb11.css",
-    "static/js/main.56de33b0.js"
+    "static/js/main.fdb992ac.js"
   ]
 }
