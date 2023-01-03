@@ -1,18 +1,18 @@
 {
   "files": {
     "main.css": "/GrantBiz/static/css/main.2258eb11.css",
-    "main.js": "/GrantBiz/static/js/main.5826d5bf.js",
+    "main.js": "/GrantBiz/static/js/main.33d69e09.js",
     "static/js/787.41859316.chunk.js": "/GrantBiz/static/js/787.41859316.chunk.js",
     "static/media/GrantBiz_Logo_AD.png": "/GrantBiz/static/media/GrantBiz_Logo_AD.75e6239b7835ce6b7df2.png",
     "static/media/GrantBiz_Logo.png": "/GrantBiz/static/media/GrantBiz_Logo.5abae8270622f541cdb0.png",
     "static/media/logo.svg": "/GrantBiz/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
     "index.html": "/GrantBiz/index.html",
     "main.2258eb11.css.map": "/GrantBiz/static/css/main.2258eb11.css.map",
-    "main.5826d5bf.js.map": "/GrantBiz/static/js/main.5826d5bf.js.map",
+    "main.33d69e09.js.map": "/GrantBiz/static/js/main.33d69e09.js.map",
     "787.41859316.chunk.js.map": "/GrantBiz/static/js/787.41859316.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.2258eb11.css",
-    "static/js/main.5826d5bf.js"
+    "static/js/main.33d69e09.js"
   ]
 }
