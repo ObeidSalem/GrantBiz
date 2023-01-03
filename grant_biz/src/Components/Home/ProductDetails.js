@@ -389,7 +389,7 @@ function ProductDetails() {
                     <input type="button" value="SIGN IN"></input>
                   </Link>
                   <Link className='md: btn rounded-full py-2 px-4 ml-2  md:border-2 text-white bg-primary' to='/GrantBiz/SignUp'>
-                    <input type="button" value="SING UP"></input>
+                    <input type="button" value="SIGN UP"></input>
                   </Link>
                 </div>
               }

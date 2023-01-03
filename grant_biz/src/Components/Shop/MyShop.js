@@ -469,7 +469,7 @@ function MyShop() {
               className="btn rounded-full py-10 px-16 mx-2 text-xl border-2 bg-gray-300"
               to="/GrantBiz/SignUp"
             >
-              <input type="button" value="SING UP"></input>
+              <input type="button" value="SIGN UP"></input>
             </Link>
           </div>
         </div>
