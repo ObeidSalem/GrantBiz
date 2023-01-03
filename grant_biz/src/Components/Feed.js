@@ -105,7 +105,7 @@ function Feed() {
     <div className="bg-white">
       <NavBar />
       {/* <div className=" ml-2 inline-flex items-center mt-1 md:invisible">
-        <Link to="/">
+        <Link to="/GrantBiz/">
       <IoArrowBack className="h-7 w-7"></IoArrowBack>
       </Link>
       <h1 className="ml-1 text-2xl font-mono font-bold ">Feed</h1>

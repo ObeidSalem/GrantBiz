@@ -26,7 +26,7 @@ function CartCheckout() {
   const dispatch = useDispatch();
   const docRef = doc(db, "Products", productId);
   const fetchProductDetail = async (id) => {
-    const response = await getDoc(docRef);
+      await getDoc(docRef);
     if (response.exists()) {
       const data = response.data();
       dispatch(selectedProduct(data));
@@ -40,7 +40,6 @@ function CartCheckout() {
     image,
     title,
     price,
-    type_parameters,
     id,
     COD,
     QR_code,
@@ -49,8 +48,7 @@ function CartCheckout() {
     quantity,
   } = product;
   let userEmail = email;
-  // const [Title, setTitle] = useState(title);
-  // const [Image, setImage]= useState(image);
+
   const [Error, setError] = useState("");
   const [massege, setMassege] = useState("");
   const [loading, setLoading] = useState(false);
@@ -83,7 +81,7 @@ function CartCheckout() {
     return docSnap.data();
   };
   const procutStore = useSelector((state) => state.productStore);
-  const { StoreLocation, store_avatar, StoreName } = procutStore;
+  const { store_avatar, StoreName } = procutStore;
 
   useEffect(() => {
     if (email) fetchUser(email);
@@ -143,7 +141,7 @@ function CartCheckout() {
             console.log(error.text);
           }
         );
-      const response = await setDoc(
+       await setDoc(
         doc(
           orderRef,
           `${showDate.getDate()}-${
@@ -193,11 +191,11 @@ function CartCheckout() {
       setMassege("your order has been completed");
       setLoading(false);
       setTimeout(() => {
-        navigate("/"); //this.props.navigation.navigate('Login')
+        navigate("/GrantBiz"); //this.props.navigation.navigate('Login')
       }, 1500);
-      // navigate("/")
+      // navigate("/GrantBiz")
     } catch (err) {
-      // navigate("/");
+      // navigate("/GrantBiz");
       console.error(err);
     }
   }
@@ -243,7 +241,7 @@ function CartCheckout() {
             <div className="flex flex-col align-items mt-5 w-full">
               <div className="flex justify-between w-full">
                 <div
-                  onClick={() => navigate("/")}
+                  onClick={() => navigate("/GrantBiz")}
                   className="bg-red-500 border-2 rounded-xl px-4 py-2 md:px-3  text-white font-bold text-sm border-red-600"
                 >
                   Cancel

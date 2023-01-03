@@ -123,9 +123,9 @@ function ProductDetails() {
         isReceivedFromCustomer: true,
         ProofOfImage: ProofOfImage,
       });
-      navigate("/Order");
+      navigate("/GrantBiz/Order");
     } catch (err) {
-      // navigate("/");
+      // navigate("/GrantBiz");
       console.error(err);
     }
   }

@@ -110,7 +110,7 @@ const AddProduct = () => {
           const responseProduct = await setDoc(doc(productRef, id), {
             ...data,
           });
-          navigate("/");
+          navigate("/GrantBiz/");
         } catch (err) {
           console.error(err);
           // setError(err)
@@ -121,7 +121,7 @@ const AddProduct = () => {
           const responseProduct = await setDoc(doc(productRef, id), {
             ...data,
           });
-          navigate("/");
+          navigate("/GrantBiz/");
         } catch (err) {
           console.error(err);
           // setError(err)

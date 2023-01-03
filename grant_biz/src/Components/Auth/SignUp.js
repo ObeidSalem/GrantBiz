@@ -71,7 +71,7 @@ export default function Signup() {
         phone_number,
         saleAnalysisEmails:[newUser.email],
       });
-       navigate("/");
+       navigate("/GrantBiz");
     }
   }
 

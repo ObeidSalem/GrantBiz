@@ -120,7 +120,7 @@ function CreateMyShop() {
             refreshPage()
             setLoading(false);
         } catch (err) {
-            navigate("/");
+            navigate("/GrantBiz/");
             refreshPage()
             console.error(err);
             console.log("newStore", newStore)

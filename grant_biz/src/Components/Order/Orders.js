@@ -127,7 +127,7 @@ const Orders = () => {
             <div className="flex w-full items-center justify-between space-x-1 ">
               <div
                 className={`text-black py-3 text-sm text-center w-20 ${Primary1}`}
-                to="/"
+                to="/GrantBiz/"
                 onClick={() => {
                   setCategory1(true);
                   setCategory2(false);
@@ -148,7 +148,7 @@ const Orders = () => {
               </div>
               <div
                 className={`text-black py-3 text-sm text-center w-20 ${Primary2}`}
-                to="/Feed"
+                to="/GrantBiz/Feed"
                 onClick={() => {
                   setCategory1(false);
                   setCategory2(true);
@@ -167,7 +167,7 @@ const Orders = () => {
               </div>
               <div
                 className={`text-black py-3 text-sm text-center w-20 ${Primary3}`}
-                to="/Feed"
+                to="/GrantBiz/Feed"
                 onClick={() => {
                   setCategory1(false);
                   setCategory2(false);
@@ -186,7 +186,7 @@ const Orders = () => {
               </div>
               <div
                 className={`text-black py-3 text-sm text-center w-20 ${Primary4}`}
-                to="/Feed"
+                to="/GrantBiz/Feed"
                 onClick={() => {
                   setCategory1(false);
                   setCategory2(false);
@@ -207,7 +207,7 @@ const Orders = () => {
               </div>
               <div
                 className={`text-black py-3 text-sm text-center w-20 ${Primary5}`}
-                to="/Feed"
+                to="/GrantBiz/Feed"
                 onClick={() => {
                   setCategory1(false);
                   setCategory2(false);

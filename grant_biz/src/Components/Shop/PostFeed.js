@@ -60,7 +60,7 @@ const PostFeed = () => {
       quantity: QuantityCheck,
     });
     // refreshPage()
-    navigate("/MyShop/${email}");
+    navigate("/GrantBiz/MyShop/${email}");
   }
 
   function refreshPage() {
@@ -104,12 +104,12 @@ const PostFeed = () => {
       });
        refreshPage();
     } catch(err){
-         navigate("/");
+         navigate("/GrantBiz/");
           // refreshPage()
           console.error(err);
       }
     
-    // navigate("/");
+    // navigate("/GrantBiz/");
   }
   const renderProductsList = products?.map((product, index) => {
     const {

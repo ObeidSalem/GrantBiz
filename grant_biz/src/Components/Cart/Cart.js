@@ -93,7 +93,7 @@ const Cart = () => {
   return (
     <div className="">
       <div className="py-4 flex w-full justify-start align-center ml-4">
-        <Link to={`/`}>
+        <Link to={`/GrantBiz/`}>
           <IoArrowBackOutline className="text-black h-8 w-10 mr-2 active:text-primary" />
         </Link>
         <p className="text-2xl font-semibold w-full">Back</p>
