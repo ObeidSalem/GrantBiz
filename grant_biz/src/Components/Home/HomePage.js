@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import NavBar from "../Navigation/NavBar";
-import GrantBizAD from "../../img/GrantBiz_Logo_AD.svg";
+import GrantBizAD from "../../img/GrantBiz_Logo_AD.png";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import CurrencyFormat from "react-currency-format";
