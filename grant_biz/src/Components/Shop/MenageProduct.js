@@ -18,6 +18,7 @@ import {
 } from "firebase/firestore";
 import CurrencyFormat from "react-currency-format";
 import { UserAuth } from "../../context/AuthContext";
+import { InputText } from 'primereact/inputtext';
 
 const MenageProduct = () => {
   const { user } = UserAuth();
@@ -76,6 +77,7 @@ const MenageProduct = () => {
       type,
       type_parameters,
       id,
+      quantity,
     } = product;
     return (
       <div className="p-4 mx-4 my-2 flex border border-gray-400 rounded-xl ">
@@ -137,6 +139,7 @@ const MenageProduct = () => {
               />
             {/* <p className="text-md ">Available Stocks</p> */}
           </div>
+          <p className="text-sm w-full font-medium">quantity: {quantity}</p>
           <div className="mt-4 flex">
               <label
                 htmlFor=""
@@ -148,7 +151,7 @@ const MenageProduct = () => {
                 <input
                   type="number"
                   name="price"
-                  // value={QuantityCheck}
+                  //  value= {quantity}
                   onChange={(e) => setQuantityCheck(e.target.value)}
                   className="block w-full  p-2  border border-gray-400 rounded-md shadow-sm outline-none"
                   />

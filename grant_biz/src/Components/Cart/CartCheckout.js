@@ -27,8 +27,8 @@ function CartCheckout() {
   const docRef = doc(db, "Products", productId);
   const fetchProductDetail = async (id) => {
       await getDoc(docRef);
-    if (response.exists()) {
-      const data = response.data();
+    if (docRef.exists()) {
+      const data = docRef.data();
       dispatch(selectedProduct(data));
     } else {
       console.log("Document does not exist");

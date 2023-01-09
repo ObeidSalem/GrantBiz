@@ -19,12 +19,13 @@ import { IoArrowBack, IoStarOutline } from "react-icons/io5";
 import { useAuth, UserAuth } from "../context/AuthContext";
 import { setCurrentUser } from "../redux/actions/index";
 import CurrencyFormat from "react-currency-format";
+import { async } from '@firebase/util';
 
 function Feed() {
   const products = useSelector((state) => state.allProducts.products);
   const dispatch = useDispatch();
 
-  const fetchProducts = () => {
+  const fetchProducts  = () => {
     return onSnapshot(collection(db, "Feed"), (snapshot) => {
       const data = snapshot.docs.map((doc) => doc.data());
       dispatch(setProducts(data));
